@@ -1,11 +1,14 @@
 import 'dart:async';
 
-import 'package:akhir/edit_profil_admin.dart';
+import 'package:akhir/home_admin.dart';
+import 'package:akhir/tab_bar_futsal.dart';
+import 'package:akhir/navbar.dart';
+
 import 'package:flutter/material.dart';
-import 'home_screen.dart';
-import 'profil_admin.dart';
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({Key? key}) : super(key: key);
+
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
@@ -13,20 +16,19 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          context, MaterialPageRoute(builder: (context) => NavBar()));
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff142D4C),
+      backgroundColor: const Color(0xff142D4C),
       body: Center(
-        child: Container(
+        child: SizedBox(
           width: 290,
           height: 108,
           child: Image.asset('assets/images/logo-splash.png'),

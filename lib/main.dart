@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'splashscreen.dart';
-import 'edit_profil_admin.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,7 +10,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'tutor',
       debugShowCheckedModeBanner: false,
       home: SplashScreen(),

@@ -1,11 +1,15 @@
-import 'dart:ui';
+// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
-import 'profil_admin.dart';
+import 'login_admin.dart';
+
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
+  @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
@@ -30,17 +34,17 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => (ProfilAdmin()),
+                  builder: (context) => (const Login_admin()),
                 ),
               ),
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.person,
               color: Colors.white,
             ),
           ),
         ],
-        backgroundColor: Color(0xff142D4C),
+        backgroundColor: const Color(0xff142D4C),
         elevation: 0,
         title: Container(
           child: Row(
@@ -60,8 +64,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 0.25,
-                  color: Color(0xff142D4C),
-                  child: Text(
+                  color: const Color(0xff142D4C),
+                  child: const Text(
                     'Salam Olahraga!',
                     style: TextStyle(
                       fontSize: 18,
@@ -69,13 +73,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.white,
                     ),
                   ),
-                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 20, horizontal: 40),
                 ),
               ),
               Center(
                 child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 100,
                     ),
                     Container(
@@ -87,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: Colors.black.withOpacity(0.2),
                             spreadRadius: 0,
                             blurRadius: 1.5,
-                            offset: Offset(0, 7),
+                            offset: const Offset(0, 7),
                           ),
                         ],
                         borderRadius: BorderRadius.circular(10),
@@ -100,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           enlargeCenterPage: true,
                           enlargeStrategy: CenterPageEnlargeStrategy.height,
                         ),
-                        items: [
+                        items: const [
                           ImageSlider(
                             image: "assets/images/OKTP.png",
                           ),
@@ -118,20 +123,20 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
 
           Container(
-            child: Text(
+            child: const Text(
               'Cabang Olahraga',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            padding: EdgeInsets.symmetric(horizontal: 45),
+            padding: const EdgeInsets.symmetric(horizontal: 45),
           ),
 
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: const [
@@ -149,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: const [
@@ -167,7 +172,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
 
           //PETANDINGAN TERAKHIR CABOR FUTSAL//
 
@@ -179,11 +184,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            padding: EdgeInsets.symmetric(horizontal: 45),
+            padding: const EdgeInsets.symmetric(horizontal: 45),
           ),
           Container(
             child: DropdownSearch<String>(
-              items: [
+              items: const [
                 "Semua",
                 "Futsal",
                 "Basket",
@@ -194,7 +199,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
               mode: Mode.MENU,
               showSelectedItem: true,
-              dropdownSearchDecoration: InputDecoration(
+              dropdownSearchDecoration: const InputDecoration(
                 labelText: "Cabang Olahraga",
                 hintText: "Pilih Cabang olahraga",
 
@@ -203,7 +208,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onChanged: print,
               selectedItem: "Semua",
             ),
-            margin: EdgeInsets.only(left: 270),
+            margin: const EdgeInsets.only(left: 270),
           ),
 
           // SingleChildScrollView(
@@ -216,7 +221,7 @@ class _HomeScreenState extends State<HomeScreen> {
           //   ),
           // ),
 
-          SizedBox(height: 30),
+          const SizedBox(height: 30),
 
           Stack(
             children: [
@@ -232,24 +237,24 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 49,
                 color: Colors.white,
                 child: Image.asset('assets/images/OKTP.png'),
-                margin: EdgeInsets.all(20),
+                margin: const EdgeInsets.all(20),
               ),
               Container(
                 width: 49,
                 height: 49,
                 color: Colors.white,
                 child: Image.asset('assets/images/OKTP.png'),
-                margin: EdgeInsets.only(left: 90),
+                margin: const EdgeInsets.only(left: 90),
               ),
               Container(
                 width: 75,
                 height: 19,
-                margin: EdgeInsets.only(top: 75, left: 70),
+                margin: const EdgeInsets.only(top: 75, left: 70),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
-                  color: Color(0xffD7E9F7),
+                  color: const Color(0xffD7E9F7),
                 ),
-                child: Center(
+                child: const Center(
                   child: Text(
                     '2-1',
                     style: TextStyle(
@@ -263,12 +268,12 @@ class _HomeScreenState extends State<HomeScreen> {
               Container(
                 width: 75,
                 height: 19,
-                margin: EdgeInsets.only(top: 75, left: 20),
+                margin: const EdgeInsets.only(top: 75, left: 20),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
-                  color: Color(0xff142D4C),
+                  color: const Color(0xff142D4C),
                 ),
-                child: Center(
+                child: const Center(
                   child: Text(
                     'Futsal',
                     style: TextStyle(
@@ -280,33 +285,34 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Container(
-                child: Text(
+                child: const Text(
                   'Kamis, 14 Juli 2022',
                   style: TextStyle(fontSize: 10),
                 ),
-                padding: EdgeInsets.symmetric(vertical: 100, horizontal: 40),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 100, horizontal: 40),
               ),
             ],
           ),
         ],
       ),
 
-      //BOTOM NAVIGATION//
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        selectedItemColor: Color(0xff142D4C),
-        currentIndex: index,
-        onTap: (value) {
-          setState(() {
-            index = value;
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Beranda'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.stairs_outlined), label: 'Klasemen'),
-        ],
-      ),
+      // //BOTOM NAVIGATION//
+      // bottomNavigationBar: BottomNavigationBar(
+      //   backgroundColor: Colors.white,
+      //   selectedItemColor: const Color(0xff142D4C),
+      //   currentIndex: index,
+      //   onTap: (value) {
+      //     setState(() {
+      //       index = value;
+      //     });
+      //   },
+      //   items: const [
+      //     BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Beranda'),
+      //     BottomNavigationBarItem(
+      //         icon: Icon(Icons.stairs_outlined), label: 'Klasemen'),
+      //   ],
+      // ),
     );
   }
 }
@@ -395,22 +401,22 @@ class ItemCabangOlahraga extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          padding: EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(8.0),
           width: 65,
           height: 65,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: Color(0xffD7E9F7),
+            color: const Color(0xffD7E9F7),
           ),
           child: Image.asset(
             icon,
             fit: BoxFit.cover,
           ),
         ),
-        SizedBox(height: 5),
+        const SizedBox(height: 5),
         Text(
           title,
-          style: TextStyle(fontSize: 14),
+          style: const TextStyle(fontSize: 14),
         ),
       ],
     );

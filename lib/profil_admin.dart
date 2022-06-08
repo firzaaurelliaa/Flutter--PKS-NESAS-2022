@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field
+
 import 'package:flutter/material.dart';
 import 'edit_profil_admin.dart';
 
@@ -15,26 +17,17 @@ class _ProfilAdminState extends State<ProfilAdmin> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
-        leading: IconButton(
-          onPressed: () => {
-            Navigator.pop((context)),
-          },
-          icon: Icon(
-            Icons.arrow_back_ios_new,
-            color: Colors.black,
-          ),
-        ),
         actions: [
           IconButton(
             onPressed: () => {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => EditProfilAdmin(),
+                  builder: (context) => const EditProfilAdmin(),
                 ),
               ),
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.edit,
               color: Colors.black,
             ),
@@ -48,7 +41,7 @@ class _ProfilAdminState extends State<ProfilAdmin> {
             children: [
               Container(
                 height: 280,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   boxShadow: [
                     BoxShadow(
                       blurRadius: 7,
@@ -65,14 +58,14 @@ class _ProfilAdminState extends State<ProfilAdmin> {
                   Container(
                     width: 135,
                     height: 135,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       image: DecorationImage(
                           image: AssetImage('assets/images/jokowi.webp'),
                           fit: BoxFit.cover),
                     ),
                   ),
-                  ListTile(
+                  const ListTile(
                     title: Center(child: Text('Firza Aurellia Iskandar')),
                     subtitle: Center(child: Text('- SMKN 1 SUBANG -')),
                   ),
@@ -82,17 +75,17 @@ class _ProfilAdminState extends State<ProfilAdmin> {
           ),
           Column(
             children: [
-              SizedBox(height: 300),
+              const SizedBox(height: 300),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  minimumSize: Size(350, 38),
-                  textStyle:
-                      TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
-                  primary: Color(0xff142D4C),
+                  minimumSize: const Size(350, 38),
+                  textStyle: const TextStyle(
+                      fontSize: 13, fontWeight: FontWeight.bold),
+                  primary: const Color(0xff142D4C),
                   onPrimary: Colors.white,
                 ),
                 onPressed: () {},
-                child: Text(
+                child: const Text(
                   'Keluar',
                   style: TextStyle(
                     fontSize: 16,
@@ -102,23 +95,6 @@ class _ProfilAdminState extends State<ProfilAdmin> {
               ),
             ],
           ),
-        ],
-      ),
-      //BOTOM NAVIGATION//
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white,
-        selectedItemColor: Color(0xff142D4C),
-        // currentIndex: index,
-        onTap: (value) {
-          // setState(() {
-          //   index = value;
-          // });
-        },
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Beranda'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.stairs_outlined), label: 'Klasemen'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Akun'),
         ],
       ),
     );

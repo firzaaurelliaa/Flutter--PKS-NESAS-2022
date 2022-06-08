@@ -1,5 +1,6 @@
+// ignore_for_file: avoid_unnecessary_containers
+
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 import 'profil_admin.dart';
 
@@ -18,39 +19,30 @@ class _EditProfilAdminState extends State<EditProfilAdmin> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xff142D4C),
         elevation: 0,
-        leading: IconButton(
-          onPressed: () => {
-            Navigator.pop((context)),
-          },
-          icon: Icon(
-            Icons.arrow_back_ios_new,
-            color: Colors.black,
-          ),
-        ),
-        title: Text(
+        title: const Text(
           'Edit Profil',
           style: TextStyle(
-              color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+              color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
         ),
       ),
       body: ListView(
         children: [
           Stack(
+            clipBehavior: Clip.none,
             alignment: Alignment.center,
-            overflow: Overflow.visible,
             children: [
               Container(
                 height: 130,
-                color: Color(0xff142D4C),
+                color: const Color(0xff142D4C),
               ),
               Positioned(
                 bottom: -50,
                 child: Container(
                   width: 110,
                   height: 110,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       image: DecorationImage(
                           image: AssetImage('assets/images/jokowi.webp'),
@@ -59,58 +51,60 @@ class _EditProfilAdminState extends State<EditProfilAdmin> {
               ),
             ],
           ),
-          SizedBox(height: 60),
+          const SizedBox(height: 60),
           Center(
             child: Container(
-              child: Text('Ubah Foto Profil'),
+              child: const Text('Ubah Foto Profil'),
             ),
           ),
           Container(
-            margin: EdgeInsets.all(25),
+            margin: const EdgeInsets.all(25),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text('Nama'),
+                  children: const [
+                    Text('Nama :'),
                   ],
                 ),
-                TextField(
+                TextFormField(
                   controller: controller,
+                  maxLength: 25,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text('Deskripsi'),
+                    Container(child: const Text('Deskripsi :')),
                   ],
                 ),
                 TextField(
                   controller: controllers,
+                  maxLength: 15,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    minimumSize: Size(350, 38),
-                    textStyle:
-                        TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
-                    primary: Color(0xff142D4C),
+                    minimumSize: const Size(350, 38),
+                    textStyle: const TextStyle(
+                        fontSize: 13, fontWeight: FontWeight.bold),
+                    primary: const Color(0xff142D4C),
                     onPrimary: Colors.white,
                   ),
                   onPressed: () => {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ProfilAdmin(),
+                        builder: (context) => const ProfilAdmin(),
                       ),
                     ),
                   },
-                  child: Text(
+                  child: const Text(
                     'Simpan',
                     style: TextStyle(
                       fontSize: 13,

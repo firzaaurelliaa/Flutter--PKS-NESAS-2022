@@ -56,7 +56,14 @@ packages:
       name: cupertino_icons
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.4"
+    version: "1.0.5"
+  custom_navigation_bar:
+    dependency: "direct dev"
+    description:
+      name: custom_navigation_bar
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.8.2"
   dialogs:
     dependency: "direct dev"
     description:
@@ -149,6 +156,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.8.0"
+  persistent_bottom_nav_bar_v2:
+    dependency: "direct dev"
+    description:
+      name: persistent_bottom_nav_bar_v2
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.2.3"
   sky_engine:
     dependency: transitive
     description: flutter

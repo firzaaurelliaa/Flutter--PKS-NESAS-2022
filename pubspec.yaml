@@ -42,7 +42,8 @@ dev_dependencies:
   dropdown_search: ^0.6.1
   fluttertoast: ^8.0.8
   dialogs: ^0.0.7
-
+  custom_navigation_bar: ^0.8.2
+  persistent_bottom_nav_bar_v2: any
   
 
   # The "flutter_lints" package below contains a set of recommended lints to
@@ -79,6 +80,26 @@ flutter:
     - assets/images/TKI.png
     - assets/images/OKTP.png
     - assets/images/jokowi.webp
+    - assets/images/login.png
+    - assets/images/logopks.png
+    - assets/images/AKL.png
+    - assets/images/BDP.png
+    - assets/images/DG.png
+    - assets/images/TB.png
+    - assets/images/TL.png
+    - assets/images/TPM.png
+    - assets/images/TBSM.png
+    - assets/images/man.png
+    - assets/images/atep.jpg
+    - assets/images/shotson.png
+    - assets/images/shots.png
+    - assets/images/fouls.png
+    - assets/images/yellow.png
+    - assets/images/red.png
+    - assets/images/score.png
+    - assets/images/ballpo.png
+
+
 
 
 
