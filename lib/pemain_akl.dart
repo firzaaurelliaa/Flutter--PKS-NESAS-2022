@@ -1,302 +1,652 @@
-// ignore_for_file: avoid_unnecessary_containers
+// ignore_for_file: prefer_typing_uninitialized_variables
 
-import 'package:akhir/edit_pemain_akl.dart';
-import 'package:akhir/home_admin.dart';
+import 'package:akhir/add_pemain.dart';
+import 'package:akhir/add_pemain2.dart';
+import 'package:akhir/edit_tim.dart';
+import 'package:akhir/edit_tim2..dart';
+import 'package:akhir/page_belum_diatur.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
 
-class PemainAKL extends StatelessWidget {
-  const PemainAKL({Key? key}) : super(key: key);
+enum MediaType {
+  image,
+  video,
+}
+
+class PemainAKL extends StatefulWidget {
+  final String? tim1;
+  final String? tim2;
+
+  // Future<void> update([DocumentSnapshot? snapshot]) async {
+  //   if (snapshot != null) {
+  //     namapemain.text = snapshot['nama'];
+  //     deskripsi.text = snapshot['deskripsi'];
+  //   }
+  // }
+
+  PemainAKL({
+    Key? key,
+    required this.tim1,
+    required this.tim2,
+  }) : super(key: key);
+  @override
+  _PemainAKLState createState() => _PemainAKLState();
+}
+
+class _PemainAKLState extends State<PemainAKL> {
+  final Stream<QuerySnapshot> _usersStream =
+      FirebaseFirestore.instance.collection('playerDatas').snapshots();
+  final namapemain = TextEditingController();
+  final nopemain = TextEditingController();
+  final posisipemain = TextEditingController();
+  final MediaType _mediaType = MediaType.image;
+
+  String? imagePath;
+
+  var id;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xff142D4C),
-        elevation: 0,
-        leading: IconButton(
-          onPressed: () => {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const HomeAdmin(),
+      body: StreamBuilder(
+        stream: _usersStream,
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.hasError) {
+            return const Text("something is wrong");
+          }
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: Color(0xff142D4C),
               ),
-            ),
-          },
-          icon: const Icon(
-            Icons.arrow_back_ios_new,
-            color: Colors.white,
-          ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () => {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const EditPemainAKL(),
-                ),
+            );
+          }
+          if (!snapshot.hasData) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: Color(0xff142D4C),
               ),
-            },
-            icon: const Icon(
-              Icons.edit,
-              color: Colors.white,
-            ),
-          ),
-        ],
-      ),
-      body: ListView(
-        children: [
-          Column(
+            );
+          }
+          return ListView(
             children: [
-              Stack(
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: 200,
-                    color: const Color(0xff142D4C),
+                    padding: const EdgeInsets.all(25),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      // ignore: prefer_const_literals_to_create_immutables
+                      children: [
+                        const Text(
+                          'Futsal',
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w900,
+                              color: Color(0xff142D4C)),
+                        ),
+                      ],
+                    ),
                   ),
-                  Column(
-                    children: [
-                      Center(
-                        child: Container(
-                          padding: const EdgeInsets.all(4),
-                          width: 110,
-                          height: 110,
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 5),
+                        ...List.generate(
+                          snapshot.data!.size,
+                          (index) {
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => edittim(
+                                              docid: snapshot.data!.docs[index],
+                                              imageUrl: '',
+                                              // docid: id,
+                                            )));
+                              },
+                              child: Card(
+                                nama: snapshot.data!.docs[index]
+                                    .get('futsal')['namaPemain'],
+                                posisi: snapshot.data!.docs[index]
+                                    .get('futsal')['posisiPemain'],
+                                no: snapshot.data!.docs[index]
+                                    .get('futsal')['noPemain'],
+                                foto: snapshot.data!.docs[index]
+                                    .get('futsal')['fotoPemain'],
+                                imageUrl: snapshot.data!.docs[index]
+                                    .get('futsal')['fotoPemain'],
+                                id: snapshot.data!.docs[index],
+                              ),
+                            );
+                          },
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => const PageBelumDiatur(
+                                        // docid: id,
+                                        )));
+                          },
+                          child: Container(
+                            width: 50.0,
+                            height: 50.0,
+                            decoration: const BoxDecoration(
+                              color: Color(0xff142D4C),
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(Icons.add, color: Colors.white),
                           ),
-                          child: Image.asset('assets/images/AKL.png'),
-                        ),
-                      ),
-                      const SizedBox(height: 25),
-                      const Text(
-                        'AKUTANSI DAN KEUANGAN LEMBAGA',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              DefaultTabController(
-                initialIndex: 2,
-                length: 4,
-                child: Column(
-                  children: [
-                    Container(
-                      child: const TabBar(
-                        labelColor: Colors.black,
-                        tabs: [
-                          Tab(text: 'Tentang'),
-                          Tab(text: 'Pertandingan'),
-                          Tab(text: 'Pemain'),
-                          Tab(text: 'Posisi'),
-                        ],
-                      ),
+                        )
+                      ],
                     ),
-                    const SizedBox(height: 10),
-                  ],
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
+                  ),
+                  const SizedBox(height: 15),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 25),
-                    child: const Text(
-                      'Pemain Futsal',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
+                    padding: const EdgeInsets.all(25),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      // ignore: prefer_const_literals_to_create_immutables
+                      children: [
+                        const Text(
+                          'Basket',
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w900,
+                              color: Color(0xff142D4C)),
+                        ),
+                      ],
                     ),
                   ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 5),
+                        ...List.generate(
+                          snapshot.data!.size,
+                          (index) {
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => edittim(
+                                              docid: snapshot.data!.docs[index],
+                                              imageUrl: '',
+                                              // docid: id,
+                                            )));
+                              },
+                              child: Card(
+                                nama: snapshot.data!.docs[index]
+                                    .get('basket')['namaPemain'],
+                                posisi: snapshot.data!.docs[index]
+                                    .get('basket')['posisiPemain'],
+                                no: snapshot.data!.docs[index]
+                                    .get('basket')['noPemain'],
+                                foto: snapshot.data!.docs[index]
+                                    .get('basket')['fotoPemain'],
+                                imageUrl: snapshot.data!.docs[index]
+                                    .get('basket')['fotoPemain'],
+                                id: snapshot.data!.docs[index],
+                              ),
+                            );
+                          },
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => const PageBelumDiatur(
+                                        // docid: id,
+                                        )));
+                          },
+                          child: Container(
+                            width: 50.0,
+                            height: 50.0,
+                            decoration: const BoxDecoration(
+                              color: Color(0xff142D4C),
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(Icons.add, color: Colors.white),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Container(
+                    padding: const EdgeInsets.all(25),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      // ignore: prefer_const_literals_to_create_immutables
+                      children: [
+                        const Text(
+                          'Voli',
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w900,
+                              color: Color(0xff142D4C)),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 5),
+                        ...List.generate(
+                          snapshot.data!.size,
+                          (index) {
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => edittim(
+                                              docid: snapshot.data!.docs[index],
+                                              imageUrl: '',
+                                              // docid: id,
+                                            )));
+                              },
+                              child: Card(
+                                nama: snapshot.data!.docs[index]
+                                    .get('voli')['namaPemain'],
+                                posisi: snapshot.data!.docs[index]
+                                    .get('voli')['posisiPemain'],
+                                no: snapshot.data!.docs[index]
+                                    .get('voli')['noPemain'],
+                                foto: snapshot.data!.docs[index]
+                                    .get('voli')['fotoPemain'],
+                                imageUrl: snapshot.data!.docs[index]
+                                    .get('voli')['fotoPemain'],
+                                id: snapshot.data!.docs[index],
+                              ),
+                            );
+                          },
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => const PageBelumDiatur(
+                                        // docid: id,
+                                        )));
+                          },
+                          child: Container(
+                            width: 50.0,
+                            height: 50.0,
+                            decoration: const BoxDecoration(
+                              color: Color(0xff142D4C),
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(Icons.add, color: Colors.white),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Container(
+                    padding: const EdgeInsets.all(25),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      // ignore: prefer_const_literals_to_create_immutables
+                      children: [
+                        const Text(
+                          'Catur',
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w900,
+                              color: Color(0xff142D4C)),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 5),
+                        ...List.generate(
+                          snapshot.data!.size,
+                          (index) {
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => edittim(
+                                              docid: snapshot.data!.docs[index],
+                                              imageUrl: '',
+                                              // docid: id,
+                                            )));
+                              },
+                              child: Card(
+                                nama: snapshot.data!.docs[index]
+                                    .get('catur')['namaPemain'],
+                                posisi: snapshot.data!.docs[index]
+                                    .get('catur')['posisiPemain'],
+                                no: snapshot.data!.docs[index]
+                                    .get('catur')['noPemain'],
+                                foto: snapshot.data!.docs[index]
+                                    .get('catur')['fotoPemain'],
+                                imageUrl: snapshot.data!.docs[index]
+                                    .get('catur')['fotoPemain'],
+                                id: snapshot.data!.docs[index],
+                              ),
+                            );
+                          },
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => const PageBelumDiatur(
+                                        // docid: id,
+                                        )));
+                          },
+                          child: Container(
+                            width: 50.0,
+                            height: 50.0,
+                            decoration: const BoxDecoration(
+                              color: Color(0xff142D4C),
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(Icons.add, color: Colors.white),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Container(
+                    padding: const EdgeInsets.all(25),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      // ignore: prefer_const_literals_to_create_immutables
+                      children: [
+                        const Text(
+                          'Bulutangkis',
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w900,
+                              color: Color(0xff142D4C)),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 5),
+                        ...List.generate(
+                          snapshot.data!.size,
+                          (index) {
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => edittim(
+                                              docid: snapshot.data!.docs[index],
+                                              imageUrl: '',
+                                              // docid: id,
+                                            )));
+                              },
+                              child: Card(
+                                nama: snapshot.data!.docs[index]
+                                    .get('bulutangkis')['namaPemain'],
+                                posisi: snapshot.data!.docs[index]
+                                    .get('bulutangkis')['posisiPemain'],
+                                no: snapshot.data!.docs[index]
+                                    .get('bulutangkis')['noPemain'],
+                                foto: snapshot.data!.docs[index]
+                                    .get('bulutangkis')['fotoPemain'],
+                                imageUrl: snapshot.data!.docs[index]
+                                    .get('bulutangkis')['fotoPemain'],
+                                id: snapshot.data!.docs[index],
+                              ),
+                            );
+                          },
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => const PageBelumDiatur(
+                                        // docid: id,
+                                        )));
+                          },
+                          child: Container(
+                            width: 50.0,
+                            height: 50.0,
+                            decoration: const BoxDecoration(
+                              color: Color(0xff142D4C),
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(Icons.add, color: Colors.white),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Container(
+                    padding: const EdgeInsets.all(25),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      // ignore: prefer_const_literals_to_create_immutables
+                      children: [
+                        const Text(
+                          'Bulutangkis',
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w900,
+                              color: Color(0xff142D4C)),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        const SizedBox(width: 5),
+                        ...List.generate(
+                          snapshot.data!.size,
+                          (index) {
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (_) => edittim(
+                                              docid: snapshot.data!.docs[index],
+                                              imageUrl: '',
+                                              // docid: id,
+                                            )));
+                              },
+                              child: Card(
+                                nama: snapshot.data!.docs[index]
+                                    .get('tenismeja')['namaPemain'],
+                                posisi: snapshot.data!.docs[index]
+                                    .get('tenismeja')['posisiPemain'],
+                                no: snapshot.data!.docs[index]
+                                    .get('tenismeja')['noPemain'],
+                                foto: snapshot.data!.docs[index]
+                                    .get('tenismeja')['fotoPemain'],
+                                imageUrl: snapshot.data!.docs[index]
+                                    .get('tenismeja')['fotoPemain'],
+                                id: snapshot.data!.docs[index],
+                              ),
+                            );
+                          },
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => const PageBelumDiatur(
+                                        // docid: id,
+                                        )));
+                          },
+                          child: Container(
+                            width: 50.0,
+                            height: 50.0,
+                            decoration: const BoxDecoration(
+                              color: Color(0xff142D4C),
+                              shape: BoxShape.circle,
+                            ),
+                            child: const Icon(Icons.add, color: Colors.white),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 50),
                 ],
               ),
             ],
-          ),
-          const SizedBox(height: 15),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: [
-                const KartuPemainFutsal(),
-                Stack(
-                  children: [
-                    Container(
-                      width: 120,
-                      height: 180,
-                      decoration: const BoxDecoration(
-                          // borderRadius: BorderRadius.circular(15),
-
-                          ),
-                      child: Column(
-                        children: [
-                          Container(
-                            width: 120,
-                            height: 120,
-                            decoration: const BoxDecoration(
-                              // borderRadius: BorderRadius.circular(15),
-                              image: DecorationImage(
-                                image: AssetImage('assets/images/atep.jpg'),
-                                fit: BoxFit.cover,
-                              ),
-                              color: Colors.amber,
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 5),
-                                child: const Text(
-                                  'Atep',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 17,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 5),
-                                child: const Text(
-                                  'Gelandang',
-                                  style: TextStyle(
-                                    fontSize: 15,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(left: 5),
-                                width: 30,
-                                height: 30,
-                                decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Color(0xff142D4C),
-                                ),
-                                child: const Center(
-                                    child: Text(
-                                  '7',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                    fontSize: 17,
-                                  ),
-                                )),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ],
-            ),
-          )
-        ],
+          );
+        },
       ),
     );
   }
+
+  void pickMedia(ImageSource source) async {
+    XFile? file;
+    if (_mediaType == MediaType.image) {
+      file = await ImagePicker().pickImage(source: source);
+    } else {
+      file = await ImagePicker().pickVideo(source: source);
+    }
+    if (file != null) {
+      imagePath = file.path;
+      if (_mediaType == MediaType.video) {
+        imagePath = await VideoThumbnail.thumbnailFile(
+            video: file.path,
+            imageFormat: ImageFormat.PNG,
+            quality: 100,
+            maxWidth: 300,
+            maxHeight: 300);
+      }
+      setState(() {});
+    }
+  }
 }
 
-class KartuPemainFutsal extends StatelessWidget {
-  const KartuPemainFutsal({
+class Card extends StatelessWidget {
+  const Card({
     Key? key,
+    required this.nama,
+    required this.foto,
+    required this.posisi,
+    required this.no,
+    required this.id,
+    required this.imageUrl,
   }) : super(key: key);
+
+  final String nama;
+  final String foto;
+  final String posisi;
+  final String no;
+  final String imageUrl;
+  final DocumentSnapshot id;
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 25),
-          width: 120,
-          height: 180,
-          decoration: const BoxDecoration(
-              // borderRadius: BorderRadius.circular(15),
-
-              ),
-          child: Column(
-            children: [
-              Container(
-                width: 120,
-                height: 120,
-                decoration: const BoxDecoration(
-                  // borderRadius: BorderRadius.circular(15),
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/atep.jpg'),
-                    fit: BoxFit.cover,
-                  ),
-                  color: Colors.amber,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 120,
+            height: 120,
+            child: Image(
+                fit: BoxFit.cover,
+                image: NetworkImage(
+                  foto,
                 ),
-              ),
-              const SizedBox(height: 5),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 5),
-                    child: const Text(
-                      'Atep',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 17,
-                      ),
+                loadingBuilder: (BuildContext context, Widget child,
+                    ImageChunkEvent? loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return Center(
+                    child: CircularProgressIndicator(
+                      color: const Color(0xff142D4C),
+                      value: loadingProgress.expectedTotalBytes != null
+                          ? loadingProgress.cumulativeBytesLoaded /
+                              loadingProgress.expectedTotalBytes!
+                          : null,
                     ),
-                  ),
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 5),
-                    child: const Text(
-                      'Gelandang',
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 5),
-                    width: 30,
-                    height: 30,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color(0xff142D4C),
-                    ),
-                    child: const Center(
-                        child: Text(
-                      '7',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 17,
-                      ),
-                    )),
-                  ),
-                ],
+                  );
+                }),
+          ),
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                nama,
+                style: const TextStyle(
+                  fontSize: 17,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ],
           ),
-        )
-      ],
+          SizedBox(
+            width: 120,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  posisi,
+                  style: const TextStyle(fontSize: 15, color: Colors.grey),
+                ),
+                Container(
+                  width: 30,
+                  height: 30,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: const Color(0xff142D4C),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        no,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        // textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

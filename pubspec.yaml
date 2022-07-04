@@ -35,15 +35,42 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
+  #firebase
+  # firebase_core: 1.17.1
+  # firebase_auth: 3.3.19
+  cloud_firestore: ^3.0.0
+  
+  firebase_core: ^1.9.0
+  firebase_auth: ^3.3.17
+  google_sign_in: ^5.3.2
+  google_sign_in_web: ^0.10.1+2
+  # image_picker: ^0.8.5+3
+  video_player: ^2.4.5
+  flutter_3d_choice_chip: ^0.1.4
+  video_thumbnail: ^0.5.0
+  image_picker: ^0.8.5
+  firebase_storage: ^10.2.18
+  # datetime_picker_formfield: ^2.0.0
+  rounded_loading_button: ^2.1.0
+
+
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  carousel_slider: ^4.1.1
-  dropdown_search: ^0.6.1
   fluttertoast: ^8.0.8
-  dialogs: ^0.0.7
   custom_navigation_bar: ^0.8.2
   persistent_bottom_nav_bar_v2: any
+  anim_search_bar: ^2.0.2
+  flutter_carousel_widget: ^1.1.0
+
+  dialogs: ^0.0.7 
+  confirm_dialog: ^1.0.1
+
+  
+  
+  
+  
   
 
   # The "flutter_lints" package below contains a set of recommended lints to
@@ -98,6 +125,7 @@ flutter:
     - assets/images/red.png
     - assets/images/score.png
     - assets/images/ballpo.png
+    - assets/images/teniss.jpg
 
 
 

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "171173804013",
+    "project_id": "pks-nesas",
+    "storage_bucket": "pks-nesas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:171173804013:android:16adc2f3e1da44a06519e4",
+        "android_client_info": {
+          "package_name": "com.example.akhir"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "171173804013-aj07801l339m9icme7re8bqf7i86t5lr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxxmbvcaxRfgxLuWPwNRcN11-VODjOIhc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "171173804013-aj07801l339m9icme7re8bqf7i86t5lr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

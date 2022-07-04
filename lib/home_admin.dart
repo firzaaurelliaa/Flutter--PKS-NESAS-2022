@@ -1,13 +1,14 @@
-// ignore_for_file: avoid_unnecessary_containers
+// ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace
 
+import 'package:akhir/basket.dart';
+import 'package:akhir/edit_pertandingan_terakhir.dart';
 import 'package:akhir/futsal.dart';
 import 'package:akhir/pilihan_atas.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 
 import 'package:flutter/material.dart';
-
-import 'package:dropdown_search/dropdown_search.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-// import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:intl/intl.dart';
 
 class HomeAdmin extends StatefulWidget {
   const HomeAdmin({Key? key}) : super(key: key);
@@ -17,6 +18,8 @@ class HomeAdmin extends StatefulWidget {
 }
 
 class _HomeAdminState extends State<HomeAdmin> {
+  final CarouselController _controller = CarouselController();
+
   late int index;
 
   @override
@@ -25,8 +28,6 @@ class _HomeAdminState extends State<HomeAdmin> {
     super.initState();
   }
 
-  CarouselController buttonCarouselController = CarouselController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,14 +35,9 @@ class _HomeAdminState extends State<HomeAdmin> {
         automaticallyImplyLeading: false,
         backgroundColor: const Color(0xff142D4C),
         elevation: 0,
-        title: Row(
-          children: [
-            Image.asset('assets/images/logo-appbar.png'),
-          ],
-        ),
+        
       ),
       body: ListView(
-        // padding: EdgeInsets.symmetric(horizontal: 25),
         children: [
           Stack(
             children: [
@@ -52,7 +48,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                   height: MediaQuery.of(context).size.height * 0.25,
                   color: const Color(0xff142D4C),
                   child: const Text(
-                    'Ini home admin',
+                    'Salam Olahraga, min!',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -67,50 +63,116 @@ class _HomeAdminState extends State<HomeAdmin> {
                 child: Column(
                   children: [
                     const SizedBox(
-                      height: 100,
+                      height: 80,
                     ),
                     Container(
                       width: 324,
-                      height: 147,
+                      height: 170,
                       decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
                             color: Colors.black.withOpacity(0.2),
                             spreadRadius: 0,
-                            blurRadius: 1.5,
-                            offset: const Offset(0, 7),
+                            blurRadius: 1.7,
+                            offset: const Offset(0, 4),
                           ),
                         ],
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.white,
                       ),
-                      child: CarouselSlider(
-                        options: CarouselOptions(
-                          // autoPlay: true,
-                          // aspectRatio: 2.0,
-                          enlargeCenterPage: true,
-                          enlargeStrategy: CenterPageEnlargeStrategy.height,
-                        ),
-                        items: [
-                          InkWell(
-                            onTap: () => {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const PilihanAtas(),
-                                ),
-                              ),
-                            },
-                            child: const ImageSlider(
-                              image: "assets/images/AKL.png",
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const SizedBox(height: 18),
+                          const Text(
+                            'Mana nih tim jagoanmu?',
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Color(0xff142D4C),
+                              fontWeight: FontWeight.w900,
                             ),
                           ),
-                          const ImageSlider(
-                            image: "assets/images/TKI.png",
-                          ),
-                          const ImageSlider(
-                            image: "assets/images/OKTP.png",
-                          ),
+                          const SizedBox(height: 2),
+                          StreamBuilder<QuerySnapshot>(
+                              stream: FirebaseFirestore.instance
+                                  .collection('jurusanDatas')
+                                  .snapshots(),
+                              builder: (context, snapshot) {
+                                if (!snapshot.hasData) {
+                                  return const CircularProgressIndicator(
+                                    color: Color(0xff142D4C),
+                                  );
+                                }
+
+                                return FlutterCarousel.builder(
+                                  itemCount: snapshot.data!.docs.length,
+                                  itemBuilder: (_, index, __) {
+                                    return InkWell(
+                                      onTap: () => {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => PilihanAtas(
+                                                docData:
+                                                    snapshot.data!.docs[index]),
+                                          ),
+                                        ),
+                                      },
+                                      child: ImageSlider(
+                                        image: snapshot.data!.docs[index]
+                                            .get('logoJurusan'),
+                                      ),
+                                    );
+                                  },
+                                  options: CarouselOptions(
+                                    viewportFraction: 0.3,
+                                    aspectRatio: 1.5 / 0.4,
+                                    autoPlay: false,
+                                    floatingIndicator: true,
+                                    enlargeCenterPage: true,
+                                    initialPage: 1,
+                                    // slideIndicator: CircularWaveSlideIndicator(),
+                                    showIndicator: false,
+                                  ),
+                                  carouselController: _controller,
+                                );
+                              }),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16.0,
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SizedBox(
+                                  width: 35,
+                                  height: 25,
+                                  child: Flexible(
+                                    child: IconButton(
+                                      onPressed: _controller.previousPage,
+                                      icon: const Icon(
+                                        Icons.arrow_back,
+                                        color: Color(0xff142D4C),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 35,
+                                  height: 25,
+                                  child: Flexible(
+                                    child: IconButton(
+                                      onPressed: _controller.nextPage,
+                                      icon: const Icon(
+                                        Icons.arrow_forward,
+                                        color: Color(0xff142D4C),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -178,192 +240,1328 @@ class _HomeAdminState extends State<HomeAdmin> {
           ),
           const SizedBox(height: 30),
 
-          //PETANDINGAN TERAKHIR CABOR FUTSAL//
+          //Pertandingan Terakhir
 
-          Container(
-            child: DecoratedBox(
-              decoration: const ShapeDecoration(
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(
-                      width: 1.0,
-                      style: BorderStyle.solid,
-                      color: Colors.amber),
-                  borderRadius: BorderRadius.all(Radius.circular(25.0)),
-                ),
-              ),
-              child: DropdownSearch<String>(
-                items: const [
-                  "Semua",
-                  "Futsal",
-                  "Basket",
-                  "Voli",
-                  'Catur',
-                  "Bulutangkis",
-                  "Tenis Meja",
-                ],
-                mode: Mode.MENU,
-                showSelectedItem: true,
-                dropdownSearchDecoration: const InputDecoration(
-                  labelText: "Cabang Olahraga",
-                  hintText: "Pilih Cabang olahraga",
-
-                  // floatingLabelBehavior: FloatingLabelBehavior.never,
-                ),
-                onChanged: print,
-                selectedItem: "Semua",
-              ),
-            ),
-          ),
-
-          const SizedBox(height: 30),
-
-          Stack(
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 282,
-                decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(30),
-                      topRight: Radius.circular(30)),
-                  color: Color(0xfff6f6f6),
-                ),
-                child: Column(
+          StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore.instance
+                  .collection('pertandinganTerakhir')
+                  .orderBy('tanggalPertandingan', descending: true)
+                  .limit(1)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return (Container());
+                }
+                return Stack(
                   children: [
                     Container(
-                      margin: const EdgeInsets.all(25),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Pertandingan Terakhir',
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                        ],
+                      width: MediaQuery.of(context).size.width,
+                      height: 250,
+                      decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(30),
+                            topRight: Radius.circular(30)),
+                        color: Color(0xfff6f6f6),
                       ),
-                    ),
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
+                      child: Column(
                         children: [
                           Container(
-                            width: 186,
-                            height: 134,
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(8),
-                                  topRight: Radius.circular(8)),
-                              color: Colors.white,
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                            margin: const EdgeInsets.all(25),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Container(
-                                      width: 50,
-                                      height: 50,
-                                      child:
-                                          Image.asset('assets/images/OKTP.png'),
-                                    ),
-                                    const Center(
-                                      child: Text(
-                                        'VS',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                        width: 50,
-                                        height: 50,
-                                        child: Image.asset(
-                                            'assets/images/TKI.png')),
-                                  ],
-                                ),
-                                const SizedBox(height: 10),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      width: 75,
-                                      height: 19,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        color: const Color(0xff142D4C),
-                                      ),
-                                      child: const Center(
-                                        child: Text(
-                                          'Futsal',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12,
-                                              color: Color(0xffD7E9F7)),
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      width: 75,
-                                      height: 19,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        color: Color(0xffD7E9F7),
-                                      ),
-                                      child: const Center(
-                                        child: Text(
-                                          '2 - 1',
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 12,
-                                            color: Color(0xff142D4C),
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                                const SizedBox(height: 10),
-                                const Text(
-                                  'Kamis, 14 Juli 2022',
-                                  style: TextStyle(fontSize: 12),
+                                Container(
+                                  child: const Text(
+                                    'Pertandingan Terakhir',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
                               ],
                             ),
                           ),
-                          const SizedBox(width: 20),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: [
+                                const SizedBox(width: 20),
+                                InkWell(
+                                  onTap: () => {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            EditPertandinganTerakhir(
+                                          cabangolahraga: 'futsal',
+                                          imageUrl: '',
+                                          docid: snapshot.data!.docs[0],
+                                          data: snapshot.data!.docs[0]
+                                              .get('futsal'),
+                                        ),
+                                      ),
+                                    ),
+                                  },
+                                  child: Container(
+                                    width: 186,
+                                    height: 134,
+                                    decoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(8),
+                                          topRight: Radius.circular(8)),
+                                      color: Colors.white,
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            SizedBox(
+                                              width: 50,
+                                              height: 50,
+                                              child: Image.network(
+                                                snapshot.data!.docs[0]
+                                                    .get('futsal')['logo1'],
+                                                loadingBuilder:
+                                                    (BuildContext context,
+                                                        Widget child,
+                                                        ImageChunkEvent?
+                                                            loadingProgress) {
+                                                  if (loadingProgress == null) {
+                                                    return child;
+                                                  }
+                                                  return Center(
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      color: const Color(
+                                                          0xff142D4C),
+                                                      value: loadingProgress
+                                                                  .expectedTotalBytes !=
+                                                              null
+                                                          ? loadingProgress
+                                                                  .cumulativeBytesLoaded /
+                                                              loadingProgress
+                                                                  .expectedTotalBytes!
+                                                          : null,
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                            const Center(
+                                              child: Text(
+                                                'VS',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                                width: 50,
+                                                height: 50,
+                                                child: Image.network(
+                                                  snapshot.data!.docs[0]
+                                                      .get('futsal')['logo2'],
+                                                  loadingBuilder:
+                                                      (BuildContext context,
+                                                          Widget child,
+                                                          ImageChunkEvent?
+                                                              loadingProgress) {
+                                                    if (loadingProgress ==
+                                                        null) {
+                                                      return child;
+                                                    }
+                                                    return Center(
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        color: const Color(
+                                                            0xff142D4C),
+                                                        value: loadingProgress
+                                                                    .expectedTotalBytes !=
+                                                                null
+                                                            ? loadingProgress
+                                                                    .cumulativeBytesLoaded /
+                                                                loadingProgress
+                                                                    .expectedTotalBytes!
+                                                            : null,
+                                                      ),
+                                                    );
+                                                  },
+                                                )),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Stack(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: 75,
+                                                  height: 19,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                    color:
+                                                        const Color(0xff142D4C),
+                                                  ),
+                                                  child: const Center(
+                                                    child: Text(
+                                                      'Futsal',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color: Color(
+                                                              0xffD7E9F7)),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: 75,
+                                                  height: 19,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                    color:
+                                                        const Color(0xffD7E9F7),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    // ignore: prefer_const_literals_to_create_immutables
+                                                    children: [
+                                                      Text(
+                                                        snapshot.data!.docs[0]
+                                                                .get('futsal')[
+                                                            'skor1'],
+                                                        style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color:
+                                                              Color(0xff142D4C),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(width: 5),
+                                                      const Text(
+                                                        '-',
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color:
+                                                              Color(0xff142D4C),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(width: 5),
+                                                      Text(
+                                                        snapshot.data!.docs[0]
+                                                                .get('futsal')[
+                                                            'skor2'],
+                                                        style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color:
+                                                              Color(0xff142D4C),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Text(
+                                          DateFormat('EEEE, dd MMMM yyyy', 'id')
+                                              .format((snapshot.data!.docs[0].get(
+                                                          'tanggalPertandingan')
+                                                      as Timestamp)
+                                                  .toDate()),
+                                          // snapshot.data!.docs[0]
+                                          //     .get('tanggalPertandingan')
+                                          //     .toString(),
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 20),
+                                InkWell(
+                                  onTap: () => {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            EditPertandinganTerakhir(
+                                          cabangolahraga: 'basket',
+                                          imageUrl: '',
+                                          docid: snapshot.data!.docs[0],
+                                          data: snapshot.data!.docs[0]
+                                              .get('basket'),
+                                        ),
+                                      ),
+                                    ),
+                                  },
+                                  child: Container(
+                                    width: 186,
+                                    height: 134,
+                                    decoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(8),
+                                          topRight: Radius.circular(8)),
+                                      color: Colors.white,
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            SizedBox(
+                                                width: 50,
+                                                height: 50,
+                                                child: Image.network(
+                                                  snapshot.data!.docs[0]
+                                                      .get('basket')['logo1'],
+                                                  loadingBuilder:
+                                                      (BuildContext context,
+                                                          Widget child,
+                                                          ImageChunkEvent?
+                                                              loadingProgress) {
+                                                    if (loadingProgress ==
+                                                        null) {
+                                                      return child;
+                                                    }
+                                                    return Center(
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        color: const Color(
+                                                            0xff142D4C),
+                                                        value: loadingProgress
+                                                                    .expectedTotalBytes !=
+                                                                null
+                                                            ? loadingProgress
+                                                                    .cumulativeBytesLoaded /
+                                                                loadingProgress
+                                                                    .expectedTotalBytes!
+                                                            : null,
+                                                      ),
+                                                    );
+                                                  },
+                                                )),
+                                            const Center(
+                                              child: Text(
+                                                'VS',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                                width: 50,
+                                                height: 50,
+                                                child: Image.network(
+                                                  snapshot.data!.docs[0]
+                                                      .get('basket')['logo2'],
+                                                  loadingBuilder:
+                                                      (BuildContext context,
+                                                          Widget child,
+                                                          ImageChunkEvent?
+                                                              loadingProgress) {
+                                                    if (loadingProgress ==
+                                                        null) {
+                                                      return child;
+                                                    }
+                                                    return Center(
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        color: const Color(
+                                                            0xff142D4C),
+                                                        value: loadingProgress
+                                                                    .expectedTotalBytes !=
+                                                                null
+                                                            ? loadingProgress
+                                                                    .cumulativeBytesLoaded /
+                                                                loadingProgress
+                                                                    .expectedTotalBytes!
+                                                            : null,
+                                                      ),
+                                                    );
+                                                  },
+                                                )),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Stack(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: 75,
+                                                  height: 19,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                    color:
+                                                        const Color(0xff142D4C),
+                                                  ),
+                                                  child: const Center(
+                                                    child: Text(
+                                                      'Basket',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color: Color(
+                                                              0xffD7E9F7)),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: 75,
+                                                  height: 19,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                    color:
+                                                        const Color(0xffD7E9F7),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    // ignore: prefer_const_literals_to_create_immutables
+                                                    children: [
+                                                      Text(
+                                                        snapshot.data!.docs[0]
+                                                                .get('basket')[
+                                                            'skor1'],
+                                                        style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color:
+                                                              Color(0xff142D4C),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(width: 5),
+                                                      const Text(
+                                                        '-',
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color:
+                                                              Color(0xff142D4C),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(width: 5),
+                                                      Text(
+                                                        snapshot.data!.docs[0]
+                                                                .get('basket')[
+                                                            'skor2'],
+                                                        style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color:
+                                                              Color(0xff142D4C),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Text(
+                                          DateFormat('EEEE, dd MMMM yyyy', 'id')
+                                              .format((snapshot.data!.docs[0].get(
+                                                          'tanggalPertandingan')
+                                                      as Timestamp)
+                                                  .toDate()),
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 20),
+                                InkWell(
+                                  onTap: () => {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            EditPertandinganTerakhir(
+                                          cabangolahraga: 'voli',
+                                          imageUrl: '',
+                                          docid: snapshot.data!.docs[0],
+                                          data: snapshot.data!.docs[0]
+                                              .get('voli'),
+                                        ),
+                                      ),
+                                    ),
+                                  },
+                                  child: Container(
+                                    width: 186,
+                                    height: 134,
+                                    decoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(8),
+                                          topRight: Radius.circular(8)),
+                                      color: Colors.white,
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            SizedBox(
+                                                width: 50,
+                                                height: 50,
+                                                child: Image.network(
+                                                  snapshot.data!.docs[0]
+                                                      .get('voli')['logo1'],
+                                                  loadingBuilder:
+                                                      (BuildContext context,
+                                                          Widget child,
+                                                          ImageChunkEvent?
+                                                              loadingProgress) {
+                                                    if (loadingProgress ==
+                                                        null) {
+                                                      return child;
+                                                    }
+                                                    return Center(
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        color: const Color(
+                                                            0xff142D4C),
+                                                        value: loadingProgress
+                                                                    .expectedTotalBytes !=
+                                                                null
+                                                            ? loadingProgress
+                                                                    .cumulativeBytesLoaded /
+                                                                loadingProgress
+                                                                    .expectedTotalBytes!
+                                                            : null,
+                                                      ),
+                                                    );
+                                                  },
+                                                )),
+                                            const Center(
+                                              child: Text(
+                                                'VS',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                                width: 50,
+                                                height: 50,
+                                                child: Image.network(
+                                                  snapshot.data!.docs[0]
+                                                      .get('voli')['logo2'],
+                                                  loadingBuilder:
+                                                      (BuildContext context,
+                                                          Widget child,
+                                                          ImageChunkEvent?
+                                                              loadingProgress) {
+                                                    if (loadingProgress ==
+                                                        null) {
+                                                      return child;
+                                                    }
+                                                    return Center(
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        color: const Color(
+                                                            0xff142D4C),
+                                                        value: loadingProgress
+                                                                    .expectedTotalBytes !=
+                                                                null
+                                                            ? loadingProgress
+                                                                    .cumulativeBytesLoaded /
+                                                                loadingProgress
+                                                                    .expectedTotalBytes!
+                                                            : null,
+                                                      ),
+                                                    );
+                                                  },
+                                                )),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Stack(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: 75,
+                                                  height: 19,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                    color:
+                                                        const Color(0xff142D4C),
+                                                  ),
+                                                  child: const Center(
+                                                    child: Text(
+                                                      'Voli',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color: Color(
+                                                              0xffD7E9F7)),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: 75,
+                                                  height: 19,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                    color:
+                                                        const Color(0xffD7E9F7),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    // ignore: prefer_const_literals_to_create_immutables
+                                                    children: [
+                                                      Text(
+                                                        snapshot.data!.docs[0]
+                                                                .get('voli')[
+                                                            'skor1'],
+                                                        style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color:
+                                                              Color(0xff142D4C),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(width: 5),
+                                                      const Text(
+                                                        '-',
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color:
+                                                              Color(0xff142D4C),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(width: 5),
+                                                      Text(
+                                                        snapshot.data!.docs[0]
+                                                                .get('voli')[
+                                                            'skor2'],
+                                                        style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color:
+                                                              Color(0xff142D4C),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Text(
+                                          DateFormat('EEEE, dd MMMM yyyy', 'id')
+                                              .format((snapshot.data!.docs[0].get(
+                                                          'tanggalPertandingan')
+                                                      as Timestamp)
+                                                  .toDate()),
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 20),
+                                InkWell(
+                                  onTap: () => {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            EditPertandinganTerakhir(
+                                          cabangolahraga: 'catur',
+                                          imageUrl: '',
+                                          docid: snapshot.data!.docs[0],
+                                          data: snapshot.data!.docs[0]
+                                              .get('catur'),
+                                        ),
+                                      ),
+                                    ),
+                                  },
+                                  child: Container(
+                                    width: 186,
+                                    height: 134,
+                                    decoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(8),
+                                          topRight: Radius.circular(8)),
+                                      color: Colors.white,
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            SizedBox(
+                                                width: 50,
+                                                height: 50,
+                                                child: Image.network(
+                                                  snapshot.data!.docs[0]
+                                                      .get('catur')['logo1'],
+                                                  loadingBuilder:
+                                                      (BuildContext context,
+                                                          Widget child,
+                                                          ImageChunkEvent?
+                                                              loadingProgress) {
+                                                    if (loadingProgress ==
+                                                        null) {
+                                                      return child;
+                                                    }
+                                                    return Center(
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        color: const Color(
+                                                            0xff142D4C),
+                                                        value: loadingProgress
+                                                                    .expectedTotalBytes !=
+                                                                null
+                                                            ? loadingProgress
+                                                                    .cumulativeBytesLoaded /
+                                                                loadingProgress
+                                                                    .expectedTotalBytes!
+                                                            : null,
+                                                      ),
+                                                    );
+                                                  },
+                                                )),
+                                            const Center(
+                                              child: Text(
+                                                'VS',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                                width: 50,
+                                                height: 50,
+                                                child: Image.network(
+                                                  snapshot.data!.docs[0]
+                                                      .get('catur')['logo2'],
+                                                  loadingBuilder:
+                                                      (BuildContext context,
+                                                          Widget child,
+                                                          ImageChunkEvent?
+                                                              loadingProgress) {
+                                                    if (loadingProgress ==
+                                                        null) {
+                                                      return child;
+                                                    }
+                                                    return Center(
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        color: const Color(
+                                                            0xff142D4C),
+                                                        value: loadingProgress
+                                                                    .expectedTotalBytes !=
+                                                                null
+                                                            ? loadingProgress
+                                                                    .cumulativeBytesLoaded /
+                                                                loadingProgress
+                                                                    .expectedTotalBytes!
+                                                            : null,
+                                                      ),
+                                                    );
+                                                  },
+                                                )),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Stack(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: 75,
+                                                  height: 19,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                    color:
+                                                        const Color(0xff142D4C),
+                                                  ),
+                                                  child: const Center(
+                                                    child: Text(
+                                                      'Catur',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color: Color(
+                                                              0xffD7E9F7)),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: 75,
+                                                  height: 19,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                    color:
+                                                        const Color(0xffD7E9F7),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    // ignore: prefer_const_literals_to_create_immutables
+                                                    children: [
+                                                      Text(
+                                                        snapshot.data!.docs[0]
+                                                                .get('catur')[
+                                                            'skor1'],
+                                                        style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color:
+                                                              Color(0xff142D4C),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(width: 5),
+                                                      const Text(
+                                                        '-',
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color:
+                                                              Color(0xff142D4C),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(width: 5),
+                                                      Text(
+                                                        snapshot.data!.docs[0]
+                                                                .get('catur')[
+                                                            'skor2'],
+                                                        style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color:
+                                                              Color(0xff142D4C),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Text(
+                                          DateFormat('EEEE, dd MMMM yyyy', 'id')
+                                              .format((snapshot.data!.docs[0].get(
+                                                          'tanggalPertandingan')
+                                                      as Timestamp)
+                                                  .toDate()),
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 20),
+                                InkWell(
+                                  onTap: () => {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            EditPertandinganTerakhir(
+                                          cabangolahraga: 'bulutangkis',
+                                          imageUrl: '',
+                                          docid: snapshot.data!.docs[0],
+                                          data: snapshot.data!.docs[0]
+                                              .get('bulutangkis'),
+                                        ),
+                                      ),
+                                    ),
+                                  },
+                                  child: Container(
+                                    width: 186,
+                                    height: 134,
+                                    decoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(8),
+                                          topRight: Radius.circular(8)),
+                                      color: Colors.white,
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            SizedBox(
+                                              width: 50,
+                                              height: 50,
+                                              child: Image.network(
+                                                snapshot.data!.docs[0].get(
+                                                    'bulutangkis')['logo1'],
+                                                loadingBuilder:
+                                                    (BuildContext context,
+                                                        Widget child,
+                                                        ImageChunkEvent?
+                                                            loadingProgress) {
+                                                  if (loadingProgress == null) {
+                                                    return child;
+                                                  }
+                                                  return Center(
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      color: const Color(
+                                                          0xff142D4C),
+                                                      value: loadingProgress
+                                                                  .expectedTotalBytes !=
+                                                              null
+                                                          ? loadingProgress
+                                                                  .cumulativeBytesLoaded /
+                                                              loadingProgress
+                                                                  .expectedTotalBytes!
+                                                          : null,
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                            const Center(
+                                              child: Text(
+                                                'VS',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                                width: 50,
+                                                height: 50,
+                                                child: Image.network(
+                                                  snapshot.data!.docs[0].get(
+                                                      'bulutangkis')['logo2'],
+                                                  loadingBuilder:
+                                                      (BuildContext context,
+                                                          Widget child,
+                                                          ImageChunkEvent?
+                                                              loadingProgress) {
+                                                    if (loadingProgress ==
+                                                        null) {
+                                                      return child;
+                                                    }
+                                                    return Center(
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        color: const Color(
+                                                            0xff142D4C),
+                                                        value: loadingProgress
+                                                                    .expectedTotalBytes !=
+                                                                null
+                                                            ? loadingProgress
+                                                                    .cumulativeBytesLoaded /
+                                                                loadingProgress
+                                                                    .expectedTotalBytes!
+                                                            : null,
+                                                      ),
+                                                    );
+                                                  },
+                                                )),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Stack(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: 75,
+                                                  height: 19,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                    color:
+                                                        const Color(0xff142D4C),
+                                                  ),
+                                                  child: const Center(
+                                                    child: Text(
+                                                      'Bulutangkis',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color: Color(
+                                                              0xffD7E9F7)),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: 75,
+                                                  height: 19,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                    color:
+                                                        const Color(0xffD7E9F7),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    // ignore: prefer_const_literals_to_create_immutables
+                                                    children: [
+                                                      Text(
+                                                        snapshot.data!.docs[0].get(
+                                                                'bulutangkis')[
+                                                            'skor1'],
+                                                        style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color:
+                                                              Color(0xff142D4C),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(width: 5),
+                                                      const Text(
+                                                        '-',
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color:
+                                                              Color(0xff142D4C),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(width: 5),
+                                                      Text(
+                                                        snapshot.data!.docs[0].get(
+                                                                'bulutangkis')[
+                                                            'skor2'],
+                                                        style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color:
+                                                              Color(0xff142D4C),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Text(
+                                          DateFormat('EEEE, dd MMMM yyyy', 'id')
+                                              .format((snapshot.data!.docs[0].get(
+                                                          'tanggalPertandingan')
+                                                      as Timestamp)
+                                                  .toDate()),
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 20),
+                                InkWell(
+                                  onTap: () => {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            EditPertandinganTerakhir(
+                                          cabangolahraga: 'tenisMeja',
+                                          imageUrl: '',
+                                          docid: snapshot.data!.docs[0],
+                                          data: snapshot.data!.docs[0]
+                                              .get('tenisMeja'),
+                                        ),
+                                      ),
+                                    ),
+                                  },
+                                  child: Container(
+                                    width: 186,
+                                    height: 134,
+                                    decoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(8),
+                                          topRight: Radius.circular(8)),
+                                      color: Colors.white,
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            SizedBox(
+                                              width: 50,
+                                              height: 50,
+                                              child: Image.network(
+                                                snapshot.data!.docs[0]
+                                                    .get('tenisMeja')['logo1'],
+                                                loadingBuilder:
+                                                    (BuildContext context,
+                                                        Widget child,
+                                                        ImageChunkEvent?
+                                                            loadingProgress) {
+                                                  if (loadingProgress == null) {
+                                                    return child;
+                                                  }
+                                                  return Center(
+                                                    child:
+                                                        CircularProgressIndicator(
+                                                      color: const Color(
+                                                          0xff142D4C),
+                                                      value: loadingProgress
+                                                                  .expectedTotalBytes !=
+                                                              null
+                                                          ? loadingProgress
+                                                                  .cumulativeBytesLoaded /
+                                                              loadingProgress
+                                                                  .expectedTotalBytes!
+                                                          : null,
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                            const Center(
+                                              child: Text(
+                                                'VS',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                                width: 50,
+                                                height: 50,
+                                                child: Image.network(
+                                                  snapshot.data!.docs[0].get(
+                                                      'tenisMeja')['logo2'],
+                                                  loadingBuilder:
+                                                      (BuildContext context,
+                                                          Widget child,
+                                                          ImageChunkEvent?
+                                                              loadingProgress) {
+                                                    if (loadingProgress ==
+                                                        null) {
+                                                      return child;
+                                                    }
+                                                    return Center(
+                                                      child:
+                                                          CircularProgressIndicator(
+                                                        color: const Color(
+                                                            0xff142D4C),
+                                                        value: loadingProgress
+                                                                    .expectedTotalBytes !=
+                                                                null
+                                                            ? loadingProgress
+                                                                    .cumulativeBytesLoaded /
+                                                                loadingProgress
+                                                                    .expectedTotalBytes!
+                                                            : null,
+                                                      ),
+                                                    );
+                                                  },
+                                                )),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Stack(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: 75,
+                                                  height: 19,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                    color:
+                                                        const Color(0xff142D4C),
+                                                  ),
+                                                  child: const Center(
+                                                    child: Text(
+                                                      'Tenis Meja',
+                                                      style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color: Color(
+                                                              0xffD7E9F7)),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  width: 75,
+                                                  height: 19,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                    color:
+                                                        const Color(0xffD7E9F7),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    // ignore: prefer_const_literals_to_create_immutables
+                                                    children: [
+                                                      Text(
+                                                        snapshot.data!.docs[0]
+                                                                .get(
+                                                                    'tenisMeja')[
+                                                            'skor1'],
+                                                        style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color:
+                                                              Color(0xff142D4C),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(width: 5),
+                                                      const Text(
+                                                        '-',
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color:
+                                                              Color(0xff142D4C),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(width: 5),
+                                                      Text(
+                                                        snapshot.data!.docs[0]
+                                                                .get(
+                                                                    'tenisMeja')[
+                                                            'skor2'],
+                                                        style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color:
+                                                              Color(0xff142D4C),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Text(
+                                          DateFormat('EEEE, dd MMMM yyyy', 'id')
+                                              .format((snapshot.data!.docs[0].get(
+                                                          'tanggalPertandingan')
+                                                      as Timestamp)
+                                                  .toDate()),
+                                          style: const TextStyle(fontSize: 12),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 20),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
-                    )
+                    ),
                   ],
-                ),
-              ),
-            ],
-          ),
+                );
+              }),
         ],
       ),
-
-      // //BOTOM NAVIGATION//
-      // bottomNavigationBar: BottomNavigationBar(
-      //   backgroundColor: Colors.white,
-      //   selectedItemColor: const Color(0xff142D4C),
-      //   currentIndex: index,
-      //   onTap: (value) {
-      //     setState(() {
-      //       index = value;
-      //     });
-      //   },
-      //   items: const [
-      //     BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Beranda'),
-      //     BottomNavigationBarItem(
-      //         icon: Icon(Icons.stairs_outlined), label: 'Klasemen'),
-      //     BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Akun'),
-      //   ],
-      // ),
     );
   }
 }
@@ -435,10 +1633,23 @@ class ImageSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 67,
-      height: 67,
-      child: Image.asset(
+      width: 55,
+      height: 55,
+      child: Image.network(
         image,
+        loadingBuilder: (BuildContext context, Widget child,
+            ImageChunkEvent? loadingProgress) {
+          if (loadingProgress == null) return child;
+          return Center(
+            child: CircularProgressIndicator(
+              color: const Color(0xff142D4C),
+              value: loadingProgress.expectedTotalBytes != null
+                  ? loadingProgress.cumulativeBytesLoaded /
+                      loadingProgress.expectedTotalBytes!
+                  : null,
+            ),
+          );
+        },
       ),
     );
   }
@@ -459,7 +1670,6 @@ class PertandinganTerakhir extends StatelessWidget {
     return Container(
       width: 176,
       height: 124,
-      color: Colors.amber,
       child: Image.asset(icon),
     );
   }
