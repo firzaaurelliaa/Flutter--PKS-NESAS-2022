@@ -35,7 +35,6 @@ class _HomeAdminState extends State<HomeAdmin> {
         automaticallyImplyLeading: false,
         backgroundColor: const Color(0xff142D4C),
         elevation: 0,
-        
       ),
       body: ListView(
         children: [
@@ -193,7 +192,7 @@ class _HomeAdminState extends State<HomeAdmin> {
             ),
             padding: const EdgeInsets.symmetric(horizontal: 45),
           ),
-
+        
           const SizedBox(height: 30),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -254,6 +253,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                 }
                 return Stack(
                   children: [
+                    
                     Container(
                       width: MediaQuery.of(context).size.width,
                       height: 250,
@@ -265,6 +265,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                       ),
                       child: Column(
                         children: [
+                         
                           Container(
                             margin: const EdgeInsets.all(25),
                             child: Row(
@@ -293,6 +294,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             EditPertandinganTerakhir(
+                                          id: 'id',
                                           cabangolahraga: 'futsal',
                                           imageUrl: '',
                                           docid: snapshot.data!.docs[0],
@@ -394,7 +396,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                                 )),
                                           ],
                                         ),
-                                        const SizedBox(height: 10),
+                                        const SizedBox(height: 25),
                                         Stack(
                                           children: [
                                             Row(
@@ -483,17 +485,17 @@ class _HomeAdminState extends State<HomeAdmin> {
                                           ],
                                         ),
                                         const SizedBox(height: 10),
-                                        Text(
-                                          DateFormat('EEEE, dd MMMM yyyy', 'id')
-                                              .format((snapshot.data!.docs[0].get(
-                                                          'tanggalPertandingan')
-                                                      as Timestamp)
-                                                  .toDate()),
-                                          // snapshot.data!.docs[0]
-                                          //     .get('tanggalPertandingan')
-                                          //     .toString(),
-                                          style: const TextStyle(fontSize: 12),
-                                        ),
+                                        // Text(
+                                        //   DateFormat('EEEE, dd MMMM yyyy', 'id')
+                                        //       .format((snapshot.data!.docs[0].get(
+                                        //                   'tanggalPertandingan')
+                                        //               as Timestamp)
+                                        //           .toDate()),
+                                        //   // snapshot.data!.docs[0]
+                                        //   //     .get('tanggalPertandingan')
+                                        //   //     .toString(),
+                                        //   style: const TextStyle(fontSize: 12),
+                                        // ),
                                       ],
                                     ),
                                   ),
@@ -506,6 +508,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             EditPertandinganTerakhir(
+                                          id: 'id',
                                           cabangolahraga: 'basket',
                                           imageUrl: '',
                                           docid: snapshot.data!.docs[0],
@@ -607,7 +610,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                                 )),
                                           ],
                                         ),
-                                        const SizedBox(height: 10),
+                                        const SizedBox(height: 25),
                                         Stack(
                                           children: [
                                             Row(
@@ -696,14 +699,14 @@ class _HomeAdminState extends State<HomeAdmin> {
                                           ],
                                         ),
                                         const SizedBox(height: 10),
-                                        Text(
-                                          DateFormat('EEEE, dd MMMM yyyy', 'id')
-                                              .format((snapshot.data!.docs[0].get(
-                                                          'tanggalPertandingan')
-                                                      as Timestamp)
-                                                  .toDate()),
-                                          style: const TextStyle(fontSize: 12),
-                                        ),
+                                        // Text(
+                                        //   DateFormat('EEEE, dd MMMM yyyy', 'id')
+                                        //       .format((snapshot.data!.docs[0].get(
+                                        //                   'tanggalPertandingan')
+                                        //               as Timestamp)
+                                        //           .toDate()),
+                                        //   style: const TextStyle(fontSize: 12),
+                                        // ),
                                       ],
                                     ),
                                   ),
@@ -716,6 +719,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             EditPertandinganTerakhir(
+                                          id: 'id',
                                           cabangolahraga: 'voli',
                                           imageUrl: '',
                                           docid: snapshot.data!.docs[0],
@@ -817,7 +821,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                                 )),
                                           ],
                                         ),
-                                        const SizedBox(height: 10),
+                                        const SizedBox(height: 25),
                                         Stack(
                                           children: [
                                             Row(
@@ -906,14 +910,14 @@ class _HomeAdminState extends State<HomeAdmin> {
                                           ],
                                         ),
                                         const SizedBox(height: 10),
-                                        Text(
-                                          DateFormat('EEEE, dd MMMM yyyy', 'id')
-                                              .format((snapshot.data!.docs[0].get(
-                                                          'tanggalPertandingan')
-                                                      as Timestamp)
-                                                  .toDate()),
-                                          style: const TextStyle(fontSize: 12),
-                                        ),
+                                        // Text(
+                                        //   DateFormat('EEEE, dd MMMM yyyy', 'id')
+                                        //       .format((snapshot.data!.docs[0].get(
+                                        //                   'tanggalPertandingan')
+                                        //               as Timestamp)
+                                        //           .toDate()),
+                                        //   style: const TextStyle(fontSize: 12),
+                                        // ),
                                       ],
                                     ),
                                   ),
@@ -926,6 +930,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             EditPertandinganTerakhir(
+                                          id: 'id',
                                           cabangolahraga: 'catur',
                                           imageUrl: '',
                                           docid: snapshot.data!.docs[0],
@@ -1027,7 +1032,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                                 )),
                                           ],
                                         ),
-                                        const SizedBox(height: 10),
+                                        const SizedBox(height: 25),
                                         Stack(
                                           children: [
                                             Row(
@@ -1116,14 +1121,14 @@ class _HomeAdminState extends State<HomeAdmin> {
                                           ],
                                         ),
                                         const SizedBox(height: 10),
-                                        Text(
-                                          DateFormat('EEEE, dd MMMM yyyy', 'id')
-                                              .format((snapshot.data!.docs[0].get(
-                                                          'tanggalPertandingan')
-                                                      as Timestamp)
-                                                  .toDate()),
-                                          style: const TextStyle(fontSize: 12),
-                                        ),
+                                        // Text(
+                                        //   DateFormat('EEEE, dd MMMM yyyy', 'id')
+                                        //       .format((snapshot.data!.docs[0].get(
+                                        //                   'tanggalPertandingan')
+                                        //               as Timestamp)
+                                        //           .toDate()),
+                                        //   style: const TextStyle(fontSize: 12),
+                                        // ),
                                       ],
                                     ),
                                   ),
@@ -1136,6 +1141,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             EditPertandinganTerakhir(
+                                          id: 'id',
                                           cabangolahraga: 'bulutangkis',
                                           imageUrl: '',
                                           docid: snapshot.data!.docs[0],
@@ -1237,7 +1243,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                                 )),
                                           ],
                                         ),
-                                        const SizedBox(height: 10),
+                                        const SizedBox(height: 25),
                                         Stack(
                                           children: [
                                             Row(
@@ -1326,14 +1332,14 @@ class _HomeAdminState extends State<HomeAdmin> {
                                           ],
                                         ),
                                         const SizedBox(height: 10),
-                                        Text(
-                                          DateFormat('EEEE, dd MMMM yyyy', 'id')
-                                              .format((snapshot.data!.docs[0].get(
-                                                          'tanggalPertandingan')
-                                                      as Timestamp)
-                                                  .toDate()),
-                                          style: const TextStyle(fontSize: 12),
-                                        ),
+                                        // Text(
+                                        //   DateFormat('EEEE, dd MMMM yyyy', 'id')
+                                        //       .format((snapshot.data!.docs[0].get(
+                                        //                   'tanggalPertandingan')
+                                        //               as Timestamp)
+                                        //           .toDate()),
+                                        //   style: const TextStyle(fontSize: 12),
+                                        // ),
                                       ],
                                     ),
                                   ),
@@ -1346,6 +1352,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                       MaterialPageRoute(
                                         builder: (context) =>
                                             EditPertandinganTerakhir(
+                                          id: 'id',
                                           cabangolahraga: 'tenisMeja',
                                           imageUrl: '',
                                           docid: snapshot.data!.docs[0],
@@ -1447,7 +1454,7 @@ class _HomeAdminState extends State<HomeAdmin> {
                                                 )),
                                           ],
                                         ),
-                                        const SizedBox(height: 10),
+                                        const SizedBox(height: 25),
                                         Stack(
                                           children: [
                                             Row(
@@ -1538,14 +1545,14 @@ class _HomeAdminState extends State<HomeAdmin> {
                                           ],
                                         ),
                                         const SizedBox(height: 10),
-                                        Text(
-                                          DateFormat('EEEE, dd MMMM yyyy', 'id')
-                                              .format((snapshot.data!.docs[0].get(
-                                                          'tanggalPertandingan')
-                                                      as Timestamp)
-                                                  .toDate()),
-                                          style: const TextStyle(fontSize: 12),
-                                        ),
+                                        // Text(
+                                        //   DateFormat('EEEE, dd MMMM yyyy', 'id')
+                                        //       .format((snapshot.data!.docs[0].get(
+                                        //                   'tanggalPertandingan')
+                                        //               as Timestamp)
+                                        //           .toDate()),
+                                        //   style: const TextStyle(fontSize: 12),
+                                        // ),
                                       ],
                                     ),
                                   ),

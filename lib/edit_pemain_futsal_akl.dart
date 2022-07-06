@@ -30,8 +30,8 @@ class EditPemainFutsalAkl extends StatelessWidget {
                 'posisiFutsal1': posisifutsal1.text,
                 'noPunggungFutsal1': nopunggungfutsal1.text,
               }).whenComplete(() {
-                Navigator.pushReplacement(
-                    context, MaterialPageRoute(builder: (_) =>  PemainAKL(tim1: '', tim2: '',)));
+                // Navigator.pushReplacement(
+                //     context, MaterialPageRoute(builder: (_) =>  PemainAKL(tim1: '', tim2: '', id: , dataJurusan: docdat,)));
               });
             },
             child: const Text(

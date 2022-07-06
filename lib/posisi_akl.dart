@@ -54,24 +54,6 @@ class _PosisiAKLState extends State<PosisiAKL> {
                 child: Column(
                   children: [
                     const SizedBox(height: 10),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(right: 25),
-                          child: IconButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (_) => EditPosisiAkl(
-                                          docid: snapshot.data!.docs[index])));
-                            },
-                            icon: const Icon(Icons.edit, size: 22),
-                          ),
-                        ),
-                      ],
-                    ),
                     Container(
                       width: MediaQuery.of(context).size.width,
                       height: 50,
@@ -89,22 +71,30 @@ class _PosisiAKLState extends State<PosisiAKL> {
                               ),
                             ),
                           ),
-
-                          TextButton(
-                              onPressed: () => {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //     builder: (context) =>
-                                    //         KlasemenFutsalNoAppbar(),
-                                    //   ),
-                                    // ),
-                                  },
-                              child: const Text(
-                                'Lihat detail',
-                                style:
-                                    TextStyle(color: Colors.grey, fontSize: 15),
-                              )),
+                          IconButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (_) => EditPosisiAkl(
+                                          docid: snapshot.data!.docs[index])));
+                            },
+                            icon: const Icon(Icons.edit, size: 22),
+                          ),
+                          // TextButton(
+                          //     onPressed: () => {
+                          //           Navigator.push(
+                          //             context,
+                          //             MaterialPageRoute(
+                          //               builder: (context) =>  KlasemenFutsalNoAppbar(),
+                          //             ),
+                          //           ),
+                          //         },
+                          //     child: const Text(
+                          //       'Lihat detail',
+                          //       style:
+                          //           TextStyle(color: Colors.grey, fontSize: 15),
+                          //     )),
                           // Container(
                           //   margin: const EdgeInsets.only(right: 25),
                           //   child: IconButton(
@@ -171,7 +161,8 @@ class _PosisiAKLState extends State<PosisiAKL> {
                             ),
                             Container(
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Container(
                                     child: Text(
@@ -226,7 +217,7 @@ class _PosisiAKLState extends State<PosisiAKL> {
                       height: 50,
                       color: Colors.transparent,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Container(
                             child: Text(
@@ -238,21 +229,7 @@ class _PosisiAKLState extends State<PosisiAKL> {
                               ),
                             ),
                           ),
-                          TextButton(
-                              onPressed: () => {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //     builder: (context) =>
-                                    //         const KlasemenFutsalNoAppbar(),
-                                    //   ),
-                                    // ),
-                                  },
-                              child: const Text(
-                                'Lihat detail',
-                                style:
-                                    TextStyle(color: Colors.grey, fontSize: 15),
-                              )),
+                          
                         ],
                       ),
                     ),
@@ -307,7 +284,8 @@ class _PosisiAKLState extends State<PosisiAKL> {
                             ),
                             Container(
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Container(
                                     child: Text(
@@ -362,32 +340,19 @@ class _PosisiAKLState extends State<PosisiAKL> {
                       height: 50,
                       color: Colors.transparent,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Container(
                             child: Text(
-                              snapshot.data!.docs[index].get('voli')['posisiKe'],
+                              snapshot.data!.docs[index]
+                                  .get('voli')['posisiKe'],
                               style: const TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
-                          TextButton(
-                              onPressed: () => {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //     builder: (context) =>
-                                    //         const KlasemenFutsalNoAppbar(),
-                                    //   ),
-                                    // ),
-                                  },
-                              child: const Text(
-                                'Lihat detail',
-                                style:
-                                    TextStyle(color: Colors.grey, fontSize: 15),
-                              )),
+                          
                         ],
                       ),
                     ),
@@ -442,7 +407,8 @@ class _PosisiAKLState extends State<PosisiAKL> {
                             ),
                             Container(
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Container(
                                     child: Text(
@@ -497,32 +463,19 @@ class _PosisiAKLState extends State<PosisiAKL> {
                       height: 50,
                       color: Colors.transparent,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Container(
                             child: Text(
-                              snapshot.data!.docs[index].get('catur')['posisiKe'],
+                              snapshot.data!.docs[index]
+                                  .get('catur')['posisiKe'],
                               style: const TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),
-                          TextButton(
-                              onPressed: () => {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //     builder: (context) =>
-                                    //         const KlasemenFutsalNoAppbar(),
-                                    //   ),
-                                    // ),
-                                  },
-                              child: const Text(
-                                'Lihat detail',
-                                style:
-                                    TextStyle(color: Colors.grey, fontSize: 15),
-                              )),
+                          
                         ],
                       ),
                     ),
@@ -577,7 +530,8 @@ class _PosisiAKLState extends State<PosisiAKL> {
                             ),
                             Container(
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Container(
                                     child: Text(
@@ -632,7 +586,7 @@ class _PosisiAKLState extends State<PosisiAKL> {
                       height: 50,
                       color: Colors.transparent,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Container(
                             child: Text(
@@ -644,21 +598,7 @@ class _PosisiAKLState extends State<PosisiAKL> {
                               ),
                             ),
                           ),
-                          TextButton(
-                              onPressed: () => {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //     builder: (context) =>
-                                    //         const KlasemenFutsalNoAppbar(),
-                                    //   ),
-                                    // ),
-                                  },
-                              child: const Text(
-                                'Lihat detail',
-                                style:
-                                    TextStyle(color: Colors.grey, fontSize: 15),
-                              )),
+                          
                         ],
                       ),
                     ),
@@ -713,7 +653,8 @@ class _PosisiAKLState extends State<PosisiAKL> {
                             ),
                             Container(
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Container(
                                     child: Text(
@@ -768,7 +709,7 @@ class _PosisiAKLState extends State<PosisiAKL> {
                       height: 50,
                       color: Colors.transparent,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Container(
                             child: Text(
@@ -780,21 +721,7 @@ class _PosisiAKLState extends State<PosisiAKL> {
                               ),
                             ),
                           ),
-                          TextButton(
-                              onPressed: () => {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //     builder: (context) =>
-                                    //          KlasemenFutsalNoAppbar(),
-                                    //   ),
-                                    // ),
-                                  },
-                              child: const Text(
-                                'Lihat detail',
-                                style:
-                                    TextStyle(color: Colors.grey, fontSize: 15),
-                              )),
+                          
                         ],
                       ),
                     ),
@@ -849,7 +776,8 @@ class _PosisiAKLState extends State<PosisiAKL> {
                             ),
                             Container(
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Container(
                                     child: Text(

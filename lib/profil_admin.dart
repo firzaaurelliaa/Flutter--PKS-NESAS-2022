@@ -154,11 +154,14 @@ class _ProfilAdminState extends State<ProfilAdmin> {
                           ListTile(
                             title: Center(
                                 child: Text(
-                              snapshot.data!.docChanges[index].doc['nama'],
+                              snapshot.data!.docs[index]['nama'],
                             )),
-                            subtitle: Center(
-                                child: Text(snapshot
-                                    .data!.docChanges[index].doc['deskripsi'])),
+                            subtitle: Container(
+                              padding: EdgeInsets.all(8.0),
+                              child: Center(
+                                  child: Text(
+                                      snapshot.data!.docs[index]['deskripsi'])),
+                            ),
                           ),
                           TextButton(
                             style: ElevatedButton.styleFrom(
@@ -183,7 +186,7 @@ class _ProfilAdminState extends State<ProfilAdmin> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 30),
+                  // SizedBox(height: 30),
                   // Container(
                   //   padding: const EdgeInsets.all(20.0),
                   //   child: ElevatedButton(
@@ -200,6 +203,7 @@ class _ProfilAdminState extends State<ProfilAdmin> {
                   //     child: const Text('Keluar'),
                   //   ),
                   // ),
+                  SizedBox(height: 30),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size(350, 38),

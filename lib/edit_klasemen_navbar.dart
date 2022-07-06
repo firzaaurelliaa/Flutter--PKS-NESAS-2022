@@ -19,19 +19,19 @@ enum MediaType {
   video,
 }
 
-class editnoteCrud extends StatefulWidget {
+class EditKlasemenNavbar extends StatefulWidget {
   DocumentSnapshot docid;
 
-  editnoteCrud({
+  EditKlasemenNavbar({
     Key? key,
     required this.docid,
   }) : super(key: key);
 
   @override
-  _editnoteCrudState createState() => _editnoteCrudState();
+  _EditKlasemenNavbarState createState() => _EditKlasemenNavbarState();
 }
 
-class _editnoteCrudState extends State<editnoteCrud> {
+class _EditKlasemenNavbarState extends State<EditKlasemenNavbar> {
   String title = 'AlertDialog';
   bool tappedYes = false;
   TextEditingController no = TextEditingController();
@@ -288,7 +288,7 @@ class _editnoteCrudState extends State<editnoteCrud> {
                                   child: Padding(
                                       padding: EdgeInsets.all(10),
                                       child: Text(
-                                        'Belum ada foto',
+                                        'edit navbat ada foto',
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontSize: 15,
@@ -320,39 +320,34 @@ class _editnoteCrudState extends State<editnoteCrud> {
                     color: const Color(0xff142D4C),
                     // successColor: const Color(0xff142D4C),
                     controller: _btnController2,
+
                     onPressed: () {
-                      if (jurusan.text.isNotEmpty &&
-                          no.text.isNotEmpty &&
-                          main.text.isNotEmpty &&
-                          menang.text.isNotEmpty &&
-                          seri.text.isNotEmpty &&
-                          kalah.text.isNotEmpty &&
-                          poin.text.isNotEmpty) {
-                        widget.docid.reference.update({
-                          "no": no.text,
-                          "jurusan": jurusan.text,
-                          "main": main.text,
-                          "menang": menang.text,
-                          "seri": seri.text,
-                          "kalah": kalah.text,
-                          "poin": poin.text,
-                          'logo': '',
-                        });
-                        uploadImageee();
-                        setState(() {});
-                        // .whenComplete(() {
+                      widget.docid.reference.update({
+                        "no": no.text,
+                        "jurusan": jurusan.text,
+                        "main": main.text,
+                        "menang": menang.text,
+                        "seri": seri.text,
+                        "kalah": kalah.text,
+                        "poin": poin.text,
+                        'logo': '',
+                      });
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text(
+                          "Data telah diperbarui!",
+                          style: TextStyle(color: Colors.white),
+                        ),
+                        backgroundColor: Color(0xff142D4C),
+                      ));
+                      uploadImage();
+                      setState(() {});
+                      // .whenComplete(() {
 
-                        Navigator.pop(
-                          context,
-                        );
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text('Inputan tidak boleh kosong'),
-                          backgroundColor: Color(0xff142D4C),
-                        ));
-                      }
+                      Navigator.pop(
+                        context,
+                      );
+                      // });
                     },
-
                     valueColor: Colors.white,
                     borderRadius: 10,
                     child: const Text('''Simpan''',
@@ -447,7 +442,7 @@ class _editnoteCrudState extends State<editnoteCrud> {
     );
   }
 
-  void pickMediaaa(ImageSource source) async {
+  void pickMedia(ImageSource source) async {
     if (_mediaType == MediaType.image) {
       file = await ImagePicker().pickImage(source: source);
     } else {
@@ -467,21 +462,23 @@ class _editnoteCrudState extends State<editnoteCrud> {
     }
   }
 
-  Future<void> uploadImageee() async {
+  Future<void> uploadImage() async {
     if (file == null) {
       return;
     }
     String imageName = file!.name;
     File imageFile = File(file!.path);
     try {
-      final firebaseStorageRef =
-          await firebaseStorage.ref().child(imageName).putFile(imageFile);
+      final firebaseStorageRef = await firebaseStorage
+          .ref("logoAddFutsal/${DateTime.now().microsecondsSinceEpoch}")
+          .child('')
+          .putFile(imageFile);
       final fileUrl = await firebaseStorageRef.ref.getDownloadURL();
       print(fileUrl);
       await FirebaseFirestore.instance
-          .collection('klasemenFutsal')
-          .doc('0pE7d7h7mdIAJVVRHtTb')
-          .update({'logo': fileUrl});
+          .collection('profilAdmin')
+          .doc('KGe04xpEqrJkE3MuYxsG')
+          .update({'fotoProfil': fileUrl});
     } on FirebaseException catch (e) {
       print(e);
     } catch (error) {

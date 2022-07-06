@@ -30,9 +30,9 @@ class _MyAppState extends State<MyApp> {
         stream: AuthService().firebaseAuth.authStateChanges(),
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
-            return const NavBarUser();
-          } else {
             return const SplashScreen();
+          } else {
+            return const NavBarUser();
           }
         },
       ),

@@ -130,64 +130,119 @@ class _EditPosisiAklState extends State<EditPosisiAkl> {
       appBar: AppBar(
         backgroundColor: const Color(0xff142D4C),
         elevation: 0,
-        automaticallyImplyLeading: true,
+        automaticallyImplyLeading: false,
+        leading: TextButton(
+          child: const Text(
+            "Batal",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          onPressed: () {
+            Navigator.pop(
+              context,
+            );
+          },
+        ),
         actions: [
           MaterialButton(
             onPressed: () {
-              widget.docid.reference.update({
-                'futsal': {
-                  'posisiKe': futsalposisike.text,
-                  'poin': futsalpoin.text,
-                  'main': futsalmain.text,
-                  'menang': futsalmenang.text,
-                  'seri': futsalseri.text,
-                  'kalah': futsalkalah.text,
-                },
-                'basket': {
-                  'posisiKe': basketposisike.text,
-                  'poin': basketpoin.text,
-                  'main': basketmain.text,
-                  'menang': basketmenang.text,
-                  'seri': basketseri.text,
-                  'kalah': basketkalah.text,
-                },
-                'voli': {
-                  'posisiKe': voliposisike.text,
-                  'poin': volipoin.text,
-                  'main': volimain.text,
-                  'menang': volimenang.text,
-                  'seri': voliseri.text,
-                  'kalah': volikalah.text,
-                },
-                'catur': {
-                  'posisiKe': caturposisike.text,
-                  'poin': caturpoin.text,
-                  'main': caturmain.text,
-                  'menang': caturmenang.text,
-                  'seri': caturseri.text,
-                  'kalah': caturkalah.text,
-                },
-                'bulutangkis': {
-                  'posisiKe': bulutangkisposisike.text,
-                  'poin': bulutangkispoin.text,
-                  'main': bulutangkismain.text,
-                  'menang': bulutangkismenang.text,
-                  'seri': bulutangkisseri.text,
-                  'kalah': bulutangkiskalah.text,
-                },
-                'tenismeja': {
-                  'posisiKe': tenismejaposisike.text,
-                  'poin': tenismejapoin.text,
-                  'main': tenismejamain.text,
-                  'menang': tenismejamenang.text,
-                  'seri': tenismejaseri.text,
-                  'kalah': tenismejakalah.text,
-                }
-              }).whenComplete(() {
-                Navigator.pop(
-                  context,
-                );
-              });
+              if (futsalposisike.text.isNotEmpty &&
+                  futsalmain.text.isNotEmpty &&
+                  futsalpoin.text.isNotEmpty &&
+                  futsalmenang.text.isNotEmpty &&
+                  futsalseri.text.isNotEmpty &&
+                  futsalkalah.text.isNotEmpty &&
+                  basketposisike.text.isNotEmpty &&
+                  basketmain.text.isNotEmpty &&
+                  basketpoin.text.isNotEmpty &&
+                  basketmenang.text.isNotEmpty &&
+                  basketseri.text.isNotEmpty &&
+                  basketkalah.text.isNotEmpty &&
+                  voliposisike.text.isNotEmpty &&
+                  volimain.text.isNotEmpty &&
+                  volipoin.text.isNotEmpty &&
+                  volimenang.text.isNotEmpty &&
+                  voliseri.text.isNotEmpty &&
+                  volikalah.text.isNotEmpty &&
+                  caturposisike.text.isNotEmpty &&
+                  caturmain.text.isNotEmpty &&
+                  caturpoin.text.isNotEmpty &&
+                  caturmenang.text.isNotEmpty &&
+                  caturseri.text.isNotEmpty &&
+                  caturkalah.text.isNotEmpty &&
+                  bulutangkisposisike.text.isNotEmpty &&
+                  bulutangkismain.text.isNotEmpty &&
+                  bulutangkispoin.text.isNotEmpty &&
+                  bulutangkismenang.text.isNotEmpty &&
+                  bulutangkisseri.text.isNotEmpty &&
+                  bulutangkiskalah.text.isNotEmpty &&
+                  tenismejaposisike.text.isNotEmpty &&
+                  tenismejamain.text.isNotEmpty &&
+                  tenismejapoin.text.isNotEmpty &&
+                  tenismejamenang.text.isNotEmpty &&
+                  tenismejaseri.text.isNotEmpty &&
+                  tenismejakalah.text.isNotEmpty) {
+                widget.docid.reference.update({
+                  'futsal': {
+                    'posisiKe': futsalposisike.text,
+                    'poin': futsalpoin.text,
+                    'main': futsalmain.text,
+                    'menang': futsalmenang.text,
+                    'seri': futsalseri.text,
+                    'kalah': futsalkalah.text,
+                  },
+                  'basket': {
+                    'posisiKe': basketposisike.text,
+                    'poin': basketpoin.text,
+                    'main': basketmain.text,
+                    'menang': basketmenang.text,
+                    'seri': basketseri.text,
+                    'kalah': basketkalah.text,
+                  },
+                  'voli': {
+                    'posisiKe': voliposisike.text,
+                    'poin': volipoin.text,
+                    'main': volimain.text,
+                    'menang': volimenang.text,
+                    'seri': voliseri.text,
+                    'kalah': volikalah.text,
+                  },
+                  'catur': {
+                    'posisiKe': caturposisike.text,
+                    'poin': caturpoin.text,
+                    'main': caturmain.text,
+                    'menang': caturmenang.text,
+                    'seri': caturseri.text,
+                    'kalah': caturkalah.text,
+                  },
+                  'bulutangkis': {
+                    'posisiKe': bulutangkisposisike.text,
+                    'poin': bulutangkispoin.text,
+                    'main': bulutangkismain.text,
+                    'menang': bulutangkismenang.text,
+                    'seri': bulutangkisseri.text,
+                    'kalah': bulutangkiskalah.text,
+                  },
+                  'tenismeja': {
+                    'posisiKe': tenismejaposisike.text,
+                    'poin': tenismejapoin.text,
+                    'main': tenismejamain.text,
+                    'menang': tenismejamenang.text,
+                    'seri': tenismejaseri.text,
+                    'kalah': tenismejakalah.text,
+                  }
+                }).whenComplete(() {
+                  Navigator.pop(
+                    context,
+                  );
+                });
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                  content: Text('Inputan tidak boleh kosong, silahkan kembali'),
+                  backgroundColor: Color(0xff142D4C),
+                ));
+              }
             },
             child: const Text(
               "Simpan",
@@ -254,7 +309,7 @@ class _EditPosisiAklState extends State<EditPosisiAkl> {
                     filled: true,
                     contentPadding: const EdgeInsets.only(left: 10),
                     suffixIcon: IconButton(
-                      onPressed: futsalposisike.clear,
+                      onPressed: futsalpoin.clear,
                       icon: const Icon(Icons.clear),
                       color: const Color(0xff142D4C),
                     ),
@@ -280,7 +335,7 @@ class _EditPosisiAklState extends State<EditPosisiAkl> {
                     filled: true,
                     contentPadding: const EdgeInsets.only(left: 10),
                     suffixIcon: IconButton(
-                      onPressed: futsalposisike.clear,
+                      onPressed: futsalmain.clear,
                       icon: const Icon(Icons.clear),
                       color: const Color(0xff142D4C),
                     ),
@@ -306,7 +361,7 @@ class _EditPosisiAklState extends State<EditPosisiAkl> {
                     filled: true,
                     contentPadding: const EdgeInsets.only(left: 10),
                     suffixIcon: IconButton(
-                      onPressed: futsalposisike.clear,
+                      onPressed: futsalmenang.clear,
                       icon: const Icon(Icons.clear),
                       color: const Color(0xff142D4C),
                     ),
@@ -332,7 +387,7 @@ class _EditPosisiAklState extends State<EditPosisiAkl> {
                     filled: true,
                     contentPadding: const EdgeInsets.only(left: 10),
                     suffixIcon: IconButton(
-                      onPressed: futsalposisike.clear,
+                      onPressed: futsalseri.clear,
                       icon: const Icon(Icons.clear),
                       color: const Color(0xff142D4C),
                     ),
@@ -358,7 +413,7 @@ class _EditPosisiAklState extends State<EditPosisiAkl> {
                     filled: true,
                     contentPadding: const EdgeInsets.only(left: 10),
                     suffixIcon: IconButton(
-                      onPressed: futsalposisike.clear,
+                      onPressed: futsalkalah.clear,
                       icon: const Icon(Icons.clear),
                       color: const Color(0xff142D4C),
                     ),
@@ -451,7 +506,7 @@ class _EditPosisiAklState extends State<EditPosisiAkl> {
                     filled: true,
                     contentPadding: const EdgeInsets.only(left: 10),
                     suffixIcon: IconButton(
-                      onPressed: futsalposisike.clear,
+                      onPressed: basketmain.clear,
                       icon: const Icon(Icons.clear),
                       color: const Color(0xff142D4C),
                     ),

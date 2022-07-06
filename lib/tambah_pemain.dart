@@ -42,10 +42,9 @@ class _TambahPemainState extends State<TambahPemain> {
                 'noPemain': posisifutsal1.text,
                 'posisiPemain': posisifutsal1.text,
               }).whenComplete(() {
-                Navigator.pop(context,
-                    MaterialPageRoute(builder: (_) =>  PemainAKL(tim1: '', tim2: '',)));
+                // Navigator.pop(context,
+                //     MaterialPageRoute(builder: (_) =>  PemainAKL(tim1: '', tim2: '',  dataJurusan: docData, id: '',)));
               });
-
             },
             child: const Text(
               "Simpan",
@@ -133,8 +132,8 @@ class _TambahPemainState extends State<TambahPemain> {
                     // ignore: prefer_typing_uninitialized_variables
                     var widget;
                     widget.docid.reference.delete().whenComplete(() {
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (_) =>  PemainAKL(tim1: '', tim2: '',)));
+                      // Navigator.pushReplacement(context,
+                      //     MaterialPageRoute(builder: (_) =>  PemainAKL(tim1: '', tim2: '', dataJurusan: docData,)));
                     });
                   },
                   icon: const Icon(Icons.delete))

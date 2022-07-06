@@ -284,7 +284,7 @@ class _EditProfilState extends State<EditProfil> {
                           borderSide: BorderSide(color: Color(0xff142D4C)),
                         ),
                       ),
-                      // maxLength: 15,
+                      maxLength: 30,
                     ),
                     const SizedBox(
                       height: 30,
@@ -297,36 +297,26 @@ class _EditProfilState extends State<EditProfil> {
                         primary: const Color(0xff142D4C),
                         onPrimary: Colors.white,
                       ),
-                      // onPressed: () {
-                      //   if (nama.text.isNotEmpty && deskripsi.text.isNotEmpty) {
-                      //     FirebaseFirestore.instance
-                      //         .collection('')
-                      //         .doc('')
-                      //         .collection('')
-                      //         .add({
-                      //       'nama': nama.text,
-                      //       'deskripsi': deskripsi.text,
-                      //     });
-                      //     navigago
-                      //   }
-                      // },
-                      onPressed: () async {
-                        widget.docid.reference.update({
-                          'nama': nama.text,
-                          'deskripsi': deskripsi.text,
-                        });
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          content: const Text("Profil telah diperbarui!"),
-                          backgroundColor: Color(0xff142D4C),
-                        ));
-                        uploadImage();
-                        setState(() {});
-                        // .whenComplete(() {
+                      onPressed: () {
+                        if (nama.text.isNotEmpty && deskripsi.text.isNotEmpty) {
+                          widget.docid.reference.update({
+                            'nama': nama.text,
+                            'deskripsi': deskripsi.text,
+                            // 'fotoProfil': uploadImage(),
+                          }).whenComplete(() {
+                            Navigator.pop(
+                              context,
+                            );
+                          });
 
-                        Navigator.pop(
-                          context,
-                        );
-                        // });
+                          uploadImage();
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(
+                                'Inputan tidak boleh kosong, silahkan kembali'),
+                            backgroundColor: Color(0xff142D4C),
+                          ));
+                        }
                       },
                       child: const Text(
                         'Simpan',
@@ -374,14 +364,14 @@ class _EditProfilState extends State<EditProfil> {
     File imageFile = File(file!.path);
     try {
       final firebaseStorageRef = await firebaseStorage
-          .ref("admin")
+          .ref("admin/${DateTime.now().microsecondsSinceEpoch}")
           .child(imageName)
           .putFile(imageFile);
       final fileUrl = await firebaseStorageRef.ref.getDownloadURL();
       print(fileUrl);
       await FirebaseFirestore.instance
           .collection('profilAdmin')
-          .doc('KGe04xpEqrJkE3MuYxsG')
+          .doc('90Sqc4KDXt5WQv3Iiqfk')
           .update({'fotoProfil': fileUrl});
     } on FirebaseException catch (e) {
       print(e);

@@ -16,10 +16,12 @@ enum MediaType {
 
 class FormListFutsal extends StatefulWidget {
   DocumentSnapshot docid;
+  final String id;
 
   FormListFutsal({
     Key? key,
     required this.docid,
+    required this.id,
   }) : super(key: key);
 
   @override
@@ -33,24 +35,28 @@ class _FormListFutsalState extends State<FormListFutsal> {
 
   TextEditingController tim1 = TextEditingController();
   TextEditingController tim2 = TextEditingController();
-  TextEditingController tanggal = TextEditingController();
+  // TextEditingController tanggal = TextEditingController();
   TextEditingController skor1 = TextEditingController();
   TextEditingController skor2 = TextEditingController();
 
   final MediaType _mediaType = MediaType.image;
   XFile? file;
-  File? image;
+  XFile? file2;
+  XFile? imageFile;
+  String? image;
+
+  // File? image;
 
   FirebaseStorage firebaseStorage = FirebaseStorage.instance;
-  String? imagePath;
-  String? imagePathh;
-  String? image1, image2;
+  String? imagePath = '';
+  String? imagePathh = '';
+  String? image1 = '', image2 = '';
 
   @override
   void initState() {
     tim1 = TextEditingController(text: widget.docid["futsal"]["tim1"]);
     tim2 = TextEditingController(text: widget.docid["futsal"]["tim2"]);
-    tanggal = TextEditingController(text: widget.docid["futsal"]["tanggal"]);
+    // tanggal = TextEditingController(text: widget.docid["futsal"]["tanggal"]);
     skor1 = TextEditingController(text: widget.docid["futsal"]["skor1"]);
     skor2 = TextEditingController(text: widget.docid["futsal"]["skor2"]);
     image1 = widget.docid.get('futsal')['logo1'];
@@ -60,6 +66,8 @@ class _FormListFutsalState extends State<FormListFutsal> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.id);
+    print(widget.docid.reference);
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -97,9 +105,9 @@ class _FormListFutsalState extends State<FormListFutsal> {
                           pickMedia(ImageSource.gallery);
                         },
                         child: SizedBox(
-                          width: 90,
-                          height: 90,
-                          child: (imagePath != null)
+                          width: 110,
+                          height: 110,
+                          child: (imagePath == null)
                               ? CircleAvatar(
                                   backgroundImage: FileImage(File(imagePath!)))
                               : widget.docid.get('futsal')['logo1'] == ""
@@ -118,11 +126,11 @@ class _FormListFutsalState extends State<FormListFutsal> {
                                     )
                                   : Container(
                                       decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
                                         image: DecorationImage(
                                             fit: BoxFit.cover,
                                             image: NetworkImage(widget.docid
                                                 .get('futsal')['logo1'])),
+                                        shape: BoxShape.circle,
                                         color: Colors.grey[300]!,
                                       ),
                                       width: 300,
@@ -143,9 +151,9 @@ class _FormListFutsalState extends State<FormListFutsal> {
                           pickMediaa(ImageSource.gallery);
                         },
                         child: SizedBox(
-                          width: 90,
-                          height: 90,
-                          child: (imagePathh != null)
+                          width: 110,
+                          height: 110,
+                          child: (imagePathh == null)
                               ? CircleAvatar(
                                   backgroundImage: FileImage(File(imagePathh!)))
                               : widget.docid.get('futsal')['logo2'] == ""
@@ -164,11 +172,11 @@ class _FormListFutsalState extends State<FormListFutsal> {
                                     )
                                   : Container(
                                       decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
                                         image: DecorationImage(
                                             fit: BoxFit.cover,
                                             image: NetworkImage(widget.docid
                                                 .get('futsal')['logo2'])),
+                                        shape: BoxShape.circle,
                                         color: Colors.grey[300]!,
                                       ),
                                       width: 300,
@@ -320,6 +328,7 @@ class _FormListFutsalState extends State<FormListFutsal> {
                       return null;
                     },
                   ),
+
                   const SizedBox(height: 30),
                   // Center(
                   //     child: Container(
@@ -331,19 +340,35 @@ class _FormListFutsalState extends State<FormListFutsal> {
                     color: const Color(0xff142D4C),
                     // successColor: const Color(0xff142D4C),
                     controller: _btnController2,
-                    onPressed: () {
-                      widget.docid.reference.update({
+                    onPressed: () async {
+                      FirebaseFirestore.instance
+                          .collection('cabor')
+                          .doc(widget.id)
+                          .set({
                         'futsal': {
                           'skor1': skor1.text,
                           'skor2': skor2.text,
-                          'tanggal': tanggal.text,
+                          // 'tanggal': tanggal.text,
                           'tim1': tim1.text,
                           'tim2': tim2.text,
-                          'logo1': image1,
-                          'logo2': image2,
+
                           // 'tanggalPertandingan' : ,
                         },
-                      });
+                      }, SetOptions(merge: true));
+                      // widget.docid.reference.update({
+                      //   'futsal': {
+                      //     'skor1': skor1.text,
+                      //     'skor2': skor2.text,
+                      //     // 'tanggal': tanggal.text,
+                      //     'tim1': tim1.text,
+                      //     'tim2': tim2.text,
+                      //     'logo1': image,
+                      //     'logo2': image2,
+                      //     // 'tanggalPertandingan' : ,
+                      //   },
+                      // });
+
+                      await uploadImage();
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text(
                           "Data telah diperbarui!",
@@ -351,7 +376,7 @@ class _FormListFutsalState extends State<FormListFutsal> {
                         ),
                         backgroundColor: Color(0xff142D4C),
                       ));
-                      uploadImage();
+
                       setState(() {});
                       // .whenComplete(() {
 
@@ -400,15 +425,15 @@ class _FormListFutsalState extends State<FormListFutsal> {
 
   void pickMediaa(ImageSource source) async {
     if (_mediaType == MediaType.image) {
-      file = await ImagePicker().pickImage(source: source);
+      file2 = await ImagePicker().pickImage(source: source);
     } else {
-      file = await ImagePicker().pickVideo(source: source);
+      file2 = await ImagePicker().pickVideo(source: source);
     }
-    if (file != null) {
-      imagePathh = file!.path;
+    if (file2 != null) {
+      imagePathh = file2!.path;
       if (_mediaType == MediaType.video) {
         imagePathh = await VideoThumbnail.thumbnailFile(
-            video: file!.path,
+            video: file2!.path,
             imageFormat: ImageFormat.PNG,
             quality: 100,
             maxWidth: 300,
@@ -419,22 +444,45 @@ class _FormListFutsalState extends State<FormListFutsal> {
   }
 
   Future<void> uploadImage() async {
-    if (file == null) {
+    if (file == null || file2 == null) {
       return;
     }
-    String imageName = file!.name;
-    File imageFile = File(file!.path);
+
     try {
+      String imageName = file!.name;
+      File imageFile = File(file!.path);
       final firebaseStorageRef = await firebaseStorage
-          .ref("admin")
+          .ref("logoAddFutsal/${DateTime.now().microsecondsSinceEpoch}")
           .child(imageName)
           .putFile(imageFile);
       final fileUrl = await firebaseStorageRef.ref.getDownloadURL();
       print(fileUrl);
+
+      String imageName2 = file2!.name;
+      File imageFile2 = File(file2!.path);
+      final firebaseStorageRef2 = await firebaseStorage
+          .ref("logoAddFutsal/${DateTime.now().microsecondsSinceEpoch}")
+          .child(imageName2)
+          .putFile(imageFile2);
+      final fileUrl2 = await firebaseStorageRef2.ref.getDownloadURL();
+      print(fileUrl2);
+
       await FirebaseFirestore.instance
-          .collection('profilAdmin')
-          .doc('KGe04xpEqrJkE3MuYxsG')
-          .update({'fotoProfil': fileUrl});
+          .collection('cabor')
+          .doc(widget.id)
+          .update(
+        {
+          'futsal': {
+            'skor1': skor1.text,
+            'skor2': skor2.text,
+            'tim1': tim1.text,
+            'tim2': tim2.text,
+            'logo1': fileUrl,
+            'logo2': fileUrl2,
+            // 'tanggalPertandingan' : ,
+          },
+        },
+      );
     } on FirebaseException catch (e) {
       print(e);
     } catch (error) {
@@ -452,5 +500,22 @@ class UpperCaseTextFormatter extends TextInputFormatter {
       text: newValue.text.toUpperCase(),
       selection: newValue.selection,
     );
+  }
+}
+
+class PickImage {
+  final ImagePicker _picker = ImagePicker();
+  Future<XFile?> pickImage({required ImageSource source}) async {
+    try {
+      final XFile? image = await _picker.pickImage(source: source);
+      if (image == null) return null;
+      final imageTemp = XFile(image.path);
+      return imageTemp;
+      // setState(() {
+      //   this.image = imageTemp;
+      // });
+    } on PlatformException catch (e) {
+      print("Failed to pick image $e");
+    }
   }
 }

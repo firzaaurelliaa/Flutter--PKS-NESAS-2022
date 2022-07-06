@@ -48,25 +48,25 @@
 //           body: SingleChildScrollView(
 //             child: Column(
 //               children: [
-//                 Stack(
-//                   children: [
-//                     Container(
-//                       width: MediaQuery.of(context).size.width,
-//                       height: 150,
-//                       color: const Color(0xff142D4C),
-//                     ),
-//                     Row(
-//                       mainAxisAlignment: MainAxisAlignment.center,
-//                       children: [
-//                         SizedBox(
-//                           width: 200,
-//                           height: 150,
-//                           child: Image.asset('assets/images/logopks.png'),
-//                         ),
-//                       ],
-//                     )
-//                   ],
-//                 ),
+                // Stack(
+                //   children: [
+                //     Container(
+                //       width: MediaQuery.of(context).size.width,
+                //       height: 150,
+                //       color: const Color(0xff142D4C),
+                //     ),
+                //     Row(
+                //       mainAxisAlignment: MainAxisAlignment.center,
+                //       children: [
+                //         SizedBox(
+                //           width: 200,
+                //           height: 150,
+                //           child: Image.asset('assets/images/logopks.png'),
+                //         ),
+                //       ],
+                //     )
+                //   ],
+                // ),
 //                 SingleChildScrollView(
 //                   child: Container(
 //                       margin: const EdgeInsets.all(10),

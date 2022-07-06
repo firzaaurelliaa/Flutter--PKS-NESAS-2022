@@ -199,10 +199,16 @@ class _UserTabbarBodyState extends State<UserTabbarBody> {
                     children: [
                       UserStatistik(docId: widget.doc.id),
                       TimFutsalRplOtkp(
-                        tim1: '',
-                        tim2: '',
+                        id: widget.doc.id,
+                        // tim1: '',
+                        // tim2: '',
+                        // docId: widget.doc.id,
                       ),
-                      const DeskripsiRplOtkp(),
+                      DeskripsiRplOtkp(
+                        id: widget.doc.id,
+                        //   d
+                        // ocId: widget.doc.id
+                      ),
                       const KlasemenFutsalNoAppbar(),
                     ],
                   ),

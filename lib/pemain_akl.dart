@@ -2,6 +2,8 @@
 
 import 'package:akhir/add_pemain.dart';
 import 'package:akhir/add_pemain2.dart';
+import 'package:akhir/add_pemain_futsal_jurusan.dart';
+import 'package:akhir/add_pemain_jurusan.dart';
 import 'package:akhir/edit_tim.dart';
 import 'package:akhir/edit_tim2..dart';
 import 'package:akhir/page_belum_diatur.dart';
@@ -18,6 +20,8 @@ enum MediaType {
 class PemainAKL extends StatefulWidget {
   final String? tim1;
   final String? tim2;
+  final String id;
+  final DocumentSnapshot? dataJurusan;
 
   // Future<void> update([DocumentSnapshot? snapshot]) async {
   //   if (snapshot != null) {
@@ -28,8 +32,10 @@ class PemainAKL extends StatefulWidget {
 
   PemainAKL({
     Key? key,
+    required this.dataJurusan,
     required this.tim1,
     required this.tim2,
+    required this.id,
   }) : super(key: key);
   @override
   _PemainAKLState createState() => _PemainAKLState();
@@ -51,7 +57,11 @@ class _PemainAKLState extends State<PemainAKL> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: StreamBuilder(
-        stream: _usersStream,
+        stream: FirebaseFirestore.instance
+            .collection('playerDatas')
+            .where('kelasPemain',
+                isEqualTo: widget.dataJurusan!.get('identifierJurusan'))
+            .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return const Text("something is wrong");
@@ -101,14 +111,14 @@ class _PemainAKLState extends State<PemainAKL> {
                           (index) {
                             return GestureDetector(
                               onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => edittim(
-                                              docid: snapshot.data!.docs[index],
-                                              imageUrl: '',
-                                              // docid: id,
-                                            )));
+                                // Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //         builder: (_) => edittim(
+                                //               docid: snapshot.data!.docs[index],
+                                //               imageUrl: '',
+                                //               // docid: id,
+                                //             )));
                               },
                               child: Card(
                                 nama: snapshot.data!.docs[index]
@@ -131,8 +141,9 @@ class _PemainAKLState extends State<PemainAKL> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (_) => const PageBelumDiatur(
-                                        // docid: id,
+                                    builder: (_) => AddPemainFutsalJurusan(
+                                          id: widget.id,
+                                          // docid: id,
                                         )));
                           },
                           child: Container(
@@ -279,8 +290,9 @@ class _PemainAKLState extends State<PemainAKL> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (_) => const PageBelumDiatur(
-                                        // docid: id,
+                                    builder: (_) => AddPemainJurusan(
+                                          id: widget.id,
+                                          // docid: id,
                                         )));
                           },
                           child: Container(

@@ -85,7 +85,7 @@ class PilihanPertandingan extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       // ignore: prefer_const_literals_to_create_immutables
                       children: [
-                         const Text(
+                        const Text(
                           'Voli',
                           style: TextStyle(
                             color: Color(0xfff6f6f6),
@@ -174,7 +174,9 @@ class PilihanPertandingan extends StatelessWidget {
                   AKLPertandinganFutsal(
                     dataJurusan: docData,
                   ),
-                  const AKLPertandinganBasket(),
+                  AKLPertandinganBasket(
+                    dataJurusan: docData,
+                  ),
                   const AKLPertandinganVoli(),
                   const AKLPertandinganCatur(),
                   const AKLPertandinganBulutangkis(),

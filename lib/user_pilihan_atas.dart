@@ -18,7 +18,7 @@ class UserPilihanAtas extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 4,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: true,
@@ -78,7 +78,7 @@ class UserPilihanAtas extends StatelessWidget {
               indicatorColor: Colors.white,
               tabs: [
                 Tab(text: 'Tentang'),
-                Tab(text: 'Pertandingan'),
+              
                 Tab(text: 'Pemain'),
                 Tab(text: 'Posisi'),
               ]),
@@ -87,12 +87,12 @@ class UserPilihanAtas extends StatelessWidget {
           UserAKLTentang(
             dataJurusan: docData,
           ),
-          PilihanPertandingan(
-            dataJurusan: docData,
-          ),
+          
           PemainAKL(
             tim1: '',
             tim2: '',
+            dataJurusan: docData,
+            id: '',
           ),
           UserPosisiAKL(
             dataJurusan: docData,

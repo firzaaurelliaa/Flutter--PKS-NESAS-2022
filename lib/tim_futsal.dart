@@ -16,8 +16,10 @@ enum MediaType {
 }
 
 class TimFutsalRplOtkp extends StatefulWidget {
-  final String? tim1;
-  final String? tim2;
+  final String id;
+  // final String? tim1;
+  // final String? tim2;
+  // final String docId;
 
   // Future<void> update([DocumentSnapshot? snapshot]) async {
   //   if (snapshot != null) {
@@ -28,8 +30,10 @@ class TimFutsalRplOtkp extends StatefulWidget {
 
   TimFutsalRplOtkp({
     Key? key,
-    required this.tim1,
-    required this.tim2,
+    required this.id,
+    // required this.tim1,
+    // required this.tim2,
+    // required this.docId,
   }) : super(key: key);
   @override
   _TimFutsalRplOtkpState createState() => _TimFutsalRplOtkpState();
@@ -71,8 +75,14 @@ class _TimFutsalRplOtkpState extends State<TimFutsalRplOtkp> {
       //   ),
       // ),
 
-      body: StreamBuilder(
-        stream: _usersStream,
+      body: StreamBuilder<QuerySnapshot>(
+        stream: FirebaseFirestore.instance
+            .collection('timFutsal')
+            .where(
+              'caborId',
+              isEqualTo: widget.id,
+            )
+            .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return const Text("something is wrong");
@@ -93,159 +103,163 @@ class _TimFutsalRplOtkpState extends State<TimFutsalRplOtkp> {
           }
           return ListView(
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.all(25),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      // ignore: prefer_const_literals_to_create_immutables
-                      children: [
-                        const Text(
-                          'Tim 1',
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w900,
-                              color: Color(0xff142D4C)),
+              ...snapshot.data!.docs.map(
+                (e) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(25),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          // ignore: prefer_const_literals_to_create_immutables
+                          children: [
+                            const Text(
+                              'Tim 1',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w900,
+                                  color: Color(0xff142D4C)),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        SizedBox(width: 5),
-                        ...List.generate(
-                          snapshot.data!.size,
-                          (index) {
-                            return GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => edittim(
-                                              docid: snapshot.data!.docs[index],
-                                              imageUrl: '',
-                                              // docid: id,
-                                            )));
+                      ),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            SizedBox(width: 5),
+                            ...List.generate(
+                              snapshot.data!.size,
+                              (index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    // Navigator.push(
+                                    //     context,
+                                    //     MaterialPageRoute(
+                                    //         builder: (_) => edittim(
+                                    //               docid: snapshot.data!.docs[index],
+                                    //               imageUrl: '',
+                                    //               // docid: id,
+                                    //             )));
+                                  },
+                                  child: Card(
+                                    nama: snapshot.data!.docs[index]
+                                        .get('tim1')['namaPemain'],
+                                    posisi: snapshot.data!.docs[index]
+                                        .get('tim1')['posisiPemain'],
+                                    no: snapshot.data!.docs[index]
+                                        .get('tim1')['noPemain'],
+                                    foto: snapshot.data!.docs[index]
+                                        .get('tim1')['fotoPemain'],
+                                    imageUrl: snapshot.data!.docs[index]
+                                        .get('tim1')['fotoPemain'],
+                                    id: snapshot.data!.docs[index],
+                                  ),
+                                );
                               },
-                              child: Card(
-                                nama: snapshot.data!.docs[index]
-                                    .get('tim1')['namaPemain'],
-                                posisi: snapshot.data!.docs[index]
-                                    .get('tim1')['posisiPemain'],
-                                no: snapshot.data!.docs[index]
-                                    .get('tim1')['noPemain'],
-                                foto: snapshot.data!.docs[index]
-                                    .get('tim1')['fotoPemain'],
-                                imageUrl: snapshot.data!.docs[index]
-                                    .get('tim1')['fotoPemain'],
-                                id: snapshot.data!.docs[index],
-                              ),
-                            );
-                          },
+                            ),
+                            //   GestureDetector(
+                            //     onTap: () {
+                            //       Navigator.push(
+                            //           context,
+                            //           MaterialPageRoute(
+                            //               builder: (_) => const AddPemain(
+                            //                   // docid: id,
+                            //                   )));
+                            //     },
+                            //     child: Container(
+                            //       width: 50.0,
+                            //       height: 50.0,
+                            //       decoration: const BoxDecoration(
+                            //         color: Color(0xff142D4C),
+                            //         shape: BoxShape.circle,
+                            //       ),
+                            //       child: const Icon(Icons.add, color: Colors.white),
+                            //     ),
+                            //   )
+                            //
+                          ],
                         ),
-                        //   GestureDetector(
-                        //     onTap: () {
-                        //       Navigator.push(
-                        //           context,
-                        //           MaterialPageRoute(
-                        //               builder: (_) => const AddPemain(
-                        //                   // docid: id,
-                        //                   )));
-                        //     },
-                        //     child: Container(
-                        //       width: 50.0,
-                        //       height: 50.0,
-                        //       decoration: const BoxDecoration(
-                        //         color: Color(0xff142D4C),
-                        //         shape: BoxShape.circle,
-                        //       ),
-                        //       child: const Icon(Icons.add, color: Colors.white),
-                        //     ),
-                        //   )
-                        //
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  Container(
-                    padding: const EdgeInsets.all(25),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      // ignore: prefer_const_literals_to_create_immutables
-                      children: [
-                        const Text(
-                          'Tim 2',
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.w900,
-                              color: Color(0xff142D4C)),
+                      ),
+                      const SizedBox(height: 15),
+                      Container(
+                        padding: const EdgeInsets.all(25),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          // ignore: prefer_const_literals_to_create_immutables
+                          children: [
+                            const Text(
+                              'Tim 2',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w900,
+                                  color: Color(0xff142D4C)),
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
-                  ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: [
-                        SizedBox(width: 5),
-                        ...List.generate(
-                          snapshot.data!.size,
-                          (index) {
-                            return GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (_) => edittim(
-                                              docid: snapshot.data!.docs[index],
-                                              imageUrl: '',
-                                              // docid: id,
-                                            )));
+                      ),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            SizedBox(width: 5),
+                            ...List.generate(
+                              snapshot.data!.size,
+                              (index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    // Navigator.push(
+                                    //     context,
+                                    //     MaterialPageRoute(
+                                    //         builder: (_) => edittim(
+                                    //               docid: snapshot.data!.docs[index],
+                                    //               imageUrl: '',
+                                    //               // docid: id,
+                                    //             )));
+                                  },
+                                  child: Card(
+                                    nama: snapshot.data!.docs[index]
+                                        .get('tim2')['namaPemain'],
+                                    posisi: snapshot.data!.docs[index]
+                                        .get('tim2')['posisiPemain'],
+                                    no: snapshot.data!.docs[index]
+                                        .get('tim2')['noPemain'],
+                                    foto: snapshot.data!.docs[index]
+                                        .get('tim2')['fotoPemain'],
+                                    imageUrl: snapshot.data!.docs[index]
+                                        .get('tim2')['fotoPemain'],
+                                    id: snapshot.data!.docs[index],
+                                  ),
+                                );
                               },
-                              child: Card(
-                                nama: snapshot.data!.docs[index]
-                                    .get('tim2')['namaPemain'],
-                                posisi: snapshot.data!.docs[index]
-                                    .get('tim2')['posisiPemain'],
-                                no: snapshot.data!.docs[index]
-                                    .get('tim2')['noPemain'],
-                                foto: snapshot.data!.docs[index]
-                                    .get('tim2')['fotoPemain'],
-                                imageUrl: snapshot.data!.docs[index]
-                                    .get('tim2')['fotoPemain'],
-                                id: snapshot.data!.docs[index],
-                              ),
-                            );
-                          },
+                            ),
+                            // GestureDetector(
+                            //   onTap: () {
+                            //     Navigator.push(
+                            //         context,
+                            //         MaterialPageRoute(
+                            //             builder: (_) => const AddPemain2(
+                            //                 // docid: id,
+                            //                 )));
+                            //   },
+                            //   child: Container(
+                            //     width: 50.0,
+                            //     height: 50.0,
+                            //     decoration: const BoxDecoration(
+                            //       color: Color(0xff142D4C),
+                            //       shape: BoxShape.circle,
+                            //     ),
+                            //     child: const Icon(Icons.add, color: Colors.white),
+                            //   ),
+                            // )
+                          ],
                         ),
-                        // GestureDetector(
-                        //   onTap: () {
-                        //     Navigator.push(
-                        //         context,
-                        //         MaterialPageRoute(
-                        //             builder: (_) => const AddPemain2(
-                        //                 // docid: id,
-                        //                 )));
-                        //   },
-                        //   child: Container(
-                        //     width: 50.0,
-                        //     height: 50.0,
-                        //     decoration: const BoxDecoration(
-                        //       color: Color(0xff142D4C),
-                        //       shape: BoxShape.circle,
-                        //     ),
-                        //     child: const Icon(Icons.add, color: Colors.white),
-                        //   ),
-                        // )
-                      ],
-                    ),
-                  ),
-                  SizedBox(height: 50),
-                ],
+                      ),
+                      SizedBox(height: 50),
+                    ],
+                  );
+                },
               ),
             ],
           );

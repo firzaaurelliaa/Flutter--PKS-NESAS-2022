@@ -9,7 +9,7 @@ class OOPCardScore extends StatelessWidget {
   final String tim2;
   final String skor1;
   final String skor2;
-  final String tanggal;
+  // final String tanggal;
   final String logo1;
   final String logo2;
   final DocumentSnapshot documentSnapshot;
@@ -21,7 +21,7 @@ class OOPCardScore extends StatelessWidget {
     required this.tim2,
     required this.skor1,
     required this.skor2,
-    required this.tanggal,
+    // required this.tanggal,
     required this.logo1,
     required this.logo2,
     required this.documentSnapshot,
@@ -36,70 +36,46 @@ class OOPCardScore extends StatelessWidget {
           height: 20,
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    color: const Color(0xff142D4C),
-                  ),
-                  padding: const EdgeInsets.all(3),
-                  width: 110,
-                  height: 30,
-                  child: const Center(
-                    child: Text(
-                      'F U  L L   T I M E',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 13,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: const Color(0xff142D4C),
+              ),
+              padding: const EdgeInsets.all(3),
+              width: 110,
+              height: 30,
+              child: const Center(
+                child: Text(
+                  "",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(width: 7),
-                Text(
-                  tanggal,
-                  style: const TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 53, 53, 53),
-                  ),
-                ),
-                // Text(
-                //   snapshot.data!.docs[index]
-                //       .get('futsal')['tanggal'],
-                //   style: TextStyle(
-                // color: Color.fromARGB(255, 53, 53, 53),
-                // fontWeight: FontWeight.bold),
-                // ),
-              ],
+              ),
             ),
+            const SizedBox(width: 7),
           ],
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            TextButton(
-                onPressed: () => {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TabbarBody(
-                            doc: documentSnapshot,
-                            id: id,
-                          ),
-                        ),
-                      ),
-                    },
-                child: const Text(
-                  'Lihat DFJDJ',
-                  style: TextStyle(color: Colors.grey, fontSize: 13),
-                )),
-          ],
-        ),
+        TextButton(
+            onPressed: () => {
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (context) => TabbarBody(
+                  //       doc: documentSnapshot,
+                  //       id: id,
+                  //     ),
+                  //   ),
+                  // ),
+                },
+            child: const Text(
+              'Lihat Detail',
+              style: TextStyle(color: Colors.grey, fontSize: 13),
+            )),
         InkWell(
           onTap: () {
             // Navigator.push(

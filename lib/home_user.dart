@@ -394,7 +394,7 @@ class _HomeUserState extends State<HomeUser> {
                                               )),
                                         ],
                                       ),
-                                      const SizedBox(height: 10),
+                                      const SizedBox(height: 25),
                                       Stack(
                                         children: [
                                           Row(
@@ -480,17 +480,17 @@ class _HomeUserState extends State<HomeUser> {
                                         ],
                                       ),
                                       const SizedBox(height: 10),
-                                      Text(
-                                        DateFormat('EEEE, dd MMMM yyyy', 'id')
-                                            .format((snapshot.data!.docs[0].get(
-                                                        'tanggalPertandingan')
-                                                    as Timestamp)
-                                                .toDate()),
-                                        // snapshot.data!.docs[0]
-                                        //     .get('tanggalPertandingan')
-                                        //     .toString(),
-                                        style: const TextStyle(fontSize: 12),
-                                      ),
+                                      // Text(
+                                      //   DateFormat('EEEE, dd MMMM yyyy', 'id')
+                                      //       .format((snapshot.data!.docs[0].get(
+                                      //                   'tanggalPertandingan')
+                                      //               as Timestamp)
+                                      //           .toDate()),
+                                      //   // snapshot.data!.docs[0]
+                                      //   //     .get('tanggalPertandingan')
+                                      //   //     .toString(),
+                                      //   style: const TextStyle(fontSize: 12),
+                                      // ),
                                     ],
                                   ),
                                 ),
@@ -584,7 +584,7 @@ class _HomeUserState extends State<HomeUser> {
                                               )),
                                         ],
                                       ),
-                                      const SizedBox(height: 10),
+                                      const SizedBox(height: 25),
                                       Stack(
                                         children: [
                                           Row(
@@ -670,14 +670,14 @@ class _HomeUserState extends State<HomeUser> {
                                         ],
                                       ),
                                       const SizedBox(height: 10),
-                                      Text(
-                                        DateFormat('EEEE, dd MMMM yyyy', 'id')
-                                            .format((snapshot.data!.docs[0].get(
-                                                        'tanggalPertandingan')
-                                                    as Timestamp)
-                                                .toDate()),
-                                        style: const TextStyle(fontSize: 12),
-                                      ),
+                                      // Text(
+                                      //   DateFormat('EEEE, dd MMMM yyyy', 'id')
+                                      //       .format((snapshot.data!.docs[0].get(
+                                      //                   'tanggalPertandingan')
+                                      //               as Timestamp)
+                                      //           .toDate()),
+                                      //   style: const TextStyle(fontSize: 12),
+                                      // ),
                                     ],
                                   ),
                                 ),
@@ -771,7 +771,7 @@ class _HomeUserState extends State<HomeUser> {
                                               )),
                                         ],
                                       ),
-                                      const SizedBox(height: 10),
+                                      const SizedBox(height: 25),
                                       Stack(
                                         children: [
                                           Row(
@@ -855,14 +855,14 @@ class _HomeUserState extends State<HomeUser> {
                                         ],
                                       ),
                                       const SizedBox(height: 10),
-                                      Text(
-                                        DateFormat('EEEE, dd MMMM yyyy', 'id')
-                                            .format((snapshot.data!.docs[0].get(
-                                                        'tanggalPertandingan')
-                                                    as Timestamp)
-                                                .toDate()),
-                                        style: const TextStyle(fontSize: 12),
-                                      ),
+                                      // Text(
+                                      //   DateFormat('EEEE, dd MMMM yyyy', 'id')
+                                      //       .format((snapshot.data!.docs[0].get(
+                                      //                   'tanggalPertandingan')
+                                      //               as Timestamp)
+                                      //           .toDate()),
+                                      //   style: const TextStyle(fontSize: 12),
+                                      // ),
                                     ],
                                   ),
                                 ),
@@ -956,7 +956,7 @@ class _HomeUserState extends State<HomeUser> {
                                               )),
                                         ],
                                       ),
-                                      const SizedBox(height: 10),
+                                      const SizedBox(height: 25),
                                       Stack(
                                         children: [
                                           Row(
@@ -1042,14 +1042,14 @@ class _HomeUserState extends State<HomeUser> {
                                         ],
                                       ),
                                       const SizedBox(height: 10),
-                                      Text(
-                                        DateFormat('EEEE, dd MMMM yyyy', 'id')
-                                            .format((snapshot.data!.docs[0].get(
-                                                        'tanggalPertandingan')
-                                                    as Timestamp)
-                                                .toDate()),
-                                        style: const TextStyle(fontSize: 12),
-                                      ),
+                                      // Text(
+                                      //   DateFormat('EEEE, dd MMMM yyyy', 'id')
+                                      //       .format((snapshot.data!.docs[0].get(
+                                      //                   'tanggalPertandingan')
+                                      //               as Timestamp)
+                                      //           .toDate()),
+                                      //   style: const TextStyle(fontSize: 12),
+                                      // ),
                                     ],
                                   ),
                                 ),
@@ -1144,7 +1144,7 @@ class _HomeUserState extends State<HomeUser> {
                                               )),
                                         ],
                                       ),
-                                      const SizedBox(height: 10),
+                                      const SizedBox(height: 25),
                                       Stack(
                                         children: [
                                           Row(
@@ -1230,14 +1230,14 @@ class _HomeUserState extends State<HomeUser> {
                                         ],
                                       ),
                                       const SizedBox(height: 10),
-                                      Text(
-                                        DateFormat('EEEE, dd MMMM yyyy', 'id')
-                                            .format((snapshot.data!.docs[0].get(
-                                                        'tanggalPertandingan')
-                                                    as Timestamp)
-                                                .toDate()),
-                                        style: const TextStyle(fontSize: 12),
-                                      ),
+                                      // Text(
+                                      //   DateFormat('EEEE, dd MMMM yyyy', 'id')
+                                      //       .format((snapshot.data!.docs[0].get(
+                                      //                   'tanggalPertandingan')
+                                      //               as Timestamp)
+                                      //           .toDate()),
+                                      //   style: const TextStyle(fontSize: 12),
+                                      // ),
                                     ],
                                   ),
                                 ),
@@ -1332,7 +1332,8 @@ class _HomeUserState extends State<HomeUser> {
                                               )),
                                         ],
                                       ),
-                                      const SizedBox(height: 10),
+                                      const SizedBox(height: 25),
+
                                       Stack(
                                         children: [
                                           Row(
@@ -1360,6 +1361,7 @@ class _HomeUserState extends State<HomeUser> {
                                                   ),
                                                 ),
                                               ),
+                                              
                                               Container(
                                                 width: 75,
                                                 height: 19,
@@ -1418,14 +1420,14 @@ class _HomeUserState extends State<HomeUser> {
                                         ],
                                       ),
                                       const SizedBox(height: 10),
-                                      Text(
-                                        DateFormat('EEEE, dd MMMM yyyy', 'id')
-                                            .format((snapshot.data!.docs[0].get(
-                                                        'tanggalPertandingan')
-                                                    as Timestamp)
-                                                .toDate()),
-                                        style: const TextStyle(fontSize: 12),
-                                      ),
+                                      // Text(
+                                      //   DateFormat('EEEE, dd MMMM yyyy', 'id')
+                                      //       .format((snapshot.data!.docs[0].get(
+                                      //                   'tanggalPertandingan')
+                                      //               as Timestamp)
+                                      //           .toDate()),
+                                      //   style: const TextStyle(fontSize: 12),
+                                      // ),
                                     ],
                                   ),
                                 ),

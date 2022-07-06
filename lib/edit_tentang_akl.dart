@@ -82,20 +82,35 @@ class _edittentangaklState extends State<edittentangakl> {
             ),
             MaterialButton(
               onPressed: () {
-                widget.docid.reference.update({
-                  'tentangJurusan': tentangjurusan.text,
-                  'kejuaraanYangPernahDiraih': kejuaraanyangpernahdiraih.text,
-                  '10pa': pa10.text,
-                  '10pi': pi10.text,
-                  '11pa': pa11.text,
-                  '11pi': pi11.text,
-                  '12pa': pa12.text,
-                  '12pi': pi12.text,
-                }).whenComplete(() {
-                  Navigator.pop(
-                    context,
-                  );
-                });
+                if (tentangjurusan.text.isNotEmpty &&
+                    kejuaraanyangpernahdiraih.text.isNotEmpty &&
+                    pa10.text.isNotEmpty &&
+                    pa11.text.isNotEmpty &&
+                    pi10.text.isNotEmpty &&
+                    pi11.text.isNotEmpty &&
+                    pa12.text.isNotEmpty &&
+                    pi12.text.isNotEmpty) {
+                  widget.docid.reference.update({
+                    'tentangJurusan': tentangjurusan.text,
+                    'kejuaraanYangPernahDiraih': kejuaraanyangpernahdiraih.text,
+                    '10pa': pa10.text,
+                    '10pi': pi10.text,
+                    '11pa': pa11.text,
+                    '11pi': pi11.text,
+                    '12pa': pa12.text,
+                    '12pi': pi12.text,
+                  }).whenComplete(() {
+                    Navigator.pop(
+                      context,
+                    );
+                  });
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content:
+                        Text('Inputan tidak boleh kosong, silahkan kembali'),
+                    backgroundColor: Color(0xff142D4C),
+                  ));
+                }
               },
               child: const Text(
                 "Simpan",
@@ -234,6 +249,7 @@ class _edittentangaklState extends State<edittentangakl> {
                 SizedBox(height: 15),
                 Container(
                   child: TextFormField(
+                    keyboardType: TextInputType.numberWithOptions(),
                     maxLength: 3,
                     controller: pa10,
                     decoration: InputDecoration(
@@ -258,6 +274,7 @@ class _edittentangaklState extends State<edittentangakl> {
                 SizedBox(height: 15),
                 Container(
                   child: TextFormField(
+                    keyboardType: TextInputType.numberWithOptions(),
                     maxLength: 3,
                     controller: pi10,
                     decoration: InputDecoration(
@@ -297,6 +314,7 @@ class _edittentangaklState extends State<edittentangakl> {
                 SizedBox(height: 15),
                 Container(
                   child: TextFormField(
+                    keyboardType: TextInputType.numberWithOptions(),
                     maxLength: 3,
                     controller: pa11,
                     decoration: InputDecoration(
@@ -321,6 +339,7 @@ class _edittentangaklState extends State<edittentangakl> {
                 SizedBox(height: 15),
                 Container(
                   child: TextFormField(
+                    keyboardType: TextInputType.numberWithOptions(),
                     maxLength: 3,
                     controller: pi11,
                     decoration: InputDecoration(
@@ -360,6 +379,7 @@ class _edittentangaklState extends State<edittentangakl> {
                 SizedBox(height: 15),
                 Container(
                   child: TextFormField(
+                    keyboardType: TextInputType.numberWithOptions(),
                     maxLength: 3,
                     controller: pa12,
                     decoration: InputDecoration(
@@ -384,6 +404,7 @@ class _edittentangaklState extends State<edittentangakl> {
                 SizedBox(height: 15),
                 Container(
                   child: TextFormField(
+                    keyboardType: TextInputType.numberWithOptions(),
                     maxLength: 3,
                     controller: pi12,
                     decoration: InputDecoration(

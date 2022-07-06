@@ -271,7 +271,7 @@ class _UserFutsalState extends State<UserFutsal> {
         logo1: snapshot.data!.docs[i]['logo1'],
         logo2: snapshot.data!.docs[i]['logo2'],
         tim2: snapshot.data!.docs[i]['tim2'],
-        tanggal: snapshot.data!.docs[i]['tanggal'],
+        // tanggal: snapshot.data!.docs[i]['tanggal'],
         skor1: snapshot.data!.docs[i]['skor1'],
         skor2: snapshot.data!.docs[i]['skor2'],
         documentSnapshot: snapshot.data!.docs[i][DocumentSnapshot],

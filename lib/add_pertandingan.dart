@@ -9,20 +9,19 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 // import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
-import 'package:video_thumbnail/video_thumbnail.dart';
 
-class AddFutsal extends StatefulWidget {
+class AddPertandingan extends StatefulWidget {
   final String id;
-  const AddFutsal({
+  const AddPertandingan({
     Key? key,
     required this.id,
   }) : super(key: key);
 
   @override
-  _AddFutsalState createState() => _AddFutsalState();
+  _AddPertandinganState createState() => _AddPertandinganState();
 }
 
-class _AddFutsalState extends State<AddFutsal> {
+class _AddPertandinganState extends State<AddPertandingan> {
   final _formKey = GlobalKey<FormState>();
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('cabor').snapshots();
@@ -85,7 +84,7 @@ class _AddFutsalState extends State<AddFutsal> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          'Tambah list futsal',
+                          'Tambah list pertandingan',
                           style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -94,9 +93,10 @@ class _AddFutsalState extends State<AddFutsal> {
                         const SizedBox(height: 30),
                         TextFormField(
                           controller: tim1,
-                          maxLength: 4,
+
                           decoration: InputDecoration(
-                            hintText: 'Cth. OTKP',
+                            hintText:
+                                'Cth. Otomatisasi Tata Kelola Perkantoran',
                             labelText: 'Tim 1 :',
                             labelStyle:
                                 const TextStyle(color: Color(0xff142D4C)),
@@ -124,9 +124,9 @@ class _AddFutsalState extends State<AddFutsal> {
                         TextFormField(
                           //memberikan identitas untuk setiap form
                           controller: tim2,
-                          maxLength: 4,
+
                           decoration: InputDecoration(
-                            hintText: 'Cth. RPL',
+                            hintText: 'Cth. Akuntansi dan Keuangan Lembaga',
                             labelText: 'Tim 2 :',
                             labelStyle:
                                 const TextStyle(color: Color(0xff142D4C)),
@@ -217,143 +217,6 @@ class _AddFutsalState extends State<AddFutsal> {
                         //         child: DateTimeForm())),
                         const SizedBox(height: 15),
                         const SizedBox(height: 15),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        //   children: [
-
-                        //batas
-                        // InkWell(
-                        //   onTap: () {
-                        //     pickMedia(ImageSource.gallery);
-                        //   },
-                        //   child: SizedBox(
-                        //     width: 110,
-                        //     height: 110,
-                        //     child: (imagePath != null)
-                        //         ? CircleAvatar(
-                        //             backgroundImage:
-                        //                 FileImage(File(imagePath!)))
-                        //         : image!.path == ""
-                        //             ? Container(
-                        //                 decoration: BoxDecoration(
-                        //                   shape: BoxShape.circle,
-                        //                   color: Colors.grey[300]!,
-                        //                 ),
-                        //                 width: 300,
-                        //                 height: 300,
-                        //                 child: const Icon(
-                        //                   Icons.person,
-                        //                   color: Colors.white,
-                        //                   size: 100,
-                        //                 ),
-                        //               )
-                        //             : Container(
-                        //                 decoration: BoxDecoration(
-                        //                   image: DecorationImage(
-                        //                       fit: BoxFit.cover,
-                        //                       image: FileImage(
-                        //                           File(image!.path))),
-                        //                   shape: BoxShape.circle,
-                        //                   color: Colors.grey[300]!,
-                        //                 ),
-                        //                 width: 300,
-                        //                 height: 300,
-                        //               ),
-                        //   ),
-                        // ),
-                        // InkWell(
-                        //   onTap: () {
-                        //     pickMedia(ImageSource.gallery);
-                        //   },
-                        //   child: SizedBox(
-                        //     width: 110,
-                        //     height: 110,
-                        //     child: (imagePathh != null)
-                        //         ? CircleAvatar(
-                        //             backgroundImage:
-                        //                 FileImage(File(imagePathh!)))
-                        //         : image2!.path == ""
-                        //             ? Container(
-                        //                 decoration: BoxDecoration(
-                        //                   shape: BoxShape.circle,
-                        //                   color: Colors.grey[300]!,
-                        //                 ),
-                        //                 width: 300,
-                        //                 height: 300,
-                        //                 child: const Icon(
-                        //                   Icons.person,
-                        //                   color: Colors.white,
-                        //                   size: 100,
-                        //                 ),
-                        //               )
-                        //             : Container(
-                        //                 decoration: BoxDecoration(
-                        //                   image: DecorationImage(
-                        //                       fit: BoxFit.cover,
-                        //                       image: FileImage(
-                        //                           File(image2!.path))),
-                        //                   shape: BoxShape.circle,
-                        //                   color: Colors.grey[300]!,
-                        //                 ),
-                        //                 width: 300,
-                        //                 height: 300,
-                        //               ),
-                        //   ),
-                        // ),
-
-                        //BATASSS
-                        //     const Text(
-                        //       'VS',
-                        //       style: TextStyle(
-                        //         fontWeight: FontWeight.bold,
-                        //         fontSize: 20,
-                        //         color: Color(0xff142D4C),
-                        //       ),
-                        //     ),
-                        //     InkWell(
-                        //       onTap: () {
-                        //         pickMediaa(ImageSource.gallery);
-                        //       },
-                        //       child: SizedBox(
-                        //         width: 110,
-                        //         height: 110,
-                        //         child: (imagePathh != null)
-                        //             ? CircleAvatar(
-                        //                 backgroundImage:
-                        //                     FileImage(File(imagePathh!)))
-                        //             : imagePathh == ""
-                        //                 ? Container(
-                        //                     decoration: BoxDecoration(
-                        //                       shape: BoxShape.circle,
-                        //                       color: Colors.grey[300]!,
-                        //                     ),
-                        //                     width: 300,
-                        //                     height: 300,
-                        //                     child: const Icon(
-                        //                       Icons.person,
-                        //                       color: Colors.white,
-                        //                       size: 100,
-                        //                     ),
-                        //                   )
-                        //                 : Container(
-                        //                     decoration: BoxDecoration(
-                        //                       image: DecorationImage(
-                        //                           fit: BoxFit.cover,
-                        //                           image: FileImage(
-                        //                               File(image2!.path))),
-                        //                       shape: BoxShape.circle,
-                        //                       color: Colors.grey[300]!,
-                        //                     ),
-                        //                     width: 300,
-                        //                     height: 300,
-                        //                   ),
-                        //       ),
-                        //     ),
-                        //   ],
-                        // ),
-
-                        //batass
-
                         Row(
                           children: [
                             image != null
@@ -459,10 +322,9 @@ class _AddFutsalState extends State<AddFutsal> {
                           // successColor: const Color(0xff142D4C),
                           controller: _btnController2,
                           onPressed: () async {
-                            DocumentReference<Map<String, dynamic>> caborId =
-                                await FirebaseFirestore.instance
-                                    .collection('cabor')
-                                    .add({
+                            FirebaseFirestore.instance
+                                .collection('matchData')
+                                .add({
                               'futsal': {
                                 'logo1': '',
                                 'logo2': '',
@@ -473,81 +335,11 @@ class _AddFutsalState extends State<AddFutsal> {
 
                                 // 'tanggalPertandingan' : ,
                               },
-                            });
-                            // .then((value) async {
-                            //   print(value.id);
-                            if (image != null) {
-                              await FirebaseStorage.instance
-                                  .ref(
-                                      'logo/$Timestamp.fromMicrosecondsSinceEpoch(microseconds)')
-                                  .putFile(image!)
-                                  .then((result) async {
-                                String downloadUrl =
-                                    await result.ref.getDownloadURL();
+                            }).then((value) async {
+                              print(value.id);
 
-                                await caborId.set({
-                                  'futsal': {'logo1': downloadUrl}
-                                }, SetOptions(merge: true));
-                              });
-                            }
-                            if (image2 != null) {
-                              await FirebaseStorage.instance
-                                  .ref(
-                                      'logo/$Timestamp.fromMicrosecondsSinceEpoch(microseconds)')
-                                  .putFile(image2!)
-                                  .then((result) async {
-                                String downloadUrl =
-                                    await result.ref.getDownloadURL();
-
-                                await caborId.set({
-                                  'futsal': {'logo2': downloadUrl}
-                                }, SetOptions(merge: true));
-                              });
-                            }
-                            // });
-                            FirebaseFirestore.instance
-                                .collection('statistikPertandingan')
-                                .add({
-                              'caborId': caborId.id,
-                              'tim1': {
-                                'kartuKuning': '-',
-                                'kartuMerah': '-',
-                                'pelanggaran': '-',
-                                'penguasaanBola': '-',
-                                'tendangan': '-',
-                                'tendanganKeGawang': '-',
-                              },
-                              'tim2': {
-                                'kartuKuning': '-',
-                                'kartuMerah': '-',
-                                'pelanggaran': '-',
-                                'penguasaanBola': '-',
-                                'tendangan': '-',
-                                'tendanganKeGawang': '-',
-                              }
-                            });
-                            FirebaseFirestore.instance
-                                .collection('deskripsiFutsal')
-                                .add({
-                              'caborId': caborId.id,
-                              'deskripsi': '',
-                            });
-                            FirebaseFirestore.instance
-                                .collection('timFutsal')
-                                .add({
-                              'caborId': caborId.id,
-                              'tim1': {
-                                'namaPemain': '',
-                                'noPemain': '',
-                                'posisiPemain': '',
-                                'fotoPemain': '',
-                              },
-                              'tim2': {
-                                'namaPemain': '',
-                                'noPemain': '',
-                                'posisiPemain': '',
-                                'fotoPemain': '',
-                              }
+                              await uploadImage();
+                              await uploadImage2();
                             });
                             // widget.docid.reference.update({
                             // 'futsal': {
@@ -578,39 +370,6 @@ class _AddFutsalState extends State<AddFutsal> {
                             );
                             // });
                           },
-                          // onPressed: () {
-                          //   if (_formKey.currentState!.validate()) {
-                          //     FirebaseStorage.instance
-                          //         .ref(
-                          // "logoAddFutsal/${DateTime.now().microsecondsSinceEpoch}")
-                          //         // masalahnya di putfile, dia nyebut image tapi ga nyebut image2, emang put file bisa 2??
-                          //         .putFile(
-                          //           File(image!.path),
-                          //         )
-                          //         .then(
-                          //       (image) async {
-                          //         // String imageUrl =
-                          //         //     await image.ref.getDownloadURL();
-                          //         // String imageUrl2 =
-                          //         //     await image.ref.getDownloadURL();
-                          //         FirebaseFirestore.instance
-                          // .collection("cabor")
-                          //             .add({
-                          //           'futsal': {
-                          //             // "logo1": fileUrl,
-                          //             // "logo2": fileUrl2,
-                          //             "tim1": tim1.text,
-                          //             "tim2": tim2.text,
-                          //             "skor1": skor1.text,
-                          //             "skor2": skor2.text,
-                          //           }
-                          //         });
-                          //         uploadImage();
-                          //         uploadImage2();
-                          //       },
-                          //     ).then((value) => Navigator.pop(context));
-                          //   }
-                          // },
                           valueColor: Colors.white,
                           borderRadius: 10,
                           child: const Text('''Simpan''',
@@ -633,164 +392,61 @@ class _AddFutsalState extends State<AddFutsal> {
         );
   }
 
-  void pickMedia(ImageSource source) async {
-    if (_mediaType == MediaType.image) {
-      file = await ImagePicker().pickImage(source: source);
-    } else {
-      file = await ImagePicker().pickVideo(source: source);
-    }
-    if (file != null) {
-      imagePath = file!.path;
-      if (_mediaType == MediaType.video) {
-        imagePath = await VideoThumbnail.thumbnailFile(
-            video: file!.path,
-            imageFormat: ImageFormat.PNG,
-            quality: 100,
-            maxWidth: 300,
-            maxHeight: 300);
-      }
-      setState(() {});
-    }
-  }
-
-  void pickMediaa(ImageSource source) async {
-    if (_mediaType == MediaType.image) {
-      file2 = await ImagePicker().pickImage(source: source);
-    } else {
-      file2 = await ImagePicker().pickVideo(source: source);
-    }
-    if (file2 != null) {
-      imagePathh = file2!.path;
-      if (_mediaType == MediaType.video) {
-        imagePathh = await VideoThumbnail.thumbnailFile(
-            video: file2!.path,
-            imageFormat: ImageFormat.PNG,
-            quality: 100,
-            maxWidth: 300,
-            maxHeight: 300);
-      }
-      setState(() {});
-    }
-  }
-
   Future<void> uploadImage() async {
-    if (file == null || file2 == null) {
+    if (file == null) {
       return;
     }
-
+    String imageName = file!.name;
+    File imageFile = File(file!.path);
     try {
-      String imageName = file!.name;
-      File imageFile = File(file!.path);
       final firebaseStorageRef = await firebaseStorage
-          .ref("logoAddFutsal/${DateTime.now().microsecondsSinceEpoch}")
+          .ref("logoani")
           .child(imageName)
-          .putFile(imageFile)
-          .then((result) async {
-        String fileUrl = await result.ref.getDownloadURL();
+          .putFile(imageFile);
+      final fileUrl = await firebaseStorageRef.ref.getDownloadURL();
+      print(fileUrl);
+      FirebaseFirestore.instance.collection('cabor').doc(widget.id).update({
+        'futsal': {
+          'logo1': imageFile,
+
+          // 'tanggalPertandingan' : ,
+        },
       });
-      await FirebaseFirestore.instance
-          .collection('cabor')
-          .doc(widget.id)
-          .update(
-        {
-          'futsal': {
-            'skor1': skor1.text,
-            'skor2': skor2.text,
-            'tim1': tim1.text,
-            'tim2': tim2.text,
-            'logo1': file,
-            // 'logo2': fileUrl2,
-            // 'tanggalPertandingan' : ,
-          },
-        },
-      );
-
-      String imageName2 = file2!.name;
-      File imageFile2 = File(file2!.path);
-      final firebaseStorageRef2 = await firebaseStorage
-          .ref("logoAddFutsal/${DateTime.now().microsecondsSinceEpoch}")
-          .child(imageName2)
-          .putFile(imageFile2);
-      final fileUrl2 = await firebaseStorageRef2.ref.getDownloadURL();
-      print(fileUrl2);
-
-      await FirebaseFirestore.instance
-          .collection('cabor')
-          .doc(widget.id)
-          .update(
-        {
-          'futsal': {
-            'skor1': skor1.text,
-            'skor2': skor2.text,
-            'tim1': tim1.text,
-            'tim2': tim2.text,
-            'logo1': file,
-            'logo2': fileUrl2,
-            // 'tanggalPertandingan' : ,
-          },
-        },
-      );
     } on FirebaseException catch (e) {
       print(e);
     } catch (error) {
       print(error);
     }
   }
-  // Future<void> uploadImage() async {
-  //   if (file == null) {
-  //     return;
-  //   }
-  //   String imageName = file!.name;
-  //   File imageFile = File(file!.path);
-  //   try {
-  //     final firebaseStorageRef = await firebaseStorage
-  //         .ref("logoani")
-  //         .child(imageName)
-  //         .putFile(imageFile);
-  //     final fileUrl = await firebaseStorageRef.ref.getDownloadURL();
-  //     print(fileUrl);
-  //     FirebaseFirestore.instance.collection('cabor').doc(widget.id).update({
-  //       'futsal': {
-  //         'logo1': fileUrl,
 
-  //         // 'tanggalPertandingan' : ,
-  //       },
-  //     });
-  //   } on FirebaseException catch (e) {
-  //     print(e);
-  //   } catch (error) {
-  //     print(error);
-  //   }
-  // }
-
-  // Future<void> uploadImage2() async {
-  //   if (file2 == null) {
-  //     return;
-  //   }
-  //   String imageName = file2!.name;
-  //   File imageFile = File(file2!.path);
-  //   try {
-  //     final firebaseStorageRef = await firebaseStorage
-  //         .ref("logoani")
-  //         .child(imageName)
-  //         .putFile(imageFile);
-  //     final fileUrl2 = await firebaseStorageRef.ref.getDownloadURL();
-  //     print(fileUrl2);
-  //     await FirebaseFirestore.instance
-  //         .collection('cabor')
-  //         .doc(widget.id)
-  //         .update({
-  //       'futsal': {
-  //         'logo2': fileUrl2,
-  //         // 'tanggalPertandingan' : ,
-  //       },
-  //     });
-  //   } on FirebaseException catch (e) {
-  //     print(e);
-  //   } catch (error) {
-  //     print(error);
-  //   }
-  // }
+  Future<void> uploadImage2() async {
+    if (file2 == null) {
+      return;
+    }
+    String imageName = file2!.name;
+    File imageFile = File(file2!.path);
+    try {
+      final firebaseStorageRef = await firebaseStorage
+          .ref("logoani")
+          .child(imageName)
+          .putFile(imageFile);
+      final fileUrl2 = await firebaseStorageRef.ref.getDownloadURL();
+      print(fileUrl2);
+      await FirebaseFirestore.instance
+          .collection('cabor')
+          .doc(widget.id)
+          .update({
+        'futsal': {
+          'logo2': imageFile,
+          // 'tanggalPertandingan' : ,
+        },
+      });
+    } on FirebaseException catch (e) {
+      print(e);
+    } catch (error) {
+      print(error);
+    }
+  }
 }
 
 // class PickImage {

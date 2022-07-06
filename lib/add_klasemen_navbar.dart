@@ -16,7 +16,7 @@ class AddKlasemenNavbar extends StatefulWidget {
 class _AddKlasemenNavbarState extends State<AddKlasemenNavbar> {
   final _formKey = GlobalKey<FormState>();
   final Stream<QuerySnapshot> _usersStream =
-      FirebaseFirestore.instance.collection('klasemen').snapshots();
+      FirebaseFirestore.instance.collection('klasemenNavbar').snapshots();
 
   TextEditingController no = TextEditingController();
   TextEditingController jurusan = TextEditingController();
@@ -324,7 +324,7 @@ class _AddKlasemenNavbarState extends State<AddKlasemenNavbar> {
                                     String imageUrl =
                                         await image.ref.getDownloadURL();
                                     FirebaseFirestore.instance
-                                        .collection("klasemen")
+                                        .collection("klasemenNavbar")
                                         .add({
                                       "logo": imageUrl,
                                       "no": no.text,

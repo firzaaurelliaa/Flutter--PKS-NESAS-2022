@@ -1,4 +1,5 @@
 import 'package:akhir/home_admin.dart';
+import 'package:akhir/klasemen_navbar.dart';
 import 'package:akhir/page_belum_diatur.dart';
 import 'package:akhir/profil_admin.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class _NavBarBottomAdminState extends State<NavBarBottomAdmin> {
 
   final List<Widget> _children = [
     const HomeAdmin(),
-    const PageBelumDiatur(),
+    const KlasemenNavbar(),
     const ProfilAdmin(),
   ];
 

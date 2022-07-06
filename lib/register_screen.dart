@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print, prefer_const_constructors, unrelated_type_equality_checks
 
-import 'package:akhir/home_coba.dart';
 import 'package:akhir/login_screen.dart';
+import 'package:akhir/page_belum_diatur.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -106,7 +106,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => const HomeScreenCoba()),
+                                        builder: (context) => const PageBelumDiatur()),
                                     (route) => false);
                               }
                             }

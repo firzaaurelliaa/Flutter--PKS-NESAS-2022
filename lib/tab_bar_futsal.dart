@@ -13,8 +13,24 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class TabbarBody extends StatefulWidget {
   final DocumentSnapshot doc;
   final String id;
-  const TabbarBody({Key? key, required this.id, required this.doc})
-      : super(key: key);
+  final String logo1;
+  final String logo2;
+  final String skor1;
+  final String skor2;
+  final String tim1;
+  final String tim2;
+
+  const TabbarBody({
+    Key? key,
+    required this.id,
+    required this.doc,
+    required this.logo1,
+    required this.logo2,
+    required this.skor1,
+    required this.skor2,
+    required this.tim1,
+    required this.tim2,
+  }) : super(key: key);
 
   @override
   _TabbarBodyState createState() => _TabbarBodyState();
@@ -69,17 +85,12 @@ class _TabbarBodyState extends State<TabbarBody> {
                     child: Row(
                       children: [
                         Expanded(
-                            flex: 15,
-                            child: SizedBox(
+                          flex: 15,
+                          child: SizedBox(
                               width: 50,
                               height: 50,
-                              child: Image(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(
-                                  widget.doc.get('futsal')['logo1'],
-                                ),
-                              ),
-                            )),
+                              child: Image.network(widget.logo1)),
+                        ),
                         Expanded(
                           flex: 70,
                           child: Padding(
@@ -93,14 +104,14 @@ class _TabbarBodyState extends State<TabbarBody> {
                                       MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Text(
-                                      widget.doc.get('futsal')['tim1'],
+                                      widget.tim1,
                                       style: const TextStyle(
                                           fontSize: 18,
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Text(
-                                      widget.doc.get('futsal')['skor1'],
+                                      widget.skor1,
                                       style: const TextStyle(
                                         color: Colors.black,
                                         fontSize: 28.0,
@@ -116,7 +127,7 @@ class _TabbarBodyState extends State<TabbarBody> {
                                       ),
                                     ),
                                     Text(
-                                      widget.doc.get('futsal')['skor2'],
+                                      widget.skor2,
                                       style: const TextStyle(
                                         color: Colors.black,
                                         fontSize: 28.0,
@@ -124,7 +135,7 @@ class _TabbarBodyState extends State<TabbarBody> {
                                       ),
                                     ),
                                     Text(
-                                      widget.doc.get('futsal')['tim2'],
+                                      widget.tim2,
                                       style: const TextStyle(
                                           fontSize: 18,
                                           color: Colors.black,
@@ -147,13 +158,13 @@ class _TabbarBodyState extends State<TabbarBody> {
                                     //     fontSize: 10.0,
                                     //   ),
                                     // ),
-                                    Text(
-                                      widget.doc.get('futsal')['tanggal'],
-                                      style: const TextStyle(
-                                        color: Colors.black45,
-                                        fontSize: 10.0,
-                                      ),
-                                    ),
+                                    // Text(
+                                    //   "d",
+                                    //   style: const TextStyle(
+                                    //     color: Colors.black45,
+                                    //     fontSize: 10.0,
+                                    //   ),
+                                    // ),
                                     // const Text(
                                     //   "Orel 12'",
                                     //   style: TextStyle(
@@ -170,15 +181,9 @@ class _TabbarBodyState extends State<TabbarBody> {
                         Expanded(
                             flex: 15,
                             child: SizedBox(
-                              width: 50,
-                              height: 50,
-                              child: Image(
-                                fit: BoxFit.cover,
-                                image: NetworkImage(
-                                  widget.doc.get('futsal')['logo2'],
-                                ),
-                              ),
-                            )),
+                                width: 50,
+                                height: 50,
+                                child: Image.network(widget.logo2))),
                       ],
                     ),
                   )
@@ -209,12 +214,9 @@ class _TabbarBodyState extends State<TabbarBody> {
                 Expanded(
                   child: TabBarView(
                     children: [
-                      StatistikRPLOTKP(docId: widget.id),
-                      TimFutsalRplOtkp(
-                        tim1: '',
-                        tim2: '',
-                      ),
-                      const DeskripsiRplOtkp(),
+                      StatistikRPLOTKP(id: widget.id),
+                      TimFutsalRplOtkp(id: widget.id),
+                      DeskripsiRplOtkp(id: widget.id),
                       const KlasemenFutsalNoAppbar(),
                     ],
                   ),

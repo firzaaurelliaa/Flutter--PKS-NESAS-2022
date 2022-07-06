@@ -7,7 +7,9 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class FormStatistik extends StatefulWidget {
   DocumentSnapshot docid;
-  FormStatistik({Key? key, required this.docid}) : super(key: key);
+  final String id;
+  FormStatistik({Key? key, required this.docid, required this.id})
+      : super(key: key);
 
   @override
   _FormStatistikState createState() => _FormStatistikState();
@@ -530,31 +532,75 @@ class _FormStatistikState extends State<FormStatistik> {
                         // successColor: const Color(0xff142D4C),
                         controller: _btnController2,
                         onPressed: () {
-                          FirebaseFirestore.instance
-                              .collection('statistikPertandingan')
-                              .doc('CwvvBa8rZAouDfRu2EPs')
-                              .update({
-                            'tim1': {
-                              'tendanganKeGawang': tim1tendangankegawang.text,
-                              'tendangan': tim1tendangan.text,
-                              'penguasaanBola': tim1penguasaanbola.text,
-                              'pelanggaran': tim1pelanggaran.text,
-                              'kartuKuning': tim1kartukuning.text,
-                              'kartuMerah': tim1kartumerah.text,
-                            },
-                            'tim2': {
-                              'tendanganKeGawang': tim2tendangankegawang.text,
-                              'tendangan': tim2tendangan.text,
-                              'penguasaanBola': tim2penguasaanbola.text,
-                              'pelanggaran': tim2pelanggaran.text,
-                              'kartuKuning': tim2kartukuning.text,
-                              'kartuMerah': tim2kartumerah.text,
-                            }
-                          }).whenComplete(() {
-                            Navigator.pop(
-                              context,
-                            );
-                          });
+                          if (tim1tendangankegawang.text.isNotEmpty &&
+                              tim1tendangan.text.isNotEmpty &&
+                              tim1pelanggaran.text.isNotEmpty &&
+                              tim1penguasaanbola.text.isNotEmpty &&
+                              tim1kartumerah.text.isNotEmpty &&
+                              tim1kartukuning.text.isNotEmpty &&
+                              tim2tendangankegawang.text.isNotEmpty &&
+                              tim2tendangan.text.isNotEmpty &&
+                              tim2pelanggaran.text.isNotEmpty &&
+                              tim2penguasaanbola.text.isNotEmpty &&
+                              tim2kartumerah.text.isNotEmpty &&
+                              tim2kartukuning.text.isNotEmpty) {
+                            FirebaseFirestore.instance
+                                .collection('statistikPertandingan')
+                                .doc(widget.id)
+                                .update({
+                              'tim1': {
+                                'tendanganKeGawang': tim1tendangankegawang.text,
+                                'tendangan': tim1tendangan.text,
+                                'penguasaanBola': tim1penguasaanbola.text,
+                                'pelanggaran': tim1pelanggaran.text,
+                                'kartuKuning': tim1kartukuning.text,
+                                'kartuMerah': tim1kartumerah.text,
+                              },
+                              'tim2': {
+                                'tendanganKeGawang': tim2tendangankegawang.text,
+                                'tendangan': tim2tendangan.text,
+                                'penguasaanBola': tim2penguasaanbola.text,
+                                'pelanggaran': tim2pelanggaran.text,
+                                'kartuKuning': tim2kartukuning.text,
+                                'kartuMerah': tim2kartumerah.text,
+                              }
+                            }).whenComplete(() {
+                              Navigator.pop(
+                                context,
+                              );
+                            });
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text('Data tidak boleh kosong'),
+                              backgroundColor: Color(0xff142D4C),
+                            ));
+                          }
+
+                          // FirebaseFirestore.instance
+                          //     .collection('statistikPertandingan')
+                          //     .doc(widget.id)
+                          //     .update({
+                          //   'tim1': {
+                          //     'tendanganKeGawang': tim1tendangankegawang.text,
+                          //     'tendangan': tim1tendangan.text,
+                          //     'penguasaanBola': tim1penguasaanbola.text,
+                          //     'pelanggaran': tim1pelanggaran.text,
+                          //     'kartuKuning': tim1kartukuning.text,
+                          //     'kartuMerah': tim1kartumerah.text,
+                          //   },
+                          //   'tim2': {
+                          //     'tendanganKeGawang': tim2tendangankegawang.text,
+                          //     'tendangan': tim2tendangan.text,
+                          //     'penguasaanBola': tim2penguasaanbola.text,
+                          //     'pelanggaran': tim2pelanggaran.text,
+                          //     'kartuKuning': tim2kartukuning.text,
+                          //     'kartuMerah': tim2kartumerah.text,
+                          //   }
+                          // }).whenComplete(() {
+                          //   Navigator.pop(
+                          //     context,
+                          //   );
+                          // });
                         },
                         valueColor: Colors.white,
                         borderRadius: 10,

@@ -1,8 +1,10 @@
 
 import 'package:akhir/home_user.dart';
+import 'package:akhir/klasemen_navbar.dart';
 
 
 import 'package:akhir/page_belum_diatur.dart';
+import 'package:akhir/user_klasemen_navbar.dart';
 
 import 'package:flutter/material.dart';
 
@@ -30,7 +32,7 @@ class _NavBarBottomUserState extends State<NavBarBottomUser> {
 
   final List<Widget> _children = [
     const HomeUser(),
-    const PageBelumDiatur(),
+    const UserKlasemenNavbar(),
   ];
 
   void _onItemTapped(int index) {

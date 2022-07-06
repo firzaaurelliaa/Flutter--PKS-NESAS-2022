@@ -59,7 +59,7 @@ class _UserPosisiAKLState extends State<UserPosisiAKL> {
                       height: 50,
                       color: Colors.transparent,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Container(
                             child: Text(
@@ -72,21 +72,7 @@ class _UserPosisiAKLState extends State<UserPosisiAKL> {
                             ),
                           ),
 
-                          TextButton(
-                              onPressed: () => {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //     builder: (context) =>
-                                    //         KlasemenFutsalNoAppbar(),
-                                    //   ),
-                                    // ),
-                                  },
-                              child: const Text(
-                                'Lihat detail',
-                                style:
-                                    TextStyle(color: Colors.grey, fontSize: 15),
-                              )),
+                          
                           // Container(
                           //   margin: const EdgeInsets.only(right: 25),
                           //   child: IconButton(
@@ -209,7 +195,7 @@ class _UserPosisiAKLState extends State<UserPosisiAKL> {
                       height: 50,
                       color: Colors.transparent,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Container(
                             child: Text(
@@ -221,21 +207,7 @@ class _UserPosisiAKLState extends State<UserPosisiAKL> {
                               ),
                             ),
                           ),
-                          TextButton(
-                              onPressed: () => {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //     builder: (context) =>
-                                    //         const KlasemenFutsalNoAppbar(),
-                                    //   ),
-                                    // ),
-                                  },
-                              child: const Text(
-                                'Lihat detail',
-                                style:
-                                    TextStyle(color: Colors.grey, fontSize: 15),
-                              )),
+                          
                         ],
                       ),
                     ),
@@ -346,7 +318,7 @@ class _UserPosisiAKLState extends State<UserPosisiAKL> {
                       height: 50,
                       color: Colors.transparent,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Container(
                             child: Text(
@@ -358,21 +330,7 @@ class _UserPosisiAKLState extends State<UserPosisiAKL> {
                               ),
                             ),
                           ),
-                          TextButton(
-                              onPressed: () => {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //     builder: (context) =>
-                                    //         const KlasemenFutsalNoAppbar(),
-                                    //   ),
-                                    // ),
-                                  },
-                              child: const Text(
-                                'Lihat detail',
-                                style:
-                                    TextStyle(color: Colors.grey, fontSize: 15),
-                              )),
+                          
                         ],
                       ),
                     ),
@@ -483,7 +441,7 @@ class _UserPosisiAKLState extends State<UserPosisiAKL> {
                       height: 50,
                       color: Colors.transparent,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Container(
                             child: Text(
@@ -495,21 +453,7 @@ class _UserPosisiAKLState extends State<UserPosisiAKL> {
                               ),
                             ),
                           ),
-                          TextButton(
-                              onPressed: () => {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //     builder: (context) =>
-                                    //         const KlasemenFutsalNoAppbar(),
-                                    //   ),
-                                    // ),
-                                  },
-                              child: const Text(
-                                'Lihat detail',
-                                style:
-                                    TextStyle(color: Colors.grey, fontSize: 15),
-                              )),
+                          
                         ],
                       ),
                     ),
@@ -620,7 +564,7 @@ class _UserPosisiAKLState extends State<UserPosisiAKL> {
                       height: 50,
                       color: Colors.transparent,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Container(
                             child: Text(
@@ -632,21 +576,7 @@ class _UserPosisiAKLState extends State<UserPosisiAKL> {
                               ),
                             ),
                           ),
-                          TextButton(
-                              onPressed: () => {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //     builder: (context) =>
-                                    //         const KlasemenFutsalNoAppbar(),
-                                    //   ),
-                                    // ),
-                                  },
-                              child: const Text(
-                                'Lihat detail',
-                                style:
-                                    TextStyle(color: Colors.grey, fontSize: 15),
-                              )),
+                          
                         ],
                       ),
                     ),
@@ -757,7 +687,7 @@ class _UserPosisiAKLState extends State<UserPosisiAKL> {
                       height: 50,
                       color: Colors.transparent,
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Container(
                             child: Text(
@@ -769,21 +699,7 @@ class _UserPosisiAKLState extends State<UserPosisiAKL> {
                               ),
                             ),
                           ),
-                          TextButton(
-                              onPressed: () => {
-                                    // Navigator.push(
-                                    //   context,
-                                    //   MaterialPageRoute(
-                                    //     builder: (context) =>
-                                    //          KlasemenFutsalNoAppbar(),
-                                    //   ),
-                                    // ),
-                                  },
-                              child: const Text(
-                                'Lihat detail',
-                                style:
-                                    TextStyle(color: Colors.grey, fontSize: 15),
-                              )),
+                          
                         ],
                       ),
                     ),

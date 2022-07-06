@@ -4,7 +4,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class DeskripsiRplOtkp extends StatefulWidget {
-  const DeskripsiRplOtkp({Key? key}) : super(key: key);
+  final String id;
+  const DeskripsiRplOtkp({
+    Key? key,
+    required this.id,
+  }) : super(key: key);
 
   @override
   State<DeskripsiRplOtkp> createState() => _DeskripsiRplOtkpState();
@@ -22,11 +26,12 @@ class _DeskripsiRplOtkpState extends State<DeskripsiRplOtkp> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff142D4C),
-      body: StreamBuilder(
+      body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
             .collection('deskripsiFutsal')
+            .where('caborId', isEqualTo: widget.id)
             .snapshots(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        builder: (BuildContext context, snapshot) {
           if (snapshot.hasError) {
             return const Text("Tunggu sebentar, ada yang salah");
           }
@@ -37,68 +42,73 @@ class _DeskripsiRplOtkpState extends State<DeskripsiRplOtkp> {
               ),
             );
           }
-          return ListView.builder(
+          return ListView(
             shrinkWrap: true,
-            itemCount: snapshot.data!.docs.length,
-            itemBuilder: (_, index) {
-              return Padding(
-                padding: const EdgeInsets.all(25.0),
-                child: Center(
-                  child: Container(
-                    padding: const EdgeInsets.only(bottom: 30),
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: const Color(0xffD7E9F7),
-                    ),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              margin: const EdgeInsets.all(20),
-                              child: const Text('DESKRIPSI PERTANDINGAN',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w900,
-                                      fontSize: 17)),
-                            ),
-                            IconButton(
-                              onPressed: () => {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => (EditDeskripsiRplOtkp(
-                                        docid: snapshot.data!.docs[index])),
-                                  ),
-                                ),
-                              },
-                              icon: const Icon(
-                                Icons.edit,
-                                size: 22,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Container(
-                          padding: const EdgeInsets.only(left: 20, right: 20),
-                          child: Row(
+            // itemCount: snapshot.data!.docs.length,
+            children: [
+              ...snapshot.data!.docs.map((e) {
+                return Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: Center(
+                    child: Container(
+                      padding: const EdgeInsets.only(bottom: 30),
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: const Color(0xffD7E9F7),
+                      ),
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Expanded(
-                                child: Text(
-                                  snapshot.data!.docs[index]['deskripsi'],
-                                  style: const TextStyle(fontSize: 16),
+                              Container(
+                                margin: const EdgeInsets.all(20),
+                                child: const Text('DESKRIPSI PERTANDINGAN',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w900,
+                                        fontSize: 17)),
+                              ),
+                              IconButton(
+                                onPressed: () => {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          (EditDeskripsiRplOtkp(
+                                        docid: e,
+                                        id: e.id,
+                                      )),
+                                    ),
+                                  ),
+                                },
+                                icon: const Icon(
+                                  Icons.edit,
+                                  size: 22,
                                 ),
                               ),
                             ],
                           ),
-                        )
-                      ],
+                          Container(
+                            padding: const EdgeInsets.only(left: 20, right: 20),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    e.get('deskripsi'),
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              );
-            },
+                );
+              })
+            ],
           );
         },
       ),

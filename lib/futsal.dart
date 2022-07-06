@@ -2,6 +2,7 @@
 import 'package:akhir/OOP_card_score.dart';
 import 'package:akhir/add_futsal.dart';
 import 'package:akhir/form_list_futsal.dart';
+import 'package:akhir/futsal_,model.dart';
 import 'package:akhir/tab_bar_futsal.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,7 +18,7 @@ class _FutsalState extends State<Futsal> {
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('cabor').snapshots();
   final MediaType _mediaType = MediaType.image;
-  String? imagePath;
+  String? imagePath = '';
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,11 @@ class _FutsalState extends State<Futsal> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (_) => const AddFutsal()));
+              context,
+              MaterialPageRoute(
+                  builder: (_) => AddFutsal(
+                        id: 'id',
+                      )));
         },
         backgroundColor: const Color(0xff142D4C),
         child: const Icon(Icons.add),
@@ -62,6 +67,8 @@ class _FutsalState extends State<Futsal> {
           return ListView.builder(
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (_, index) {
+              FutsalModel futsalModel =
+                  FutsalModel.fromJson(snapshot.data!.docs[index]);
               return Padding(
                 padding: const EdgeInsets.only(left: 30, right: 30),
                 child: Column(
@@ -84,7 +91,7 @@ class _FutsalState extends State<Futsal> {
                               height: 30,
                               child: const Center(
                                 child: Text(
-                                  'F U  L L   T I M E',
+                                  'F U L L   T I M E',
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 13,
@@ -122,13 +129,20 @@ class _FutsalState extends State<Futsal> {
                                     context,
                                     MaterialPageRoute(
                                       builder: (context) => TabbarBody(
-                                          id: snapshot.data!.docs[index].id,
-                                          doc: snapshot.data!.docs[index]),
+                                        id: snapshot.data!.docs[index].id,
+                                        doc: snapshot.data!.docs[index],
+                                        logo1: futsalModel.logo1,
+                                        logo2: futsalModel.logo2,
+                                        skor1: futsalModel.skor1,
+                                        skor2: futsalModel.skor2,
+                                        tim1: futsalModel.tim1,
+                                        tim2: futsalModel.tim2,
+                                      ),
                                     ),
                                   ),
                                 },
-                            child: const Text(
-                              'Lihat detail',
+                            child: Text(
+                              'Lihat Detail',
                               style:
                                   TextStyle(color: Colors.grey, fontSize: 13),
                             )),
@@ -141,6 +155,7 @@ class _FutsalState extends State<Futsal> {
                             MaterialPageRoute(
                                 builder: (_) => FormListFutsal(
                                       docid: snapshot.data!.docs[index],
+                                      id: snapshot.data!.docs[index].id,
                                       // imageUrl: '',
                                     )));
                       },
@@ -158,39 +173,58 @@ class _FutsalState extends State<Futsal> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SizedBox(
-                                  width: 50,
-                                  height: 50,
-                                  child: Image(
-                                      fit: BoxFit.cover,
-                                      image: NetworkImage(
-                                        snapshot.data!.docs[index]
-                                            .get('futsal')['logo1'],
-                                      ),
-                                      loadingBuilder: (BuildContext context,
-                                          Widget child,
-                                          ImageChunkEvent? loadingProgress) {
-                                        if (loadingProgress == null) {
-                                          return child;
-                                        }
-                                        return Center(
-                                          child: CircularProgressIndicator(
-                                            color: const Color(0xff142D4C),
-                                            value: loadingProgress
-                                                        .expectedTotalBytes !=
-                                                    null
-                                                ? loadingProgress
-                                                        .cumulativeBytesLoaded /
-                                                    loadingProgress
-                                                        .expectedTotalBytes!
-                                                : null,
-                                          ),
-                                        );
-                                      }),
-                                ),
+                                    width: 90,
+                                    height: 90,
+                                    child: (futsalModel.logo1.toString() !=
+                                            'null')
+                                        ? Image.network(
+                                            futsalModel.logo1,
+                                            fit: BoxFit.cover,
+                                            loadingBuilder:
+                                                (BuildContext context,
+                                                    Widget child,
+                                                    ImageChunkEvent?
+                                                        loadingProgress) {
+                                              if (loadingProgress == null)
+                                                return child;
+                                              return Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  color:
+                                                      const Color(0xff142D4C),
+                                                  value: loadingProgress
+                                                              .expectedTotalBytes !=
+                                                          null
+                                                      ? loadingProgress
+                                                              .cumulativeBytesLoaded /
+                                                          loadingProgress
+                                                              .expectedTotalBytes!
+                                                      : null,
+                                                ),
+                                              );
+                                            },
+                                          )
+                                        // ? CircleAvatar(
+                                        //     backgroundImage: NetworkImage(
+                                        //       futsalModel.logo1,
+                                        //     ),
+                                        //   )
+                                        : Container(
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Colors.grey[300]!,
+                                            ),
+                                            width: 300,
+                                            height: 300,
+                                            child: const Icon(
+                                              Icons.person,
+                                              color: Colors.white,
+                                              size: 100,
+                                            ),
+                                          )),
                                 const SizedBox(height: 10),
                                 Text(
-                                  snapshot.data!.docs[index]
-                                      .get('futsal')['tim1'],
+                                  futsalModel.tim1.toString(),
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15),
@@ -200,8 +234,7 @@ class _FutsalState extends State<Futsal> {
                             Row(
                               children: [
                                 Text(
-                                  snapshot.data!.docs[index]
-                                      .get('futsal')['skor1'],
+                                  futsalModel.skor1.toString(),
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 32,
@@ -217,8 +250,7 @@ class _FutsalState extends State<Futsal> {
                                 ),
                                 const SizedBox(width: 5),
                                 Text(
-                                  snapshot.data!.docs[index]
-                                      .get('futsal')['skor2'],
+                                  futsalModel.skor2.toString(),
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 32,
@@ -230,39 +262,60 @@ class _FutsalState extends State<Futsal> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SizedBox(
-                                  width: 50,
-                                  height: 50,
-                                  child: Image(
-                                      fit: BoxFit.cover,
-                                      image: NetworkImage(
-                                        snapshot.data!.docs[index]
-                                            .get('futsal')['logo2'],
-                                      ),
-                                      loadingBuilder: (BuildContext context,
-                                          Widget child,
-                                          ImageChunkEvent? loadingProgress) {
-                                        if (loadingProgress == null) {
-                                          return child;
-                                        }
-                                        return Center(
-                                          child: CircularProgressIndicator(
-                                            color: const Color(0xff142D4C),
-                                            value: loadingProgress
-                                                        .expectedTotalBytes !=
-                                                    null
-                                                ? loadingProgress
-                                                        .cumulativeBytesLoaded /
-                                                    loadingProgress
-                                                        .expectedTotalBytes!
-                                                : null,
-                                          ),
-                                        );
-                                      }),
-                                ),
+                                    width: 90,
+                                    height: 90,
+                                    child: (futsalModel.logo2.toString() !=
+                                            'null')
+                                        ? Image.network(
+                                            futsalModel.logo2,
+                                            fit: BoxFit.cover,
+                                            loadingBuilder:
+                                                (BuildContext context,
+                                                    Widget child,
+                                                    ImageChunkEvent?
+                                                        loadingProgress) {
+                                              if (loadingProgress == null)
+                                                return child;
+                                              return Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  color:
+                                                      const Color(0xff142D4C),
+                                                  value: loadingProgress
+                                                              .expectedTotalBytes !=
+                                                          null
+                                                      ? loadingProgress
+                                                              .cumulativeBytesLoaded /
+                                                          loadingProgress
+                                                              .expectedTotalBytes!
+                                                      : null,
+                                                ),
+                                              );
+                                            },
+                                          )
+
+                                        // CircleAvatar(
+                                        //     backgroundImage: NetworkImage(
+                                        //       futsalModel.logo2,
+
+                                        //     ),
+                                        //   )
+                                        : Container(
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Colors.grey[300]!,
+                                            ),
+                                            width: 300,
+                                            height: 300,
+                                            child: const Icon(
+                                              Icons.person,
+                                              color: Colors.white,
+                                              size: 100,
+                                            ),
+                                          )),
                                 const SizedBox(height: 10),
                                 Text(
-                                  snapshot.data!.docs[index]
-                                      .get('futsal')['tim2'],
+                                  futsalModel.tim2.toString(),
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(
                                       fontWeight: FontWeight.bold,
@@ -274,6 +327,7 @@ class _FutsalState extends State<Futsal> {
                         ),
                       ),
                     ),
+                    SizedBox(height: 30),
                   ],
                 ),
               );
@@ -284,21 +338,21 @@ class _FutsalState extends State<Futsal> {
     );
   }
 
-  List<Widget> generateBody(AsyncSnapshot<QuerySnapshot> snapshot) {
-    List<Widget> body = [];
-    for (int i = 0; i < snapshot.data!.docs.length; i++) {
-      body.add(OOPCardScore(
-        tim1: snapshot.data!.docs[i]['tim1'],
-        logo1: snapshot.data!.docs[i]['logo1'],
-        logo2: snapshot.data!.docs[i]['logo2'],
-        tim2: snapshot.data!.docs[i]['tim2'],
-        tanggal: snapshot.data!.docs[i]['tanggal'],
-        skor1: snapshot.data!.docs[i]['skor1'],
-        skor2: snapshot.data!.docs[i]['skor2'],
-        documentSnapshot: snapshot.data!.docs[i][DocumentSnapshot],
-        id: snapshot.data!.docs[i].id,
-      ));
-    }
-    return body;
-  }
+  // List<Widget> generateBody(AsyncSnapshot<QuerySnapshot> snapshot) {
+  //   List<Widget> body = [];
+  //   for (int i = 0; i < snapshot.data!.docs.length; i++) {
+  //     body.add(OOPCardScore(
+  //       tim1: snapshot.data!.docs[i]['tim1'],
+  //       logo1: snapshot.data!.docs[i]['logo1'],
+  //       logo2: snapshot.data!.docs[i]['logo2'],
+  //       tim2: snapshot.data!.docs[i]['tim2'],
+  //       // tanggal: snapshot.data!.docs[i]['tanggal'],
+  //       skor1: snapshot.data!.docs[i]['skor1'],
+  //       skor2: snapshot.data!.docs[i]['skor2'],
+  //       documentSnapshot: snapshot.data!.docs[i][DocumentSnapshot],
+  //       id: snapshot.data!.docs[i].id,
+  //     ));
+  //   }
+  //   return body;
+  // }
 }

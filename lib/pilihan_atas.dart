@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_unnecessary_containers
 
-
 import 'package:akhir/pemain_akl.dart';
 
 import 'package:akhir/pilihan_pertandingan.dart';
@@ -8,6 +7,7 @@ import 'package:akhir/posisi_akl.dart';
 import 'package:akhir/tentang_profil_jurusan.dart';
 import 'package:akhir/user_akl_tentang.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/gestures.dart';
 
 import 'package:flutter/material.dart';
 
@@ -18,7 +18,7 @@ class PilihanAtas extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 4,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: true,
@@ -48,7 +48,8 @@ class PilihanAtas extends StatelessWidget {
               const SizedBox(height: 20),
               Text(
                 docData!.get('namaJurusan').toUpperCase(),
-                style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
               ),
             ],
           ),
@@ -77,7 +78,7 @@ class PilihanAtas extends StatelessWidget {
               indicatorColor: Colors.white,
               tabs: [
                 Tab(text: 'Tentang'),
-                Tab(text: 'Pertandingan'),
+                // Tab(text: 'Pertandingan'),
                 Tab(text: 'Pemain'),
                 Tab(text: 'Posisi'),
               ]),
@@ -86,12 +87,14 @@ class PilihanAtas extends StatelessWidget {
           TentangAKL(
             dataJurusan: docData,
           ),
-          PilihanPertandingan(
-            dataJurusan: docData,
-          ),
+          // PilihanPertandingan(
+          //   dataJurusan: docData,
+          // ),
           PemainAKL(
-           tim1: '', tim2: '',
-
+            tim1: '',
+            tim2: '',
+            dataJurusan: docData,
+            id: '',
           ),
           PosisiAKL(
             dataJurusan: docData,

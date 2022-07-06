@@ -6,7 +6,9 @@ import 'package:flutter/services.dart';
 
 class EditDeskripsiRplOtkp extends StatefulWidget {
   DocumentSnapshot docid;
-  EditDeskripsiRplOtkp({Key? key, required this.docid}) : super(key: key);
+  final String id;
+  EditDeskripsiRplOtkp({Key? key, required this.docid, required this.id})
+      : super(key: key);
 
   @override
   State<EditDeskripsiRplOtkp> createState() => _EditDeskripsiRplOtkpState();

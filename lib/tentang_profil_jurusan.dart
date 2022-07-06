@@ -75,14 +75,14 @@ class _TentangAKLState extends State<TentangAKL> {
                     Container(
                       padding: const EdgeInsets.all(11),
                       width: MediaQuery.of(context).size.width,
-             
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5),
                         color: const Color(0xffD7E9F7),
                       ),
                       child: Expanded(
                         child: Text(
-                          snapshot.data!.docChanges[index].doc['tentangJurusan'],
+                          snapshot
+                              .data!.docs[index]['tentangJurusan'],
                           style: const TextStyle(
                             fontSize: 15,
                           ),
@@ -118,8 +118,8 @@ class _TentangAKLState extends State<TentangAKL> {
                       ),
                       child: Expanded(
                         child: Text(
-                          snapshot.data!.docChanges[index]
-                              .doc['kejuaraanYangPernahDiraih'],
+                          snapshot.data!.docs[index]
+                              ['kejuaraanYangPernahDiraih'],
                           style: const TextStyle(
                             fontSize: 15,
                           ),
