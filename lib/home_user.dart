@@ -263,10 +263,11 @@ class _HomeUserState extends State<HomeUser> {
           StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
                   .collection('pertandinganTerakhir')
-                  .orderBy('tanggalPertandingan', descending: true)
-                  .limit(1)
+                  // .orderBy('tanggalPertandingan', descending: true)
+                  // .limit(1)
                   .snapshots(),
-              builder: (context, snapshot) {
+              builder: (BuildContext context,
+                  AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (!snapshot.hasData) {
                   return (Container());
                 }
@@ -320,36 +321,13 @@ class _HomeUserState extends State<HomeUser> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          SizedBox(
-                                            width: 50,
-                                            height: 50,
-                                            child: Image.network(
-                                              snapshot.data!.docs[0]
-                                                  .get('futsal')['logo1'],
-                                              loadingBuilder:
-                                                  (BuildContext context,
-                                                      Widget child,
-                                                      ImageChunkEvent?
-                                                          loadingProgress) {
-                                                if (loadingProgress == null) {
-                                                  return child;
-                                                }
-                                                return Center(
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                    color:
-                                                        const Color(0xff142D4C),
-                                                    value: loadingProgress
-                                                                .expectedTotalBytes !=
-                                                            null
-                                                        ? loadingProgress
-                                                                .cumulativeBytesLoaded /
-                                                            loadingProgress
-                                                                .expectedTotalBytes!
-                                                        : null,
-                                                  ),
-                                                );
-                                              },
+                                          Text(
+                                            snapshot.data!.docs[0]
+                                                .get('futsal')['tim1'],
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12,
+                                              color: Color(0xff142D4C),
                                             ),
                                           ),
                                           const Center(
@@ -361,37 +339,27 @@ class _HomeUserState extends State<HomeUser> {
                                               ),
                                             ),
                                           ),
-                                          SizedBox(
-                                              width: 50,
-                                              height: 50,
-                                              child: Image.network(
-                                                snapshot.data!.docs[0]
-                                                    .get('futsal')['logo2'],
-                                                loadingBuilder:
-                                                    (BuildContext context,
-                                                        Widget child,
-                                                        ImageChunkEvent?
-                                                            loadingProgress) {
-                                                  if (loadingProgress == null) {
-                                                    return child;
-                                                  }
-                                                  return Center(
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      color: const Color(
-                                                          0xff142D4C),
-                                                      value: loadingProgress
-                                                                  .expectedTotalBytes !=
-                                                              null
-                                                          ? loadingProgress
-                                                                  .cumulativeBytesLoaded /
-                                                              loadingProgress
-                                                                  .expectedTotalBytes!
-                                                          : null,
-                                                    ),
-                                                  );
-                                                },
-                                              )),
+                                          Text(
+                                            snapshot.data!.docs[0]
+                                                .get('futsal')['tim2'],
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12,
+                                              color: Color(0xff142D4C),
+                                            ),
+                                          ),
+                                          // Text(
+                                          //         snapshot.data!.docs[0]
+                                          //                 .get('futsal')[
+                                          //             'tim1'],
+                                          //         style: const TextStyle(
+                                          //           fontWeight:
+                                          //               FontWeight.bold,
+                                          //           fontSize: 12,
+                                          //           color:
+                                          //               Color(0xff142D4C),
+                                          //         ),
+                                          //       ),
                                         ],
                                       ),
                                       const SizedBox(height: 25),
@@ -495,190 +463,183 @@ class _HomeUserState extends State<HomeUser> {
                                   ),
                                 ),
                                 const SizedBox(width: 20),
-                                Container(
-                                  width: 186,
-                                  height: 134,
-                                  decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(8),
-                                        topRight: Radius.circular(8)),
-                                    color: Colors.white,
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          SizedBox(
-                                              width: 50,
-                                              height: 50,
-                                              child: Image.network(
-                                                snapshot.data!.docs[0]
-                                                    .get('basket')['logo1'],
-                                                loadingBuilder:
-                                                    (BuildContext context,
-                                                        Widget child,
-                                                        ImageChunkEvent?
-                                                            loadingProgress) {
-                                                  if (loadingProgress == null) {
-                                                    return child;
-                                                  }
-                                                  return Center(
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      color: const Color(
-                                                          0xff142D4C),
-                                                      value: loadingProgress
-                                                                  .expectedTotalBytes !=
-                                                              null
-                                                          ? loadingProgress
-                                                                  .cumulativeBytesLoaded /
-                                                              loadingProgress
-                                                                  .expectedTotalBytes!
-                                                          : null,
-                                                    ),
-                                                  );
-                                                },
-                                              )),
-                                          const Center(
-                                            child: Text(
-                                              'VS',
-                                              style: TextStyle(
+                                InkWell(
+                                  onTap: () => {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            EditPertandinganTerakhir(
+                                          id: 'id',
+                                          cabangolahraga: 'basket',
+                                          imageUrl: '',
+                                          docid: snapshot.data!.docs[0],
+                                          data: snapshot.data!.docs[0]
+                                              .get('basket'),
+                                        ),
+                                      ),
+                                    ),
+                                  },
+                                  child: Container(
+                                    width: 186,
+                                    height: 134,
+                                    decoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(8),
+                                          topRight: Radius.circular(8)),
+                                      color: Colors.white,
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Text(
+                                              snapshot.data!.docs[0]
+                                                  .get('basket')['tim1'],
+                                              style: const TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 12,
+                                                color: Color(0xff142D4C),
                                               ),
                                             ),
-                                          ),
-                                          SizedBox(
-                                              width: 50,
-                                              height: 50,
-                                              child: Image.network(
-                                                snapshot.data!.docs[0]
-                                                    .get('basket')['logo2'],
-                                                loadingBuilder:
-                                                    (BuildContext context,
-                                                        Widget child,
-                                                        ImageChunkEvent?
-                                                            loadingProgress) {
-                                                  if (loadingProgress == null) {
-                                                    return child;
-                                                  }
-                                                  return Center(
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      color: const Color(
-                                                          0xff142D4C),
-                                                      value: loadingProgress
-                                                                  .expectedTotalBytes !=
-                                                              null
-                                                          ? loadingProgress
-                                                                  .cumulativeBytesLoaded /
-                                                              loadingProgress
-                                                                  .expectedTotalBytes!
-                                                          : null,
-                                                    ),
-                                                  );
-                                                },
-                                              )),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 25),
-                                      Stack(
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                width: 75,
-                                                height: 19,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(5),
-                                                  color:
-                                                      const Color(0xff142D4C),
-                                                ),
-                                                child: const Center(
-                                                  child: Text(
-                                                    'Basket',
-                                                    style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 12,
-                                                        color:
-                                                            Color(0xffD7E9F7)),
-                                                  ),
+                                            const Center(
+                                              child: Text(
+                                                'VS',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 12,
                                                 ),
                                               ),
-                                              Container(
-                                                width: 75,
-                                                height: 19,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(5),
-                                                  color:
-                                                      const Color(0xffD7E9F7),
-                                                ),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  // ignore: prefer_const_literals_to_create_immutables
-                                                  children: [
-                                                    Text(
-                                                      snapshot.data!.docs[0]
-                                                              .get('basket')[
-                                                          'skor1'],
-                                                      style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 12,
-                                                        color:
-                                                            Color(0xff142D4C),
-                                                      ),
-                                                    ),
-                                                    const SizedBox(width: 5),
-                                                    const Text(
-                                                      '-',
+                                            ),
+                                            Text(
+                                              snapshot.data!.docs[0]
+                                                  .get('basket')['tim2'],
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 12,
+                                                color: Color(0xff142D4C),
+                                              ),
+                                            ),
+                                            // Text(
+                                            //         snapshot.data!.docs[0]
+                                            //                 .get('futsal')[
+                                            //             'tim1'],
+                                            //         style: const TextStyle(
+                                            //           fontWeight:
+                                            //               FontWeight.bold,
+                                            //           fontSize: 12,
+                                            //           color:
+                                            //               Color(0xff142D4C),
+                                            //         ),
+                                            //       ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 25),
+                                        Stack(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  width: 75,
+                                                  height: 19,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                    color:
+                                                        const Color(0xff142D4C),
+                                                  ),
+                                                  child: const Center(
+                                                    child: Text(
+                                                      'Basket',
                                                       style: TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 12,
-                                                        color:
-                                                            Color(0xff142D4C),
-                                                      ),
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color: Color(
+                                                              0xffD7E9F7)),
                                                     ),
-                                                    const SizedBox(width: 5),
-                                                    Text(
-                                                      snapshot.data!.docs[0]
-                                                              .get('basket')[
-                                                          'skor2'],
-                                                      style: const TextStyle(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        fontSize: 12,
-                                                        color:
-                                                            Color(0xff142D4C),
-                                                      ),
-                                                    ),
-                                                  ],
+                                                  ),
                                                 ),
-                                              )
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 10),
-                                      // Text(
-                                      //   DateFormat('EEEE, dd MMMM yyyy', 'id')
-                                      //       .format((snapshot.data!.docs[0].get(
-                                      //                   'tanggalPertandingan')
-                                      //               as Timestamp)
-                                      //           .toDate()),
-                                      //   style: const TextStyle(fontSize: 12),
-                                      // ),
-                                    ],
+                                                Container(
+                                                  width: 75,
+                                                  height: 19,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5),
+                                                    color:
+                                                        const Color(0xffD7E9F7),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    // ignore: prefer_const_literals_to_create_immutables
+                                                    children: [
+                                                      Text(
+                                                        snapshot.data!.docs[0]
+                                                                .get('basket')[
+                                                            'skor1'],
+                                                        style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color:
+                                                              Color(0xff142D4C),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(width: 5),
+                                                      const Text(
+                                                        '-',
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color:
+                                                              Color(0xff142D4C),
+                                                        ),
+                                                      ),
+                                                      const SizedBox(width: 5),
+                                                      Text(
+                                                        snapshot.data!.docs[0]
+                                                                .get('basket')[
+                                                            'skor2'],
+                                                        style: const TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 12,
+                                                          color:
+                                                              Color(0xff142D4C),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        const SizedBox(height: 10),
+                                        // Text(
+                                        //   DateFormat('EEEE, dd MMMM yyyy', 'id')
+                                        //       .format((snapshot.data!.docs[0].get(
+                                        //                   'tanggalPertandingan')
+                                        //               as Timestamp)
+                                        //           .toDate()),
+                                        //   // snapshot.data!.docs[0]
+                                        //   //     .get('tanggalPertandingan')
+                                        //   //     .toString(),
+                                        //   style: const TextStyle(fontSize: 12),
+                                        // ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(width: 20),
@@ -698,37 +659,15 @@ class _HomeUserState extends State<HomeUser> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          SizedBox(
-                                              width: 50,
-                                              height: 50,
-                                              child: Image.network(
-                                                snapshot.data!.docs[0]
-                                                    .get('voli')['logo1'],
-                                                loadingBuilder:
-                                                    (BuildContext context,
-                                                        Widget child,
-                                                        ImageChunkEvent?
-                                                            loadingProgress) {
-                                                  if (loadingProgress == null) {
-                                                    return child;
-                                                  }
-                                                  return Center(
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      color: const Color(
-                                                          0xff142D4C),
-                                                      value: loadingProgress
-                                                                  .expectedTotalBytes !=
-                                                              null
-                                                          ? loadingProgress
-                                                                  .cumulativeBytesLoaded /
-                                                              loadingProgress
-                                                                  .expectedTotalBytes!
-                                                          : null,
-                                                    ),
-                                                  );
-                                                },
-                                              )),
+                                          Text(
+                                            snapshot.data!.docs[0]
+                                                .get('voli')['tim1'],
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12,
+                                              color: Color(0xff142D4C),
+                                            ),
+                                          ),
                                           const Center(
                                             child: Text(
                                               'VS',
@@ -738,37 +677,27 @@ class _HomeUserState extends State<HomeUser> {
                                               ),
                                             ),
                                           ),
-                                          SizedBox(
-                                              width: 50,
-                                              height: 50,
-                                              child: Image.network(
-                                                snapshot.data!.docs[0]
-                                                    .get('voli')['logo2'],
-                                                loadingBuilder:
-                                                    (BuildContext context,
-                                                        Widget child,
-                                                        ImageChunkEvent?
-                                                            loadingProgress) {
-                                                  if (loadingProgress == null) {
-                                                    return child;
-                                                  }
-                                                  return Center(
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      color: const Color(
-                                                          0xff142D4C),
-                                                      value: loadingProgress
-                                                                  .expectedTotalBytes !=
-                                                              null
-                                                          ? loadingProgress
-                                                                  .cumulativeBytesLoaded /
-                                                              loadingProgress
-                                                                  .expectedTotalBytes!
-                                                          : null,
-                                                    ),
-                                                  );
-                                                },
-                                              )),
+                                          Text(
+                                            snapshot.data!.docs[0]
+                                                .get('voli')['tim2'],
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12,
+                                              color: Color(0xff142D4C),
+                                            ),
+                                          ),
+                                          // Text(
+                                          //         snapshot.data!.docs[0]
+                                          //                 .get('futsal')[
+                                          //             'tim1'],
+                                          //         style: const TextStyle(
+                                          //           fontWeight:
+                                          //               FontWeight.bold,
+                                          //           fontSize: 12,
+                                          //           color:
+                                          //               Color(0xff142D4C),
+                                          //         ),
+                                          //       ),
                                         ],
                                       ),
                                       const SizedBox(height: 25),
@@ -861,6 +790,9 @@ class _HomeUserState extends State<HomeUser> {
                                       //                   'tanggalPertandingan')
                                       //               as Timestamp)
                                       //           .toDate()),
+                                      //   // snapshot.data!.docs[0]
+                                      //   //     .get('tanggalPertandingan')
+                                      //   //     .toString(),
                                       //   style: const TextStyle(fontSize: 12),
                                       // ),
                                     ],
@@ -883,37 +815,15 @@ class _HomeUserState extends State<HomeUser> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          SizedBox(
-                                              width: 50,
-                                              height: 50,
-                                              child: Image.network(
-                                                snapshot.data!.docs[0]
-                                                    .get('catur')['logo1'],
-                                                loadingBuilder:
-                                                    (BuildContext context,
-                                                        Widget child,
-                                                        ImageChunkEvent?
-                                                            loadingProgress) {
-                                                  if (loadingProgress == null) {
-                                                    return child;
-                                                  }
-                                                  return Center(
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      color: const Color(
-                                                          0xff142D4C),
-                                                      value: loadingProgress
-                                                                  .expectedTotalBytes !=
-                                                              null
-                                                          ? loadingProgress
-                                                                  .cumulativeBytesLoaded /
-                                                              loadingProgress
-                                                                  .expectedTotalBytes!
-                                                          : null,
-                                                    ),
-                                                  );
-                                                },
-                                              )),
+                                          Text(
+                                            snapshot.data!.docs[0]
+                                                .get('catur')['tim1'],
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12,
+                                              color: Color(0xff142D4C),
+                                            ),
+                                          ),
                                           const Center(
                                             child: Text(
                                               'VS',
@@ -923,37 +833,27 @@ class _HomeUserState extends State<HomeUser> {
                                               ),
                                             ),
                                           ),
-                                          SizedBox(
-                                              width: 50,
-                                              height: 50,
-                                              child: Image.network(
-                                                snapshot.data!.docs[0]
-                                                    .get('catur')['logo2'],
-                                                loadingBuilder:
-                                                    (BuildContext context,
-                                                        Widget child,
-                                                        ImageChunkEvent?
-                                                            loadingProgress) {
-                                                  if (loadingProgress == null) {
-                                                    return child;
-                                                  }
-                                                  return Center(
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      color: const Color(
-                                                          0xff142D4C),
-                                                      value: loadingProgress
-                                                                  .expectedTotalBytes !=
-                                                              null
-                                                          ? loadingProgress
-                                                                  .cumulativeBytesLoaded /
-                                                              loadingProgress
-                                                                  .expectedTotalBytes!
-                                                          : null,
-                                                    ),
-                                                  );
-                                                },
-                                              )),
+                                          Text(
+                                            snapshot.data!.docs[0]
+                                                .get('catur')['tim2'],
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12,
+                                              color: Color(0xff142D4C),
+                                            ),
+                                          ),
+                                          // Text(
+                                          //         snapshot.data!.docs[0]
+                                          //                 .get('futsal')[
+                                          //             'tim1'],
+                                          //         style: const TextStyle(
+                                          //           fontWeight:
+                                          //               FontWeight.bold,
+                                          //           fontSize: 12,
+                                          //           color:
+                                          //               Color(0xff142D4C),
+                                          //         ),
+                                          //       ),
                                         ],
                                       ),
                                       const SizedBox(height: 25),
@@ -1048,12 +948,15 @@ class _HomeUserState extends State<HomeUser> {
                                       //                   'tanggalPertandingan')
                                       //               as Timestamp)
                                       //           .toDate()),
+                                      //   // snapshot.data!.docs[0]
+                                      //   //     .get('tanggalPertandingan')
+                                      //   //     .toString(),
                                       //   style: const TextStyle(fontSize: 12),
                                       // ),
                                     ],
                                   ),
                                 ),
-                                const SizedBox(width: 20),
+                                SizedBox(width: 20),
                                 Container(
                                   width: 186,
                                   height: 134,
@@ -1070,36 +973,13 @@ class _HomeUserState extends State<HomeUser> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          SizedBox(
-                                            width: 50,
-                                            height: 50,
-                                            child: Image.network(
-                                              snapshot.data!.docs[0]
-                                                  .get('bulutangkis')['logo1'],
-                                              loadingBuilder:
-                                                  (BuildContext context,
-                                                      Widget child,
-                                                      ImageChunkEvent?
-                                                          loadingProgress) {
-                                                if (loadingProgress == null) {
-                                                  return child;
-                                                }
-                                                return Center(
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                    color:
-                                                        const Color(0xff142D4C),
-                                                    value: loadingProgress
-                                                                .expectedTotalBytes !=
-                                                            null
-                                                        ? loadingProgress
-                                                                .cumulativeBytesLoaded /
-                                                            loadingProgress
-                                                                .expectedTotalBytes!
-                                                        : null,
-                                                  ),
-                                                );
-                                              },
+                                          Text(
+                                            snapshot.data!.docs[0]
+                                                .get('bulutangkis')['tim1'],
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12,
+                                              color: Color(0xff142D4C),
                                             ),
                                           ),
                                           const Center(
@@ -1111,37 +991,27 @@ class _HomeUserState extends State<HomeUser> {
                                               ),
                                             ),
                                           ),
-                                          SizedBox(
-                                              width: 50,
-                                              height: 50,
-                                              child: Image.network(
-                                                snapshot.data!.docs[0].get(
-                                                    'bulutangkis')['logo2'],
-                                                loadingBuilder:
-                                                    (BuildContext context,
-                                                        Widget child,
-                                                        ImageChunkEvent?
-                                                            loadingProgress) {
-                                                  if (loadingProgress == null) {
-                                                    return child;
-                                                  }
-                                                  return Center(
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      color: const Color(
-                                                          0xff142D4C),
-                                                      value: loadingProgress
-                                                                  .expectedTotalBytes !=
-                                                              null
-                                                          ? loadingProgress
-                                                                  .cumulativeBytesLoaded /
-                                                              loadingProgress
-                                                                  .expectedTotalBytes!
-                                                          : null,
-                                                    ),
-                                                  );
-                                                },
-                                              )),
+                                          Text(
+                                            snapshot.data!.docs[0]
+                                                .get('bulutangkis')['tim2'],
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12,
+                                              color: Color(0xff142D4C),
+                                            ),
+                                          ),
+                                          // Text(
+                                          //         snapshot.data!.docs[0]
+                                          //                 .get('futsal')[
+                                          //             'tim1'],
+                                          //         style: const TextStyle(
+                                          //           fontWeight:
+                                          //               FontWeight.bold,
+                                          //           fontSize: 12,
+                                          //           color:
+                                          //               Color(0xff142D4C),
+                                          //         ),
+                                          //       ),
                                         ],
                                       ),
                                       const SizedBox(height: 25),
@@ -1236,6 +1106,9 @@ class _HomeUserState extends State<HomeUser> {
                                       //                   'tanggalPertandingan')
                                       //               as Timestamp)
                                       //           .toDate()),
+                                      //   // snapshot.data!.docs[0]
+                                      //   //     .get('tanggalPertandingan')
+                                      //   //     .toString(),
                                       //   style: const TextStyle(fontSize: 12),
                                       // ),
                                     ],
@@ -1258,36 +1131,13 @@ class _HomeUserState extends State<HomeUser> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          SizedBox(
-                                            width: 50,
-                                            height: 50,
-                                            child: Image.network(
-                                              snapshot.data!.docs[0]
-                                                  .get('tenisMeja')['logo1'],
-                                              loadingBuilder:
-                                                  (BuildContext context,
-                                                      Widget child,
-                                                      ImageChunkEvent?
-                                                          loadingProgress) {
-                                                if (loadingProgress == null) {
-                                                  return child;
-                                                }
-                                                return Center(
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                    color:
-                                                        const Color(0xff142D4C),
-                                                    value: loadingProgress
-                                                                .expectedTotalBytes !=
-                                                            null
-                                                        ? loadingProgress
-                                                                .cumulativeBytesLoaded /
-                                                            loadingProgress
-                                                                .expectedTotalBytes!
-                                                        : null,
-                                                  ),
-                                                );
-                                              },
+                                          Text(
+                                            snapshot.data!.docs[0]
+                                                .get('tenisMeja')['tim1'],
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12,
+                                              color: Color(0xff142D4C),
                                             ),
                                           ),
                                           const Center(
@@ -1299,41 +1149,30 @@ class _HomeUserState extends State<HomeUser> {
                                               ),
                                             ),
                                           ),
-                                          SizedBox(
-                                              width: 50,
-                                              height: 50,
-                                              child: Image.network(
-                                                snapshot.data!.docs[0]
-                                                    .get('tenisMeja')['logo2'],
-                                                loadingBuilder:
-                                                    (BuildContext context,
-                                                        Widget child,
-                                                        ImageChunkEvent?
-                                                            loadingProgress) {
-                                                  if (loadingProgress == null) {
-                                                    return child;
-                                                  }
-                                                  return Center(
-                                                    child:
-                                                        CircularProgressIndicator(
-                                                      color: const Color(
-                                                          0xff142D4C),
-                                                      value: loadingProgress
-                                                                  .expectedTotalBytes !=
-                                                              null
-                                                          ? loadingProgress
-                                                                  .cumulativeBytesLoaded /
-                                                              loadingProgress
-                                                                  .expectedTotalBytes!
-                                                          : null,
-                                                    ),
-                                                  );
-                                                },
-                                              )),
+                                          Text(
+                                            snapshot.data!.docs[0]
+                                                .get('tenisMeja')['tim2'],
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 12,
+                                              color: Color(0xff142D4C),
+                                            ),
+                                          ),
+                                          // Text(
+                                          //         snapshot.data!.docs[0]
+                                          //                 .get('futsal')[
+                                          //             'tim1'],
+                                          //         style: const TextStyle(
+                                          //           fontWeight:
+                                          //               FontWeight.bold,
+                                          //           fontSize: 12,
+                                          //           color:
+                                          //               Color(0xff142D4C),
+                                          //         ),
+                                          //       ),
                                         ],
                                       ),
                                       const SizedBox(height: 25),
-
                                       Stack(
                                         children: [
                                           Row(
@@ -1361,7 +1200,6 @@ class _HomeUserState extends State<HomeUser> {
                                                   ),
                                                 ),
                                               ),
-                                              
                                               Container(
                                                 width: 75,
                                                 height: 19,
@@ -1426,6 +1264,9 @@ class _HomeUserState extends State<HomeUser> {
                                       //                   'tanggalPertandingan')
                                       //               as Timestamp)
                                       //           .toDate()),
+                                      //   // snapshot.data!.docs[0]
+                                      //   //     .get('tanggalPertandingan')
+                                      //   //     .toString(),
                                       //   style: const TextStyle(fontSize: 12),
                                       // ),
                                     ],

@@ -1,4 +1,5 @@
 import 'package:akhir/OOP_klasemen_navbar.dart';
+import 'package:akhir/user_OOP_klasemen_navbar.dart';
 import 'package:akhir/add_klasemen_futsal.dart';
 import 'package:akhir/add_klasemen_navbar.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,9 @@ class _KlasemenNavbarState extends State<KlasemenNavbar> {
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              color: Color(0xff142D4C),
+            ),
           );
         }
         if (!snapshot.hasData) {
@@ -124,7 +127,7 @@ class _KlasemenNavbarState extends State<KlasemenNavbar> {
                                         ),
                                       ),
                                       const Text(
-                                        'k',
+                                        'K',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -144,6 +147,25 @@ class _KlasemenNavbarState extends State<KlasemenNavbar> {
                 ),
                 const SizedBox(height: 10),
                 ...generateBody(snapshot),
+                SizedBox(height: 50),
+                Padding(
+                  padding: const EdgeInsets.all(25),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Keterangan :'),
+                          Text('M = Main'),
+                          Text('M = Menang'),
+                          Text('S = Seri'),
+                          Text('K = Kalah'),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -157,26 +179,26 @@ class _KlasemenNavbarState extends State<KlasemenNavbar> {
     for (int i = 0; i < snapshot.data!.docs.length; i++) {
       body.add(OOPKlasemenNavbar(
         no: snapshot.data!.docs[i]['no'],
-        logo: Image(
-            fit: BoxFit.cover,
-            image: NetworkImage(
-              snapshot.data!.docs[i]['logo'],
-            ),
-            loadingBuilder: (BuildContext context, Widget child,
-                ImageChunkEvent? loadingProgress) {
-              if (loadingProgress == null) {
-                return child;
-              }
-              return Center(
-                child: CircularProgressIndicator(
-                  color: const Color(0xff142D4C),
-                  value: loadingProgress.expectedTotalBytes != null
-                      ? loadingProgress.cumulativeBytesLoaded /
-                          loadingProgress.expectedTotalBytes!
-                      : null,
-                ),
-              );
-            }),
+        // logo: Image(
+        //     fit: BoxFit.cover,
+        //     image: NetworkImage(
+        //       snapshot.data!.docs[i]['logo'],
+        //     ),
+        //     loadingBuilder: (BuildContext context, Widget child,
+        //         ImageChunkEvent? loadingProgress) {
+        //       if (loadingProgress == null) {
+        //         return child;
+        //       }
+        //       return Center(
+        //         child: CircularProgressIndicator(
+        //           color: const Color(0xff142D4C),
+        //           value: loadingProgress.expectedTotalBytes != null
+        //               ? loadingProgress.cumulativeBytesLoaded /
+        //                   loadingProgress.expectedTotalBytes!
+        //               : null,
+        //         ),
+        //       );
+        //     }),
         jurusan: snapshot.data!.docs[i]['jurusan'],
         main: snapshot.data!.docs[i]['main'],
         menang: snapshot.data!.docs[i]['menang'],

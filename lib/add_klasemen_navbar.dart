@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class AddKlasemenNavbar extends StatefulWidget {
   const AddKlasemenNavbar({Key? key}) : super(key: key);
@@ -16,7 +17,9 @@ class AddKlasemenNavbar extends StatefulWidget {
 class _AddKlasemenNavbarState extends State<AddKlasemenNavbar> {
   final _formKey = GlobalKey<FormState>();
   final Stream<QuerySnapshot> _usersStream =
-      FirebaseFirestore.instance.collection('klasemenNavbar').snapshots();
+      FirebaseFirestore.instance.collection('klasemen').snapshots();
+  final RoundedLoadingButtonController _btnController2 =
+      RoundedLoadingButtonController();
 
   TextEditingController no = TextEditingController();
   TextEditingController jurusan = TextEditingController();
@@ -279,33 +282,132 @@ class _AddKlasemenNavbarState extends State<AddKlasemenNavbar> {
                           },
                         ),
                         const SizedBox(height: 15),
-                        IconButton(
-                            onPressed: () async {
-                              File? _images = await getImageGallery();
-                              if (_images != null) {
-                                setState(() {
-                                  image = _images;
-                                });
-                              }
-                            },
-                            icon: const Icon(Icons.add, size: 40)),
-                        const SizedBox(height: 15),
-                        Row(
-                          children: [
-                            image != null
-                                ? Container(
-                                    width: 100,
-                                    height: 100,
-                                    child: Image.file(
-                                      image!,
-                                    ),
-                                  )
-                                : Container(),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                          ],
+                        // IconButton(
+                        //     onPressed: () async {
+                        //       File? _images = await getImageGallery();
+                        //       if (_images != null) {
+                        //         setState(() {
+                        //           image = _images;
+                        //         });
+                        //       }
+                        //     },
+                        //     icon: const Icon(Icons.add, size: 40)),
+                        // const SizedBox(height: 15),
+                        // Row(
+                        //   children: [
+                        //     image != null
+                        //         ? Container(
+                        //             width: 100,
+                        //             height: 100,
+                        //             child: Image.file(
+                        //               image!,
+                        //             ),
+                        //           )
+                        //         : Container(),
+                        //     const SizedBox(
+                        //       width: 5,
+                        //     ),
+                        //   ],
+                        // ),
+                        RoundedLoadingButton(
+                          color: const Color(0xff142D4C),
+                          // successColor: const Color(0xff142D4C),
+                          controller: _btnController2,
+                          onPressed: () async {
+                            if (no.text.isNotEmpty &&
+                                jurusan.text.isNotEmpty &&
+                                main.text.isNotEmpty &&
+                                menang.text.isNotEmpty &&
+                                seri.text.isNotEmpty &&
+                                kalah.text.isNotEmpty &&
+                                poin.text.isNotEmpty) {
+                              FirebaseFirestore.instance
+                                  .collection("klasemen")
+                                  .add({
+                                // "logo": imageUrl,
+                                "no": no.text,
+                                "jurusan": jurusan.text,
+                                "main": main.text,
+                                "menang": menang.text,
+                                "seri": seri.text,
+                                "kalah": kalah.text,
+                                "poin": poin.text,
+                              }).whenComplete(() {
+                                Navigator.pop(
+                                  context,
+                                );
+                              });
+                            } else {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text(
+                                    'Inputan tidak boleh kosong, silahkan kembali'),
+                                backgroundColor: Color(0xff142D4C),
+                              ));
+                              setState(() {});
+                              // .whenComplete(() {
+
+                              Navigator.pop(
+                                context,
+                              );
+                            }
+                          },
+                          // onPressed: () async {
+                          //   FirebaseFirestore.instance
+                          //       .collection('cabor')
+                          //       .doc(widget.id)
+                          //       .set({
+                          //     'futsal': {
+                          //       'skor1': skor1.text,
+                          //       'skor2': skor2.text,
+                          //       // 'tanggal': tanggal.text,
+                          //       'tim1': tim1.text,
+                          //       'tim2': tim2.text,
+
+                          //       // 'tanggalPertandingan' : ,
+                          //     },
+                          //   }, SetOptions(merge: true));
+                          //   // widget.docid.reference.update({
+                          //   //   'futsal': {
+                          //   //     'skor1': skor1.text,
+                          //   //     'skor2': skor2.text,
+                          //   //     // 'tanggal': tanggal.text,
+                          //   //     'tim1': tim1.text,
+                          //   //     'tim2': tim2.text,
+                          //   //     'logo1': image,
+                          //   //     'logo2': image2,
+                          //   //     // 'tanggalPertandingan' : ,
+                          //   //   },
+                          //   // });
+
+                          //   await uploadImage();
+                          //   ScaffoldMessenger.of(context)
+                          //       .showSnackBar(const SnackBar(
+                          //     content: Text(
+                          //       "Data telah diperbarui!",
+                          //       style: TextStyle(color: Colors.white),
+                          //     ),
+                          //     backgroundColor: Color(0xff142D4C),
+                          //   ));
+
+                          //   setState(() {});
+                          //   // .whenComplete(() {
+
+                          //   Navigator.pop(
+                          //     context,
+                          //   );
+                          //   // });
+                          // },
+                          valueColor: Colors.white,
+                          borderRadius: 10,
+                          child: const Text('''Simpan''',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold)),
                         ),
+                        const SizedBox(height: 30),
+
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -315,29 +417,64 @@ class _AddKlasemenNavbarState extends State<AddKlasemenNavbar> {
                                 onPrimary: Colors.grey,
                               ),
                               onPressed: () {
-                                FirebaseStorage.instance
-                                    .ref("")
-                                    // .ref("${jurusan.text}.png")
-                                    .putFile(File(image!.path))
-                                    .then(
-                                  (image) async {
-                                    String imageUrl =
-                                        await image.ref.getDownloadURL();
-                                    FirebaseFirestore.instance
-                                        .collection("klasemenNavbar")
-                                        .add({
-                                      "logo": imageUrl,
-                                      "no": no.text,
-                                      "jurusan": jurusan.text,
-                                      "main": main.text,
-                                      "menang": menang.text,
-                                      "seri": seri.text,
-                                      "kalah": kalah.text,
-                                      "poin": poin.text,
-                                    });
-                                  },
-                                );
+                                if (no.text.isNotEmpty &&
+                                    jurusan.text.isNotEmpty &&
+                                    main.text.isNotEmpty &&
+                                    menang.text.isNotEmpty &&
+                                    seri.text.isNotEmpty &&
+                                    kalah.text.isNotEmpty &&
+                                    poin.text.isNotEmpty) {
+                                  FirebaseFirestore.instance
+                                      .collection("klasemen")
+                                      .add({
+                                    // "logo": imageUrl,
+                                    "no": no.text,
+                                    "jurusan": jurusan.text,
+                                    "main": main.text,
+                                    "menang": menang.text,
+                                    "seri": seri.text,
+                                    "kalah": kalah.text,
+                                    "poin": poin.text,
+                                  });
+                                } else {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(SnackBar(
+                                    content: Text(
+                                        'Inputan tidak boleh kosong, silahkan kembali'),
+                                    backgroundColor: Color(0xff142D4C),
+                                  ));
+                                  setState(() {});
+                                  // .whenComplete(() {
+
+                                  Navigator.pop(
+                                    context,
+                                  );
+                                }
                               },
+                              // onPressed: () {
+                              //   FirebaseStorage.instance
+                              //       .ref("")
+                              //       // .ref("${jurusan.text}.png")
+                              //       .putFile(File(image!.path))
+                              //       .then(
+                              //     (image) async {
+                              //       String imageUrl =
+                              //           await image.ref.getDownloadURL();
+                              //       FirebaseFirestore.instance
+                              //           .collection("klasemenNavbar")
+                              //           .add({
+                              //         "logo": imageUrl,
+                              //         "no": no.text,
+                              //         "jurusan": jurusan.text,
+                              //         "main": main.text,
+                              //         "menang": menang.text,
+                              //         "seri": seri.text,
+                              //         "kalah": kalah.text,
+                              //         "poin": poin.text,
+                              //       });
+                              //     },
+                              //   );
+                              // },
                               child: const Text(
                                 'Simpan',
                                 style: TextStyle(

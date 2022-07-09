@@ -173,8 +173,8 @@ class _FutsalState extends State<Futsal> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SizedBox(
-                                    width: 90,
-                                    height: 90,
+                                    width: 70,
+                                    height: 70,
                                     child: (futsalModel.logo1.toString() !=
                                             'null')
                                         ? Image.network(
@@ -214,8 +214,8 @@ class _FutsalState extends State<Futsal> {
                                               shape: BoxShape.circle,
                                               color: Colors.grey[300]!,
                                             ),
-                                            width: 300,
-                                            height: 300,
+                                            width: 150,
+                                            height: 150,
                                             child: const Icon(
                                               Icons.person,
                                               color: Colors.white,
@@ -262,8 +262,8 @@ class _FutsalState extends State<Futsal> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 SizedBox(
-                                    width: 90,
-                                    height: 90,
+                                    width: 70,
+                                    height: 70,
                                     child: (futsalModel.logo2.toString() !=
                                             'null')
                                         ? Image.network(
@@ -305,8 +305,8 @@ class _FutsalState extends State<Futsal> {
                                               shape: BoxShape.circle,
                                               color: Colors.grey[300]!,
                                             ),
-                                            width: 300,
-                                            height: 300,
+                                            width: 150,
+                                            height: 150,
                                             child: const Icon(
                                               Icons.person,
                                               color: Colors.white,

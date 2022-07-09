@@ -7,13 +7,34 @@ import 'package:akhir/papan_skor.dart';
 import 'package:akhir/statistik_rpl_otkp.dart';
 
 import 'package:akhir/tim_futsal.dart';
+import 'package:akhir/user_deskripsi_futsal1.dart';
+import 'package:akhir/user_klasemenfutsal.dart';
 import 'package:akhir/user_statistik.dart';
+import 'package:akhir/user_timfutsal1.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserTabbarBody extends StatefulWidget {
   final DocumentSnapshot doc;
-  const UserTabbarBody({Key? key, required this.doc}) : super(key: key);
+  final String id;
+  final String logo1;
+  final String logo2;
+  final String skor1;
+  final String skor2;
+  final String tim1;
+  final String tim2;
+
+  const UserTabbarBody({
+    Key? key,
+    required this.id,
+    required this.doc,
+    required this.logo1,
+    required this.logo2,
+    required this.skor1,
+    required this.skor2,
+    required this.tim1,
+    required this.tim2,
+  }) : super(key: key);
 
   @override
   _UserTabbarBodyState createState() => _UserTabbarBodyState();
@@ -25,6 +46,7 @@ final Stream<QuerySnapshot> _usersStream =
 class _UserTabbarBodyState extends State<UserTabbarBody> {
   @override
   Widget build(BuildContext context) {
+    print(widget.id);
     return StreamBuilder(
       stream: _usersStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -58,17 +80,15 @@ class _UserTabbarBodyState extends State<UserTabbarBody> {
                   child: Row(
                     children: [
                       Expanded(
-                          flex: 15,
-                          child: SizedBox(
+                        flex: 15,
+                        child: SizedBox(
                             width: 50,
                             height: 50,
-                            child: Image(
+                            child: Image.network(
+                              widget.logo1,
                               fit: BoxFit.cover,
-                              image: NetworkImage(
-                                widget.doc.get('futsal')['logo1'],
-                              ),
-                            ),
-                          )),
+                            )),
+                      ),
                       Expanded(
                         flex: 70,
                         child: Padding(
@@ -82,14 +102,14 @@ class _UserTabbarBodyState extends State<UserTabbarBody> {
                                     MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
                                   Text(
-                                    widget.doc.get('futsal')['tim1'],
+                                    widget.tim1,
                                     style: const TextStyle(
                                         fontSize: 18,
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Text(
-                                    widget.doc.get('futsal')['skor1'],
+                                    widget.skor1,
                                     style: const TextStyle(
                                       color: Colors.black,
                                       fontSize: 28.0,
@@ -105,7 +125,7 @@ class _UserTabbarBodyState extends State<UserTabbarBody> {
                                     ),
                                   ),
                                   Text(
-                                    widget.doc.get('futsal')['skor2'],
+                                    widget.skor2,
                                     style: const TextStyle(
                                       color: Colors.black,
                                       fontSize: 28.0,
@@ -113,7 +133,7 @@ class _UserTabbarBodyState extends State<UserTabbarBody> {
                                     ),
                                   ),
                                   Text(
-                                    widget.doc.get('futsal')['tim2'],
+                                    widget.tim2,
                                     style: const TextStyle(
                                         fontSize: 18,
                                         color: Colors.black,
@@ -136,13 +156,13 @@ class _UserTabbarBodyState extends State<UserTabbarBody> {
                                   //     fontSize: 10.0,
                                   //   ),
                                   // ),
-                                  Text(
-                                    widget.doc.get('futsal')['tanggal'],
-                                    style: const TextStyle(
-                                      color: Colors.black45,
-                                      fontSize: 10.0,
-                                    ),
-                                  ),
+                                  // Text(
+                                  //   "d",
+                                  //   style: const TextStyle(
+                                  //     color: Colors.black45,
+                                  //     fontSize: 10.0,
+                                  //   ),
+                                  // ),
                                   // const Text(
                                   //   "Orel 12'",
                                   //   style: TextStyle(
@@ -158,16 +178,13 @@ class _UserTabbarBodyState extends State<UserTabbarBody> {
                       ),
                       Expanded(
                           flex: 15,
-                          child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: Image(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(
-                                widget.doc.get('futsal')['logo2'],
-                              ),
-                            ),
-                          )),
+                          child: Container(
+                              width: 50,
+                              height: 50,
+                              child: Image.network(
+                                widget.logo2,
+                                fit: BoxFit.cover,
+                              ))),
                     ],
                   ),
                 )
@@ -178,7 +195,7 @@ class _UserTabbarBodyState extends State<UserTabbarBody> {
             elevation: 0,
           ),
           body: DefaultTabController(
-            length: 4,
+            length: 3,
             child: Column(
               children: [
                 // ignore: avoid_unnecessary_containers
@@ -188,7 +205,7 @@ class _UserTabbarBodyState extends State<UserTabbarBody> {
                     labelColor: Colors.white,
                     tabs: [
                       Tab(text: 'Statistik'),
-                      Tab(text: 'Tim'),
+                      // Tab(text: 'Tim'),
                       Tab(text: 'Deskripsi'),
                       Tab(text: 'Klasemen'),
                     ],
@@ -197,19 +214,10 @@ class _UserTabbarBodyState extends State<UserTabbarBody> {
                 Expanded(
                   child: TabBarView(
                     children: [
-                      UserStatistik(docId: widget.doc.id),
-                      TimFutsalRplOtkp(
-                        id: widget.doc.id,
-                        // tim1: '',
-                        // tim2: '',
-                        // docId: widget.doc.id,
-                      ),
-                      DeskripsiRplOtkp(
-                        id: widget.doc.id,
-                        //   d
-                        // ocId: widget.doc.id
-                      ),
-                      const KlasemenFutsalNoAppbar(),
+                      UserStatistik(id: widget.id),
+                      // UserTimFutsal(id: widget.id),
+                      UserDeskripsiFutsal1(id: widget.id),
+                      const UserKlasemenFutsal(),
                     ],
                   ),
                 ),

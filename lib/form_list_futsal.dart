@@ -105,8 +105,8 @@ class _FormListFutsalState extends State<FormListFutsal> {
                           pickMedia(ImageSource.gallery);
                         },
                         child: SizedBox(
-                          width: 110,
-                          height: 110,
+                          width: 90,
+                          height: 90,
                           child: (imagePath == null)
                               ? CircleAvatar(
                                   backgroundImage: FileImage(File(imagePath!)))
@@ -116,12 +116,12 @@ class _FormListFutsalState extends State<FormListFutsal> {
                                         shape: BoxShape.circle,
                                         color: Colors.grey[300]!,
                                       ),
-                                      width: 300,
-                                      height: 300,
+                                      width: 150,
+                                      height: 150,
                                       child: const Icon(
                                         Icons.person,
                                         color: Colors.white,
-                                        size: 100,
+                                        size: 60,
                                       ),
                                     )
                                   : Container(
@@ -151,8 +151,8 @@ class _FormListFutsalState extends State<FormListFutsal> {
                           pickMediaa(ImageSource.gallery);
                         },
                         child: SizedBox(
-                          width: 110,
-                          height: 110,
+                          width: 90,
+                          height: 90,
                           child: (imagePathh == null)
                               ? CircleAvatar(
                                   backgroundImage: FileImage(File(imagePathh!)))
@@ -162,12 +162,12 @@ class _FormListFutsalState extends State<FormListFutsal> {
                                         shape: BoxShape.circle,
                                         color: Colors.grey[300]!,
                                       ),
-                                      width: 300,
-                                      height: 300,
+                                      width: 150,
+                                      height: 150,
                                       child: const Icon(
                                         Icons.person,
                                         color: Colors.white,
-                                        size: 100,
+                                        size: 60,
                                       ),
                                     )
                                   : Container(
@@ -179,8 +179,8 @@ class _FormListFutsalState extends State<FormListFutsal> {
                                         shape: BoxShape.circle,
                                         color: Colors.grey[300]!,
                                       ),
-                                      width: 300,
-                                      height: 300,
+                                      width: 150,
+                                      height: 150,
                                     ),
                         ),
                       ),

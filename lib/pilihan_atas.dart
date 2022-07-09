@@ -1,5 +1,4 @@
 // ignore_for_file: avoid_unnecessary_containers
-
 import 'package:akhir/pemain_akl.dart';
 
 import 'package:akhir/pilihan_pertandingan.dart';
@@ -18,7 +17,7 @@ class PilihanAtas extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: true,
@@ -79,7 +78,7 @@ class PilihanAtas extends StatelessWidget {
               tabs: [
                 Tab(text: 'Tentang'),
                 // Tab(text: 'Pertandingan'),
-                Tab(text: 'Pemain'),
+                // Tab(text: 'Pemain'),
                 Tab(text: 'Posisi'),
               ]),
         ),
@@ -90,12 +89,13 @@ class PilihanAtas extends StatelessWidget {
           // PilihanPertandingan(
           //   dataJurusan: docData,
           // ),
-          PemainAKL(
-            tim1: '',
-            tim2: '',
-            dataJurusan: docData,
-            id: '',
-          ),
+          // NyobainPemainAkl(dataJurusan: docData, tim1: '', tim2: '', id: ''),
+          // PemainAKL(
+          //   tim1: '',
+          //   tim2: '',
+          //   dataJurusan: docData,
+          //   id: '',
+          // ),
           PosisiAKL(
             dataJurusan: docData,
           ),

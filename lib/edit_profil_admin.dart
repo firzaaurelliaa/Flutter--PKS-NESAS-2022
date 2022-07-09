@@ -184,33 +184,33 @@ class _EditProfilState extends State<EditProfil> {
                                     ),
                                   ),
                                   const SizedBox(height: 10),
-                                  InkWell(
-                                    onTap: () {
-                                      setState(
-                                        () {
-                                          imagePath = null;
-                                        },
-                                      );
-                                    },
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: const [
-                                        Icon(
-                                          Icons.remove_circle,
-                                          size: 30,
-                                          color: Colors.red,
-                                        ),
-                                        SizedBox(width: 5),
-                                        Text(
-                                          "Hapus foto profil",
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            color: Colors.black,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
+                                  // InkWell(
+                                  //   onTap: () {
+                                  //     setState(
+                                  //       () {
+                                  //         imagePath = null;
+                                  //       },
+                                  //     );
+                                  //   },
+                                  //   child: Row(
+                                  //     mainAxisSize: MainAxisSize.min,
+                                  //     children: const [
+                                  //       Icon(
+                                  //         Icons.remove_circle,
+                                  //         size: 30,
+                                  //         color: Colors.red,
+                                  //       ),
+                                  //       SizedBox(width: 5),
+                                  //       Text(
+                                  //         "Hapus foto profil",
+                                  //         style: TextStyle(
+                                  //           fontSize: 15,
+                                  //           color: Colors.black,
+                                  //         ),
+                                  //       )
+                                  //     ],
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             );

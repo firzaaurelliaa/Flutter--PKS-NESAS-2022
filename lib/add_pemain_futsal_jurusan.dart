@@ -30,6 +30,7 @@ class AddPemainFutsalJurusan extends StatefulWidget {
 
 class _AddPemainFutsalJurusanState extends State<AddPemainFutsalJurusan> {
   final _formKey = GlobalKey<FormState>();
+  Stream documentStream = FirebaseFirestore.instance.collection('users').doc('ABC123').snapshots();
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('playerDatas').snapshots();
   final RoundedLoadingButtonController _btnController2 =
@@ -90,7 +91,7 @@ class _AddPemainFutsalJurusanState extends State<AddPemainFutsalJurusan> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          'Tambah pemain',
+                          'Tambah gioyh',
                           style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,

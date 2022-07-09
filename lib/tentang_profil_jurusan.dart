@@ -18,6 +18,7 @@ class _TentangAKLState extends State<TentangAKL> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('aboutDatas')

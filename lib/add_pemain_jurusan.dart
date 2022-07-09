@@ -237,70 +237,95 @@ class _AddPemainJurusanState extends State<AddPemainJurusan> {
                           color: const Color(0xff142D4C),
                           // successColor: const Color(0xff142D4C),
                           controller: _btnController2,
-                          onPressed: () async {
-                            DocumentReference<Map<String, dynamic>> caborId =
-                                await FirebaseFirestore.instance
-                                    .collection('playerDatas')
-                                    .add({
-                              'futsal': {
-                                'fotoPemain': '',
+                          onPressed: () {
+                            if (namapemain.text.isNotEmpty &&
+                                nopemain.text.isNotEmpty &&
+                                posisipemain.text.isNotEmpty) {
+                              FirebaseFirestore.instance
+                                  .collection('playerDatas')
+                                  .add({
                                 'namaPemain': namapemain.text,
                                 'noPemain': nopemain.text,
                                 'posisiPemain': posisipemain.text,
-                              },
-                              'basket': {
                                 'fotoPemain': '',
-                                'namaPemain': namapemain.text,
-                                'noPemain': nopemain.text,
-                                'posisiPemain': posisipemain.text,
-                              },
-                              'voli': {
-                                'fotoPemain': '',
-                                'namaPemain': namapemain.text,
-                                'noPemain': nopemain.text,
-                                'posisiPemain': posisipemain.text,
-                              },
-                              'catur': {
-                                'fotoPemain': '',
-                                'namaPemain': namapemain.text,
-                                'noPemain': nopemain.text,
-                                'posisiPemain': posisipemain.text,
-                              },
-                              'bulutangkis': {
-                                'fotoPemain': '',
-                                'namaPemain': namapemain.text,
-                                'noPemain': nopemain.text,
-                                'posisiPemain': posisipemain.text,
-                              },
-                              'tenismeja': {
-                                'fotoPemain': '',
-                                'namaPemain': namapemain.text,
-                                'noPemain': nopemain.text,
-                                'posisiPemain': posisipemain.text,
-                              },
-                            });
-                            // .then((value) async {
-                            //   print(value.id);
-
-                            await uploadImage();
-
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text(
-                                "Data telah ditambahkan!",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              backgroundColor: Color(0xff142D4C),
-                            ));
-                            // uploadImage();
-                            setState(() {});
-                            // .whenComplete(() {
-
-                            Navigator.pop(
-                              context,
-                            );
-                            // });
+                              }).whenComplete(() {
+                                Navigator.pop(
+                                  context,
+                                );
+                              });
+                            } else {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(SnackBar(
+                                content: Text(
+                                    'Data tidak boleh kosong, silahkan kembali'),
+                                backgroundColor: Color(0xff142D4C),
+                              ));
+                            }
                           },
+                          // onPressed: () async {
+                          //   DocumentReference<Map<String, dynamic>> caborId =
+                          //       await FirebaseFirestore.instance
+                          //           .collection('playerDatas')
+                          //           .add({
+                          //     'futsal': {
+                          //       'fotoPemain': '',
+                          //       'namaPemain': namapemain.text,
+                          //       'noPemain': nopemain.text,
+                          //       'posisiPemain': posisipemain.text,
+                          //     },
+                          //     'basket': {
+                          //       'fotoPemain': '',
+                          //       'namaPemain': namapemain.text,
+                          //       'noPemain': nopemain.text,
+                          //       'posisiPemain': posisipemain.text,
+                          //     },
+                          //     'voli': {
+                          //       'fotoPemain': '',
+                          //       'namaPemain': namapemain.text,
+                          //       'noPemain': nopemain.text,
+                          //       'posisiPemain': posisipemain.text,
+                          //     },
+                          //     'catur': {
+                          //       'fotoPemain': '',
+                          //       'namaPemain': namapemain.text,
+                          //       'noPemain': nopemain.text,
+                          //       'posisiPemain': posisipemain.text,
+                          //     },
+                          //     'bulutangkis': {
+                          //       'fotoPemain': '',
+                          //       'namaPemain': namapemain.text,
+                          //       'noPemain': nopemain.text,
+                          //       'posisiPemain': posisipemain.text,
+                          //     },
+                          //     'tenismeja': {
+                          //       'fotoPemain': '',
+                          //       'namaPemain': namapemain.text,
+                          //       'noPemain': nopemain.text,
+                          //       'posisiPemain': posisipemain.text,
+                          //     },
+                          //   });
+                          //   // .then((value) async {
+                          //   //   print(value.id);
+
+                          //   await uploadImage();
+
+                          //   ScaffoldMessenger.of(context)
+                          //       .showSnackBar(const SnackBar(
+                          //     content: Text(
+                          //       "Data telah ditambahkan!",
+                          //       style: TextStyle(color: Colors.white),
+                          //     ),
+                          //     backgroundColor: Color(0xff142D4C),
+                          //   ));
+                          //   // uploadImage();
+                          //   setState(() {});
+                          //   // .whenComplete(() {
+
+                          //   Navigator.pop(
+                          //     context,
+                          //   );
+                          //   // });
+                          // },
                           // onPressed: () {
                           //   if (_formKey.currentState!.validate()) {
                           //     FirebaseStorage.instance

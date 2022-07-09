@@ -69,17 +69,17 @@ class _editnoteCrudState extends State<editnoteCrud> {
       appBar: AppBar(
         actions: [
           MaterialButton(
-            onPressed: () async {
-              // widget.docid.reference.delete().whenComplete(() {
-              // Navigator.pop(context);
-              // });
-              final action = await AlertDialogs.yesCancelDialog(
-                  context, 'Hapus', 'Apakah anda yakin untuk menghapus data?');
-              if (action == DialogsAction.yes) {
-                setState(() => tappedYes = true);
-              } else {
-                setState(() => tappedYes = false);
-              }
+            onPressed: () {
+              widget.docid.reference.delete().whenComplete(() {
+                Navigator.pop(context);
+              });
+              // final action = await AlertDialogs.yesCancelDialog(
+              //     context, 'Hapus', 'Apakah anda yakin untuk menghapus data?');
+              // if (action == DialogsAction.yes) {
+              //   setState(() => tappedYes = true);
+              // } else {
+              //   setState(() => tappedYes = false);
+              // }
             },
             // onPressed: () {
             //   widget.docid.reference.delete().whenComplete(() {
@@ -246,7 +246,7 @@ class _editnoteCrudState extends State<editnoteCrud> {
                       labelText: 'Poin :',
                       labelStyle: const TextStyle(color: Color(0xff142D4C)),
                       suffixIcon: IconButton(
-                        onPressed: [poin].clear,
+                        onPressed: poin.clear,
                         icon: const Icon(Icons.clear),
                         color: const Color(0xff142D4C),
                       ),
@@ -271,51 +271,52 @@ class _editnoteCrudState extends State<editnoteCrud> {
                   //         constraints: BoxConstraints(maxWidth: 600),
                   //         child: DateTimeForm())),
                   // const SizedBox(height: 15),
-                  Row(
-                    children: [
-                      image != null
-                          ? SizedBox(
-                              width: 100,
-                              height: 100,
-                              child: Image.file(
-                                image!,
-                              ),
-                            )
-                          : Container(
-                              width: 100,
-                              height: 100,
-                              child: const Center(
-                                  child: Padding(
-                                      padding: EdgeInsets.all(10),
-                                      child: Text(
-                                        'Belum ada foto',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontSize: 15,
-                                            color: Color(0xff142D4C)),
-                                      ))),
-                              decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: const Color(0xff142D4C)),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      IconButton(
-                          onPressed: () async {
-                            File? _images = await getImageGallery();
-                            if (_images != null) {
-                              setState(() {
-                                image = _images;
-                              });
-                            }
-                          },
-                          icon: const Icon(Icons.add, size: 40)),
-                    ],
-                  ),
+                  // Row(
+                  //   children: [
+                  //     image != null
+                  //         ? SizedBox(
+                  //             width: 100,
+                  //             height: 100,
+                  //             child: Image.file(
+                  //               image!,
+                  //             ),
+                  //           )
+                  //         : Container(
+                  //             width: 100,
+                  //             height: 100,
+                  //             child: const Center(
+                  //                 child: Padding(
+                  //                     padding: EdgeInsets.all(10),
+                  //                     child: Text(
+                  //                       'Belum ada foto',
+                  //                       textAlign: TextAlign.center,
+                  //                       style: TextStyle(
+                  //                           fontSize: 15,
+                  //                           color: Color(0xff142D4C)),
+                  //                     ))),
+                  //             decoration: BoxDecoration(
+                  //               border:
+                  //                   Border.all(color: const Color(0xff142D4C)),
+                  //               borderRadius: BorderRadius.circular(10),
+                  //             ),
+                  //           ),
+                  //     const SizedBox(
+                  //       width: 5,
+                  //     ),
+                  //     IconButton(
+                  //         onPressed: () async {
+                  //           File? _images = await getImageGallery();
+                  //           if (_images != null) {
+                  //             setState(() {
+                  //               image = _images;
+                  //             });
+                  //           }
+                  //         },
+                  //         icon: const Icon(Icons.add, size: 40)),
+                  //   ],
+                  // ),
                   SizedBox(height: 30),
+
                   RoundedLoadingButton(
                     color: const Color(0xff142D4C),
                     // successColor: const Color(0xff142D4C),
@@ -336,10 +337,9 @@ class _editnoteCrudState extends State<editnoteCrud> {
                           "seri": seri.text,
                           "kalah": kalah.text,
                           "poin": poin.text,
-                          'logo': '',
+                          // 'logo': '',
                         });
-                        uploadImageee();
-                        setState(() {});
+                        // uploadImageee();
                         // .whenComplete(() {
 
                         Navigator.pop(
@@ -347,7 +347,8 @@ class _editnoteCrudState extends State<editnoteCrud> {
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text('Inputan tidak boleh kosong'),
+                          content:
+                              Text('Inputan tidak boleh kosong, harap kembali'),
                           backgroundColor: Color(0xff142D4C),
                         ));
                       }

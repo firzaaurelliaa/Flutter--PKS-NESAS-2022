@@ -42,6 +42,8 @@ class _EditPertandinganTerakhirState extends State<EditPertandinganTerakhir> {
 
   TextEditingController skor1 = TextEditingController();
   TextEditingController skor2 = TextEditingController();
+  TextEditingController tim1 = TextEditingController();
+  TextEditingController tim2 = TextEditingController();
 
   final MediaType _mediaType = MediaType.image;
   XFile? file;
@@ -59,6 +61,10 @@ class _EditPertandinganTerakhirState extends State<EditPertandinganTerakhir> {
         text: widget.docid.get(widget.cabangolahraga)['skor1']);
     skor2 = TextEditingController(
         text: widget.docid.get(widget.cabangolahraga)['skor2']);
+        tim1 = TextEditingController(
+        text: widget.docid.get(widget.cabangolahraga)['tim1']);
+    tim2 = TextEditingController(
+        text: widget.docid.get(widget.cabangolahraga)['tim2']);
     super.initState();
   }
 
@@ -94,186 +100,6 @@ class _EditPertandinganTerakhirState extends State<EditPertandinganTerakhir> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          pickMedia(ImageSource.gallery);
-                        },
-                        child: SizedBox(
-                          width: 110,
-                          height: 110,
-                          child: (imagePath != null)
-                              ? CircleAvatar(
-                                  backgroundImage: FileImage(File(imagePath!)))
-                              : widget.docid.get('futsal')['logo1'] == ""
-                                  ? Container(
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.grey[300]!,
-                                      ),
-                                      width: 300,
-                                      height: 300,
-                                      child: const Icon(
-                                        Icons.person,
-                                        color: Colors.white,
-                                        size: 100,
-                                      ),
-                                    )
-                                  : Container(
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: NetworkImage(widget.docid
-                                                .get('futsal')['logo1'])),
-                                        shape: BoxShape.circle,
-                                        color: Colors.grey[300]!,
-                                      ),
-                                      width: 300,
-                                      height: 300,
-                                    ),
-                        ),
-                      ),
-                      const Text(
-                        'VS',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Color(0xff142D4C),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          pickMediaa(ImageSource.gallery);
-                        },
-                        child: SizedBox(
-                          width: 110,
-                          height: 110,
-                          child: (imagePathh != null)
-                              ? CircleAvatar(
-                                  backgroundImage: FileImage(File(imagePathh!)))
-                              : widget.docid.get('futsal')['logo2'] == ""
-                                  ? Container(
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.grey[300]!,
-                                      ),
-                                      width: 300,
-                                      height: 300,
-                                      child: const Icon(
-                                        Icons.person,
-                                        color: Colors.white,
-                                        size: 100,
-                                      ),
-                                    )
-                                  : Container(
-                                      decoration: BoxDecoration(
-                                        image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: NetworkImage(widget.docid
-                                                .get('futsal')['logo2'])),
-                                        shape: BoxShape.circle,
-                                        color: Colors.grey[300]!,
-                                      ),
-                                      width: 300,
-                                      height: 300,
-                                    ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          pickMedia(ImageSource.gallery);
-                        },
-                        child: SizedBox(
-                          width: 90,
-                          height: 90,
-                          child: (imagePath != null)
-                              ? CircleAvatar(
-                                  backgroundImage: FileImage(File(imagePath!)))
-                              : widget.docid.get('futsal')['logo1'] == ""
-                                  ? Container(
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.grey[300]!,
-                                      ),
-                                      width: 300,
-                                      height: 300,
-                                      child: const Icon(
-                                        Icons.person,
-                                        color: Colors.white,
-                                        size: 100,
-                                      ),
-                                    )
-                                  : Container(
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: NetworkImage(widget.docid
-                                                .get('futsal')['logo1'])),
-                                        color: Colors.grey[300]!,
-                                      ),
-                                      width: 300,
-                                      height: 300,
-                                    ),
-                        ),
-                      ),
-                      const Text(
-                        'jh',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Color(0xff142D4C),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          pickMediaa(ImageSource.gallery);
-                        },
-                        child: SizedBox(
-                          width: 90,
-                          height: 90,
-                          child: (imagePathh != null)
-                              ? CircleAvatar(
-                                  backgroundImage: FileImage(File(imagePathh!)))
-                              : widget.docid.get('futsal')['logo2'] == ""
-                                  ? Container(
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Colors.grey[300]!,
-                                      ),
-                                      width: 300,
-                                      height: 300,
-                                      child: const Icon(
-                                        Icons.person,
-                                        color: Colors.white,
-                                        size: 100,
-                                      ),
-                                    )
-                                  : Container(
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: NetworkImage(widget.docid
-                                                .get('futsal')['logo2'])),
-                                        color: Colors.grey[300]!,
-                                      ),
-                                      width: 300,
-                                      height: 300,
-                                    ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 40),
-
                   TextFormField(
                     keyboardType: TextInputType.numberWithOptions(),
                     //memberikan identitas untuk setiap form
@@ -343,6 +169,76 @@ class _EditPertandinganTerakhirState extends State<EditPertandinganTerakhir> {
                       return null;
                     },
                   ),
+                  SizedBox(height: 15),
+                  TextFormField(
+                    keyboardType: TextInputType.numberWithOptions(),
+                    //memberikan identitas untuk setiap form
+                    maxLength: 4,
+                    maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                    controller: tim1,
+                    decoration: InputDecoration(
+                      icon: const Icon(
+                        Icons.scoreboard_outlined,
+                        color: Color(0xff142D4C),
+                      ),
+                      labelText: 'Tim 1 :',
+                      labelStyle: const TextStyle(color: Color(0xff142D4C)),
+                      suffixIcon: IconButton(
+                        onPressed: tim1.clear,
+                        icon: const Icon(Icons.clear),
+                        color: const Color(0xff142D4C),
+                      ),
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xff142D4C)),
+                      ),
+                      border: const OutlineInputBorder(
+                        borderSide: BorderSide(),
+                      ),
+                    ),
+                    //memberikan validasi jika form kosong
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Skor tidak boleh kosong';
+                      }
+                      return null;
+                    },
+                  ),
+                  const SizedBox(height: 15),
+                  TextFormField(
+                    inputFormatters: [UpperCaseTextFormatter()],
+                   
+                    maxLength: 4,
+
+                    maxLengthEnforcement: MaxLengthEnforcement.enforced,
+                    //memberikan identitas untuk setiap form
+                    controller: tim2,
+                    decoration: InputDecoration(
+                      icon: const Icon(
+                        Icons.scoreboard_outlined,
+                        color: Color(0xff142D4C),
+                      ),
+                      labelText: 'Tim 2 :',
+                      labelStyle: const TextStyle(color: Color(0xff142D4C)),
+                      suffixIcon: IconButton(
+                        onPressed: tim2.clear,
+                        icon: const Icon(Icons.clear),
+                        color: const Color(0xff142D4C),
+                      ),
+                      focusedBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Color(0xff142D4C)),
+                      ),
+                      border: const OutlineInputBorder(
+                        borderSide: BorderSide(),
+                      ),
+                    ),
+                    //memberikan validasi jika form kosong
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Skor tidak boleh kosong';
+                      }
+                      return null;
+                    },
+                  ),
 
                   const SizedBox(height: 30),
                   // Center(
@@ -361,6 +257,8 @@ class _EditPertandinganTerakhirState extends State<EditPertandinganTerakhir> {
                           widget.cabangolahraga: {
                             'skor1': skor1.text,
                             'skor2': skor2.text,
+                              'tim1': tim1.text,
+                            'tim2': tim2.text,
                             'logo1': widget.data['logo1'],
                             'logo2': widget.data['logo2'],
 
@@ -377,7 +275,8 @@ class _EditPertandinganTerakhirState extends State<EditPertandinganTerakhir> {
                         uploadImage2();
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text('Inputan tidak boleh kosong, silahkan kembali'),
+                          content: Text(
+                              'Inputan tidak boleh kosong, silahkan kembali'),
                           backgroundColor: Color(0xff142D4C),
                         ));
                       }

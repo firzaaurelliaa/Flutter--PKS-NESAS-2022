@@ -62,140 +62,136 @@ class _TabbarBodyState extends State<TabbarBody> {
           appBar: AppBar(
             automaticallyImplyLeading: false,
             toolbarHeight: 200,
-            title: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => PapanSkor(docid: snapshot.data!.docs.first),
+            title: Column(
+              children: [
+                const Text('F U L L   T I M E'),
+                const SizedBox(height: 20),
+                Container(
+                  width: 365,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: const Color(0xffD7E9F7),
                   ),
-                );
-              },
-              child: Column(
-                children: [
-                  const Text('F U L L   T I M E'),
-                  const SizedBox(height: 20),
-                  Container(
-                    width: 365,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: const Color(0xffD7E9F7),
-                    ),
-                    padding: const EdgeInsets.all(15.0),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 15,
-                          child: SizedBox(
-                              width: 50,
-                              height: 50,
-                              child: Image.network(widget.logo1)),
-                        ),
-                        Expanded(
-                          flex: 70,
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.only(left: 12.0, right: 12.0),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Text(
-                                      widget.tim1,
-                                      style: const TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Text(
-                                      widget.skor1,
-                                      style: const TextStyle(
+                  padding: const EdgeInsets.all(15.0),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 15,
+                        child: SizedBox(
+                            width: 50,
+                            height: 50,
+                            child: Image.network(
+                              widget.logo1,
+                              fit: BoxFit.cover,
+                            )),
+                      ),
+                      Expanded(
+                        flex: 70,
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.only(left: 12.0, right: 12.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text(
+                                    widget.tim1,
+                                    style: const TextStyle(
+                                        fontSize: 18,
                                         color: Colors.black,
-                                        fontSize: 28.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    widget.skor1,
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 28.0,
+                                      fontWeight: FontWeight.bold,
                                     ),
-                                    const Text(
-                                      '-',
-                                      style: TextStyle(
+                                  ),
+                                  const Text(
+                                    '-',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 28.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    widget.skor2,
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 28.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    widget.tim2,
+                                    style: const TextStyle(
+                                        fontSize: 18,
                                         color: Colors.black,
-                                        fontSize: 28.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text(
-                                      widget.skor2,
-                                      style: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 28.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text(
-                                      widget.tim2,
-                                      style: const TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold),
-                                    )
-                                  ],
-                                ),
-                                const Divider(
-                                  color: Colors.black,
-                                  thickness: 1.5,
-                                ),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    // const Text(
-                                    //   "Firza 5'",
-                                    //   style: TextStyle(
-                                    //     color: Colors.black45,
-                                    //     fontSize: 10.0,
-                                    //   ),
-                                    // ),
-                                    // Text(
-                                    //   "d",
-                                    //   style: const TextStyle(
-                                    //     color: Colors.black45,
-                                    //     fontSize: 10.0,
-                                    //   ),
-                                    // ),
-                                    // const Text(
-                                    //   "Orel 12'",
-                                    //   style: TextStyle(
-                                    //     color: Colors.black45,
-                                    //     fontSize: 10.0,
-                                    //   ),
-                                    // )
-                                  ],
-                                ),
-                              ],
-                            ),
+                                        fontWeight: FontWeight.bold),
+                                  )
+                                ],
+                              ),
+                              const Divider(
+                                color: Colors.black,
+                                thickness: 1.5,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  // const Text(
+                                  //   "Firza 5'",
+                                  //   style: TextStyle(
+                                  //     color: Colors.black45,
+                                  //     fontSize: 10.0,
+                                  //   ),
+                                  // ),
+                                  // Text(
+                                  //   "d",
+                                  //   style: const TextStyle(
+                                  //     color: Colors.black45,
+                                  //     fontSize: 10.0,
+                                  //   ),
+                                  // ),
+                                  // const Text(
+                                  //   "Orel 12'",
+                                  //   style: TextStyle(
+                                  //     color: Colors.black45,
+                                  //     fontSize: 10.0,
+                                  //   ),
+                                  // )
+                                ],
+                              ),
+                            ],
                           ),
                         ),
-                        Expanded(
-                            flex: 15,
-                            child: SizedBox(
-                                width: 50,
-                                height: 50,
-                                child: Image.network(widget.logo2))),
-                      ],
-                    ),
-                  )
-                ],
-              ),
+                      ),
+                      Expanded(
+                          flex: 15,
+                          child: Container(
+                              width: 50,
+                              height: 50,
+                              child: Image.network(
+                                widget.logo2,
+                                fit: BoxFit.cover,
+                              ))),
+                    ],
+                  ),
+                )
+              ],
             ),
             centerTitle: true,
             backgroundColor: const Color(0xff142D4C),
             elevation: 0,
           ),
           body: DefaultTabController(
-            length: 4,
+            length: 3,
             child: Column(
               children: [
                 // ignore: avoid_unnecessary_containers
@@ -205,7 +201,7 @@ class _TabbarBodyState extends State<TabbarBody> {
                     labelColor: Colors.white,
                     tabs: [
                       Tab(text: 'Statistik'),
-                      Tab(text: 'Tim'),
+                      // Tab(text: 'Tim'),
                       Tab(text: 'Deskripsi'),
                       Tab(text: 'Klasemen'),
                     ],
@@ -215,7 +211,7 @@ class _TabbarBodyState extends State<TabbarBody> {
                   child: TabBarView(
                     children: [
                       StatistikRPLOTKP(id: widget.id),
-                      TimFutsalRplOtkp(id: widget.id),
+                      // TimFutsalRplOtkp(id: widget.id),
                       DeskripsiRplOtkp(id: widget.id),
                       const KlasemenFutsalNoAppbar(),
                     ],

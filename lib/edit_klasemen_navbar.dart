@@ -73,18 +73,21 @@ class _EditKlasemenNavbarState extends State<EditKlasemenNavbar> {
               // widget.docid.reference.delete().whenComplete(() {
               // Navigator.pop(context);
               // });
-              final action = await AlertDialogs.yesCancelDialog(
-                  context, 'Hapus', 'Apakah anda yakin untuk menghapus data?');
-              if (action == DialogsAction.yes) {
-                setState(() => tappedYes = true);
-              } else {
-                setState(() => tappedYes = false);
-              }
+              // final action = await AlertDialogs.yesCancelDialog(
+              //     context, 'Hapus', 'Apakah anda yakin untuk menghapus data?');
+              // if (action == DialogsAction.yes) {
+              //   setState(() => tappedYes = true);
+              // } else {
+              //   setState(() => tappedYes = false);
+              // }
+              widget.docid.reference.delete().whenComplete(() {
+                Navigator.pop(context);
+              });
             },
             // onPressed: () {
-            //   widget.docid.reference.delete().whenComplete(() {
-            //     Navigator.pop(context);
-            //   });
+            // widget.docid.reference.delete().whenComplete(() {
+            //   Navigator.pop(context);
+            // });
             // },
             child: const Icon(
               Icons.delete,
@@ -265,56 +268,13 @@ class _EditKlasemenNavbarState extends State<EditKlasemenNavbar> {
                     //   return null;
                     // },
                   ),
-                  const SizedBox(height: 30),
+
                   // Center(
                   //     child: Container(
                   //         constraints: BoxConstraints(maxWidth: 600),
                   //         child: DateTimeForm())),
                   // const SizedBox(height: 15),
-                  Row(
-                    children: [
-                      image != null
-                          ? SizedBox(
-                              width: 100,
-                              height: 100,
-                              child: Image.file(
-                                image!,
-                              ),
-                            )
-                          : Container(
-                              width: 100,
-                              height: 100,
-                              child: const Center(
-                                  child: Padding(
-                                      padding: EdgeInsets.all(10),
-                                      child: Text(
-                                        'edit navbat ada foto',
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontSize: 15,
-                                            color: Color(0xff142D4C)),
-                                      ))),
-                              decoration: BoxDecoration(
-                                border:
-                                    Border.all(color: const Color(0xff142D4C)),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      IconButton(
-                          onPressed: () async {
-                            File? _images = await getImageGallery();
-                            if (_images != null) {
-                              setState(() {
-                                image = _images;
-                              });
-                            }
-                          },
-                          icon: const Icon(Icons.add, size: 40)),
-                    ],
-                  ),
+
                   SizedBox(height: 30),
                   RoundedLoadingButton(
                     color: const Color(0xff142D4C),

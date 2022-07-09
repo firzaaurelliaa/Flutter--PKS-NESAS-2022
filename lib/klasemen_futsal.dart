@@ -1,3 +1,4 @@
+
 import 'package:akhir/add_klasemen_futsal.dart';
 import 'package:flutter/material.dart';
 import 'package:akhir/oop_klasemen.dart';
@@ -42,9 +43,12 @@ class _KlasemenFutsalNoAppbarState extends State<KlasemenFutsalNoAppbar> {
             ),
           ),
           body: SingleChildScrollView(
+            
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SingleChildScrollView(
+                  
                   child: Container(
                       margin: const EdgeInsets.all(10),
                       child: Column(
@@ -107,7 +111,7 @@ class _KlasemenFutsalNoAppbarState extends State<KlasemenFutsalNoAppbar> {
                                         ),
                                       ),
                                       const Text(
-                                        'k',
+                                        'K',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -127,6 +131,25 @@ class _KlasemenFutsalNoAppbarState extends State<KlasemenFutsalNoAppbar> {
                 ),
                 const SizedBox(height: 10),
                 ...generateBody(snapshot),
+                SizedBox(height: 50),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(25),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Keterangan :'),
+                          Text('M = Main'),
+                          Text('M = Menang'),
+                          Text('S = Seri'),
+                          Text('K = Kalah'),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
           ),
@@ -140,26 +163,26 @@ class _KlasemenFutsalNoAppbarState extends State<KlasemenFutsalNoAppbar> {
     for (int i = 0; i < snapshot.data!.docs.length; i++) {
       body.add(OOPKlasemen(
         no: snapshot.data!.docs[i]['no'],
-        logo: Image(
-            fit: BoxFit.cover,
-            image: NetworkImage(
-              snapshot.data!.docs[i]['logo'],
-            ),
-            loadingBuilder: (BuildContext context, Widget child,
-                ImageChunkEvent? loadingProgress) {
-              if (loadingProgress == null) {
-                return child;
-              }
-              return Center(
-                child: CircularProgressIndicator(
-                  color: const Color(0xff142D4C),
-                  value: loadingProgress.expectedTotalBytes != null
-                      ? loadingProgress.cumulativeBytesLoaded /
-                          loadingProgress.expectedTotalBytes!
-                      : null,
-                ),
-              );
-            }),
+        // logo: Image(
+        //     fit: BoxFit.cover,
+        //     image: NetworkImage(
+        //       snapshot.data!.docs[i]['logo'],
+        //     ),
+        //     loadingBuilder: (BuildContext context, Widget child,
+        //         ImageChunkEvent? loadingProgress) {
+        //       if (loadingProgress == null) {
+        //         return child;
+        //       }
+        //       return Center(
+        //         child: CircularProgressIndicator(
+        //           color: const Color(0xff142D4C),
+        //           value: loadingProgress.expectedTotalBytes != null
+        //               ? loadingProgress.cumulativeBytesLoaded /
+        //                   loadingProgress.expectedTotalBytes!
+        //               : null,
+        //         ),
+        //       );
+            // }),
         jurusan: snapshot.data!.docs[i]['jurusan'],
         main: snapshot.data!.docs[i]['main'],
         menang: snapshot.data!.docs[i]['menang'],

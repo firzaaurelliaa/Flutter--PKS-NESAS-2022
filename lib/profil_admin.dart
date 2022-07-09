@@ -203,30 +203,33 @@ class _ProfilAdminState extends State<ProfilAdmin> {
                   //     child: const Text('Keluar'),
                   //   ),
                   // ),
-                  SizedBox(height: 30),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(350, 38),
-                      textStyle: const TextStyle(
-                          fontSize: 13, fontWeight: FontWeight.bold),
-                      primary: const Color(0xff142D4C),
-                      onPrimary: Colors.white,
-                    ),
-                    onPressed: () async {
-                      final action = await AlertDialogs.yesCancelDialog(context,
-                          'Keluar', 'Apakah anda yakin untuk keluar akun?');
-                      if (action == DialogsAction.yes) {
-                        setState(() => tappedYes = true);
-                      } else {
-                        setState(() => tappedYes = false);
-                      }
-                    },
-                    // padding: EdgeInsets.all(12.0),
-                    // color: Color(0xFFC41A3B),
-                    child: Text(
-                      'Keluar'.toUpperCase(),
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
+                
+                  Container(
+                    padding: EdgeInsets.all(20.0),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(350, 38),
+                        textStyle: const TextStyle(
+                            fontSize: 13, fontWeight: FontWeight.bold),
+                        primary: const Color(0xff142D4C),
+                        onPrimary: Colors.white,
+                      ),
+                      onPressed: () async {
+                        final action = await AlertDialogs.yesCancelDialog(context,
+                            'Keluar', 'Apakah anda yakin untuk keluar akun?');
+                        if (action == DialogsAction.yes) {
+                          setState(() => tappedYes = true);
+                        } else {
+                          setState(() => tappedYes = false);
+                        }
+                      },
+                      // padding: EdgeInsets.all(12.0),
+                      // color: Color(0xFFC41A3B),
+                      child: Text(
+                        'Keluar'.toUpperCase(),
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                 ],

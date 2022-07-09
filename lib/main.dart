@@ -1,3 +1,4 @@
+import 'package:akhir/nav_bar_admin.dart';
 import 'package:akhir/nav_bar_user.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +31,7 @@ class _MyAppState extends State<MyApp> {
         stream: AuthService().firebaseAuth.authStateChanges(),
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
-            return const SplashScreen();
+            return const NavBarAdmin();
           } else {
             return const NavBarUser();
           }

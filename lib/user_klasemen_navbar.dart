@@ -1,4 +1,4 @@
-import 'package:akhir/OOP_klasemen_navbar.dart';
+import 'package:akhir/user_OOP_klasemen_navbar.dart';
 import 'package:akhir/add_klasemen_futsal.dart';
 import 'package:akhir/add_klasemen_navbar.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +14,7 @@ class UserKlasemenNavbar extends StatefulWidget {
 
 class _UserKlasemenNavbarState extends State<UserKlasemenNavbar> {
   final Stream<QuerySnapshot> _usersStream =
-      FirebaseFirestore.instance.collection('klasemenFutsal').snapshots();
+      FirebaseFirestore.instance.collection('klasemen').snapshots();
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
@@ -25,7 +25,9 @@ class _UserKlasemenNavbarState extends State<UserKlasemenNavbar> {
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              color: Color(0xff142D4C),
+            ),
           );
         }
         if (!snapshot.hasData) {
@@ -114,7 +116,7 @@ class _UserKlasemenNavbarState extends State<UserKlasemenNavbar> {
                                         ),
                                       ),
                                       const Text(
-                                        'k',
+                                        'K',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -134,6 +136,25 @@ class _UserKlasemenNavbarState extends State<UserKlasemenNavbar> {
                 ),
                 const SizedBox(height: 10),
                 ...generateBody(snapshot),
+                SizedBox(height: 50),
+                Padding(
+                  padding: const EdgeInsets.all(25),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Keterangan :'),
+                          Text('M = Main'),
+                          Text('M = Menang'),
+                          Text('S = Seri'),
+                          Text('K = Kalah'),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -145,28 +166,28 @@ class _UserKlasemenNavbarState extends State<UserKlasemenNavbar> {
   List<Widget> generateBody(AsyncSnapshot<QuerySnapshot> snapshot) {
     List<Widget> body = [];
     for (int i = 0; i < snapshot.data!.docs.length; i++) {
-      body.add(OOPKlasemenNavbar(
+      body.add(UserOOPKlasemenNavbar(
         no: snapshot.data!.docs[i]['no'],
-        logo: Image(
-            fit: BoxFit.cover,
-            image: NetworkImage(
-              snapshot.data!.docs[i]['logo'],
-            ),
-            loadingBuilder: (BuildContext context, Widget child,
-                ImageChunkEvent? loadingProgress) {
-              if (loadingProgress == null) {
-                return child;
-              }
-              return Center(
-                child: CircularProgressIndicator(
-                  color: const Color(0xff142D4C),
-                  value: loadingProgress.expectedTotalBytes != null
-                      ? loadingProgress.cumulativeBytesLoaded /
-                          loadingProgress.expectedTotalBytes!
-                      : null,
-                ),
-              );
-            }),
+        // logo: Image(
+        //     fit: BoxFit.cover,
+        //     image: NetworkImage(
+        //       snapshot.data!.docs[i]['logo'],
+        //     ),
+        //     loadingBuilder: (BuildContext context, Widget child,
+        //         ImageChunkEvent? loadingProgress) {
+        //       if (loadingProgress == null) {
+        //         return child;
+        //       }
+        //       return Center(
+        //         child: CircularProgressIndicator(
+        //           color: const Color(0xff142D4C),
+        //           value: loadingProgress.expectedTotalBytes != null
+        //               ? loadingProgress.cumulativeBytesLoaded /
+        //                   loadingProgress.expectedTotalBytes!
+        //               : null,
+        //         ),
+        //       );
+        //     }),
         jurusan: snapshot.data!.docs[i]['jurusan'],
         main: snapshot.data!.docs[i]['main'],
         menang: snapshot.data!.docs[i]['menang'],
