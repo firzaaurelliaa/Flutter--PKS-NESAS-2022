@@ -1,10 +1,9 @@
-import 'package:akhir/nav_bar_admin.dart';
-import 'package:akhir/nav_bar_user.dart';
+import 'package:akhir/Admin/NavBar%20Admin/navbar_admin.dart';
+import 'package:akhir/Penting/auth_services.dart';
+import 'package:akhir/User/Navbar%20User/navbar_user.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:akhir/splashscreen.dart';
-import 'package:akhir/auth_service.dart';
-import 'auth_service.dart';
+
 import 'package:intl/date_symbol_data_local.dart';
 // import 'register_screen.dart';
 

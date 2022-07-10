@@ -1,10 +1,5 @@
 import 'dart:async';
-
-import 'package:akhir/logout.dart';
-import 'package:akhir/nav_bar_admin.dart';
-import 'package:akhir/nav_bar_user.dart';
-import 'package:akhir/page_belum_diatur.dart';
-
+import 'package:akhir/User/Navbar%20User/navbar_user.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -20,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) =>  NavBarUser()));
+          context, MaterialPageRoute(builder: (context) =>  const NavBarUser()));
     });
   }
 
