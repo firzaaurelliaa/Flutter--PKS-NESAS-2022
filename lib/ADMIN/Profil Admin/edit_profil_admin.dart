@@ -13,13 +13,13 @@ enum MediaType {
 
 class EditProfilAdmin extends StatefulWidget {
   DocumentSnapshot docid;
-  EditProfilAdmin ({Key? key, required this.docid}) : super(key: key);
+  EditProfilAdmin({Key? key, required this.docid}) : super(key: key);
 
   @override
-  State<EditProfilAdmin > createState() => _EditProfilAdminState();
+  State<EditProfilAdmin> createState() => _EditProfilAdminState();
 }
 
-class _EditProfilAdminState extends State<EditProfilAdmin > {
+class _EditProfilAdminState extends State<EditProfilAdmin> {
   TextEditingController nama = TextEditingController();
   TextEditingController deskripsi = TextEditingController();
   final MediaType _mediaType = MediaType.image;
@@ -70,256 +70,255 @@ class _EditProfilAdminState extends State<EditProfilAdmin > {
           //   ],
           // ),
           Center(
-              child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 30),
-              Stack(
-                children: [
-                  SizedBox(
-                    width: 110,
-                    height: 110,
-                    child: (imagePath != null)
-                        ? CircleAvatar(
-                            backgroundImage: FileImage(File(imagePath!)))
-                        : widget.docid.get('fotoProfil') == ""
-                            ? Container(
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.grey[300]!,
-                                ),
-                                width: 300,
-                                height: 300,
-                                child: const Icon(
-                                  Icons.person,
-                                  color: Colors.white,
-                                  size: 100,
-                                ),
-                              )
-                            : Container(
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: NetworkImage(
-                                          widget.docid.get('fotoProfil'))),
-                                  shape: BoxShape.circle,
-                                  color: Colors.grey[300]!,
-                                ),
-                                width: 300,
-                                height: 300,
-                              ),
-                  ),
-                  Positioned(
-                    top: 65,
-                    left: 40,
-                    child: RawMaterialButton(
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text('Ambil foto dari :'),
-                              content: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const SizedBox(height: 10),
-                                  InkWell(
-                                    onTap: () {
-                                      pickMedia(ImageSource.gallery);
-                                      Navigator.pop(context);
-                                    },
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: const [
-                                        Icon(
-                                          Icons.image,
-                                          size: 30,
-                                          color: Color(0xff142D4C),
-                                        ),
-                                        SizedBox(width: 5),
-                                        Text(
-                                          "Galeri",
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            color: Colors.black,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  InkWell(
-                                    onTap: () {
-                                      pickMedia(ImageSource.camera);
-                                      Navigator.pop(context);
-                                    },
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: const [
-                                        Icon(
-                                          Icons.camera_alt,
-                                          size: 30,
-                                          color: Color(0xff142D4C),
-                                        ),
-                                        SizedBox(width: 5),
-                                        Text(
-                                          "Buka kamera",
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            color: Colors.black,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  // InkWell(
-                                  //   onTap: () {
-                                  //     setState(
-                                  //       () {
-                                  //         imagePath = null;
-                                  //       },
-                                  //     );
-                                  //   },
-                                  //   child: Row(
-                                  //     mainAxisSize: MainAxisSize.min,
-                                  //     children: const [
-                                  //       Icon(
-                                  //         Icons.remove_circle,
-                                  //         size: 30,
-                                  //         color: Colors.red,
-                                  //       ),
-                                  //       SizedBox(width: 5),
-                                  //       Text(
-                                  //         "Hapus foto profil",
-                                  //         style: TextStyle(
-                                  //           fontSize: 15,
-                                  //           color: Colors.black,
-                                  //         ),
-                                  //       )
-                                  //     ],
-                                  //   ),
-                                  // ),
-                                ],
-                              ),
-                            );
-                          },
-                        );
-                      },
-                      child: Container(
-                        // ignore: prefer_const_constructors
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: const Color(0xff142D4C),
-                        ),
-                        width: 35,
-                        height: 35,
-                        child: const Icon(
-                          Icons.add,
-                          size: 25,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 15),
-
-              //nama dan deskripsi
-              Container(
-                margin: const EdgeInsets.all(25),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 30),
+                Stack(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: const [
-                        Text('Nama :'),
-                      ],
+                    SizedBox(
+                      width: 110,
+                      height: 110,
+                      child: (imagePath != null)
+                          ? CircleAvatar(
+                              backgroundImage: FileImage(File(imagePath!)))
+                          : widget.docid.get('fotoProfil') == ""
+                              ? Container(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.grey[300]!,
+                                  ),
+                                  width: 300,
+                                  height: 300,
+                                  child: const Icon(
+                                    Icons.person,
+                                    color: Colors.white,
+                                    size: 100,
+                                  ),
+                                )
+                              : Container(
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: NetworkImage(
+                                            widget.docid.get('fotoProfil'))),
+                                    shape: BoxShape.circle,
+                                    color: Colors.grey[300]!,
+                                  ),
+                                  width: 300,
+                                  height: 300,
+                                ),
                     ),
-                    TextFormField(
-                      cursorColor: const Color(0xff142D4C),
-                      controller: nama,
-                      maxLength: 25,
-                      decoration: const InputDecoration(
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xff142D4C)),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      // ignore: prefer_const_literals_to_create_immutables
-                      children: [
-                        const Text('Deskripsi :'),
-                      ],
-                    ),
-                    TextField(
-                      cursorColor: const Color(0xff142D4C),
-                      controller: deskripsi,
-                      maxLines: 1,
-                      decoration: const InputDecoration(
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Colors.grey),
-                        ),
-                        focusedBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(color: Color(0xff142D4C)),
-                        ),
-                      ),
-                      maxLength: 30,
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: const Size(350, 38),
-                        textStyle: const TextStyle(
-                            fontSize: 13, fontWeight: FontWeight.bold),
-                        primary: const Color(0xff142D4C),
-                        onPrimary: Colors.white,
-                      ),
-                      onPressed: () {
-                        if (nama.text.isNotEmpty && deskripsi.text.isNotEmpty) {
-                          widget.docid.reference.update({
-                            'nama': nama.text,
-                            'deskripsi': deskripsi.text,
-                            // 'fotoProfil': uploadImage(),
-                          }).whenComplete(() {
-                            Navigator.pop(
-                              context,
-                            );
-                          });
+                    Positioned(
+                      top: 65,
+                      left: 40,
+                      child: RawMaterialButton(
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (_) => AlertDialog(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10.0))),
+                              content: Builder(
+                                builder: (context) {
+                                  // Get available height and width of the build area of this widget. Make a choice depending on the size.
+                                  var height =
+                                      MediaQuery.of(context).size.height;
+                                  var width = MediaQuery.of(context).size.width;
 
-                          uploadImage();
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                            content: Text(
-                                'Inputan tidak boleh kosong, silahkan kembali'),
-                            backgroundColor: const Color(0xff142D4C),
-                          ));
-                        }
-                      },
-                      child: const Text(
-                        'Simpan',
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
+                                  return Container(
+                                    height: 120,
+                                    // width: 100,
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Ambil foto dari :',
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        SizedBox(height: 15),
+                                        InkWell(
+                                          onTap: () {
+                                            pickMedia(ImageSource.gallery);
+                                            Navigator.pop(context);
+                                          },
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: const [
+                                              Icon(
+                                                Icons.image,
+                                                size: 30,
+                                                color: Color(0xff142D4C),
+                                              ),
+                                              SizedBox(width: 5),
+                                              Text(
+                                                "Galeri",
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                  color: Colors.black,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        const SizedBox(height: 15),
+                                        InkWell(
+                                          onTap: () {
+                                            pickMedia(ImageSource.camera);
+                                            Navigator.pop(context);
+                                          },
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: const [
+                                              Icon(
+                                                Icons.camera_alt,
+                                                size: 30,
+                                                color: Color(0xff142D4C),
+                                              ),
+                                              SizedBox(width: 5),
+                                              Text(
+                                                "Buka kamera",
+                                                style: TextStyle(
+                                                  fontSize: 15,
+                                                  color: Colors.black,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          // ignore: prefer_const_constructors
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: const Color(0xff142D4C),
+                          ),
+                          width: 35,
+                          height: 35,
+                          child: const Icon(
+                            Icons.add,
+                            size: 25,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
                   ],
                 ),
-              ),
-            ],
-          )),
+                const SizedBox(height: 15),
+
+                //nama dan deskripsi
+                Container(
+                  margin: const EdgeInsets.all(25),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: const [
+                          Text('Nama :'),
+                        ],
+                      ),
+                      TextFormField(
+                        cursorColor: const Color(0xff142D4C),
+                        controller: nama,
+                        maxLength: 25,
+                        decoration: const InputDecoration(
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xff142D4C)),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        // ignore: prefer_const_literals_to_create_immutables
+                        children: [
+                          const Text('Deskripsi :'),
+                        ],
+                      ),
+                      TextField(
+                        cursorColor: const Color(0xff142D4C),
+                        controller: deskripsi,
+                        maxLines: 1,
+                        decoration: const InputDecoration(
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Colors.grey),
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: Color(0xff142D4C)),
+                          ),
+                        ),
+                        maxLength: 30,
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: const Size(350, 38),
+                          textStyle: const TextStyle(
+                              fontSize: 13, fontWeight: FontWeight.bold),
+                          primary: const Color(0xff142D4C),
+                          onPrimary: Colors.white,
+                        ),
+                        onPressed: () {
+                          if (nama.text.isNotEmpty &&
+                              deskripsi.text.isNotEmpty) {
+                            widget.docid.reference.update({
+                              'nama': nama.text,
+                              'deskripsi': deskripsi.text,
+                              // 'fotoProfil': uploadImage(),
+                            }).whenComplete(() {
+                              Navigator.pop(
+                                context,
+                              );
+                            });
+
+                            uploadImage();
+                          } else {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text(
+                                  'Inputan tidak boleh kosong, silahkan kembali'),
+                              backgroundColor: const Color(0xff142D4C),
+                            ));
+                          }
+                        },
+                        child: const Text(
+                          'Simpan',
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
