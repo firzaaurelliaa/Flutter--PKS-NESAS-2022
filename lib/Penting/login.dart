@@ -152,10 +152,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                       );
                                     } else {
-                                      User? result = await AuthService().login(
-                                          emailController.text,
-                                          passwordController.text,
-                                          context);
+                                      User? result = await AuthService()
+                                          .register(emailController.text,
+                                              passwordController.text, context);
                                       if (result != null) {
                                         // ScaffoldMessenger.of(context)
                                         //     .showSnackBar(const SnackBar(

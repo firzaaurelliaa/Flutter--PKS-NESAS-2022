@@ -65,10 +65,10 @@ class _ProfilAdminState extends State<ProfilAdmin> {
               ),
             );
           }
-
           return ListView.builder(
             itemCount: snapshot.data!.docs.length,
             itemBuilder: (_, index) {
+              // print(snapshot.data!.docs[index].id);
               return Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

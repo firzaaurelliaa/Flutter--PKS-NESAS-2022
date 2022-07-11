@@ -28,8 +28,14 @@ class _EditProfilAdminState extends State<EditProfilAdmin> {
 
   String? imagePath;
 
+  var doc;
+  late final DocumentSnapshot docs;
+
   @override
   void initState() {
+    doc = widget.docid.id;
+    docs = widget.docid;
+    print(docs.get('fotoProfil').toString());
     nama = TextEditingController(text: widget.docid.get('nama'));
     deskripsi = TextEditingController(text: widget.docid.get('deskripsi'));
 
@@ -80,9 +86,11 @@ class _EditProfilAdminState extends State<EditProfilAdmin> {
                               : Container(
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: NetworkImage(
-                                            widget.docid.get('fotoProfil'))),
+                                      fit: BoxFit.cover,
+                                      image: NetworkImage(
+                                        docs.get('fotoProfil').toString(),
+                                      ),
+                                    ),
                                     shape: BoxShape.circle,
                                     color: Colors.grey[300]!,
                                   ),
@@ -331,16 +339,16 @@ class _EditProfilAdminState extends State<EditProfilAdmin> {
     }
     String imageName = file!.name;
     File imageFile = File(file!.path);
+    // print(imageFile.path);
     try {
       final firebaseStorageRef = await firebaseStorage
           .ref("admin/${DateTime.now().microsecondsSinceEpoch}")
           .child(imageName)
           .putFile(imageFile);
       final fileUrl = await firebaseStorageRef.ref.getDownloadURL();
-      print(fileUrl);
       await FirebaseFirestore.instance
           .collection('profilAdmin')
-          .doc('90Sqc4KDXt5WQv3Iiqfk')
+          .doc('$doc')
           .update({'fotoProfil': fileUrl});
     } on FirebaseException catch (e) {
       print(e);
