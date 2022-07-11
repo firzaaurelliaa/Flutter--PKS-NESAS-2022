@@ -1,9 +1,12 @@
 // ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, prefer_const_constructors
 
+import 'package:akhir/ADMIN/NavBar%20Admin/home_percobaan.dart';
 import 'package:akhir/Admin/FUTSAL/futsal.dart';
 import 'package:akhir/Admin/Profil%20Jurusan/tabbar_profil_jurusan.dart';
 import 'package:akhir/Admin/edit_pertandingan_terakhir.dart';
+import 'package:akhir/X_KEPAKE%20NANTI/voli.dart';
 import 'package:akhir/page_belum_diatur.dart';
+import 'package:akhir/percobaanhome.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:akhir/OOP_Custom_Widgets.dart/image_slider_home.dart';
@@ -211,18 +214,9 @@ class _HomeAdminState extends State<HomeAdmin> {
                   icon: "assets/images/futsal1.png",
                 ),
               ),
-              InkWell(
-                onTap: () => {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const PageBelumDiatur()),
-                  ),
-                },
-                child: const ItemCabangOlahraga(
-                  title: "Basket",
-                  icon: "assets/images/basket.png",
-                ),
+              const ItemCabangOlahraga(
+                title: "Basket",
+                icon: "assets/images/basket.png",
               ),
               const ItemCabangOlahraga(
                 title: "Voli",

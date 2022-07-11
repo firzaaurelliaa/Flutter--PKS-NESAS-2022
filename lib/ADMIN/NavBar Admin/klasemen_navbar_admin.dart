@@ -36,7 +36,7 @@ class _KlasemenNavbarState extends State<KlasemenNavbar> {
           appBar: AppBar(
             elevation: 0,
             backgroundColor: const Color(0xff142D4C),
-            toolbarHeight: 150,
+            toolbarHeight: 200,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

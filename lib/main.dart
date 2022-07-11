@@ -1,6 +1,7 @@
 import 'package:akhir/Admin/NavBar%20Admin/navbar_admin.dart';
 import 'package:akhir/Penting/auth_services.dart';
 import 'package:akhir/User/Navbar%20User/navbar_user.dart';
+import 'package:akhir/page_belum_diatur.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -30,9 +31,9 @@ class _MyAppState extends State<MyApp> {
         stream: AuthService().firebaseAuth.authStateChanges(),
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
-            return const NavBarAdmin();
-          } else {
             return const NavBarUser();
+          } else {
+            return const NavBarAdmin();
           }
         },
       ),

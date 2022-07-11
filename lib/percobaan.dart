@@ -11,27 +11,29 @@ enum MediaType {
   video,
 }
 
-class EditProfilAdmin extends StatefulWidget {
+class Percobaan extends StatefulWidget {
   DocumentSnapshot docid;
-  EditProfilAdmin({Key? key, required this.docid}) : super(key: key);
+  Percobaan({Key? key, required this.docid}) : super(key: key);
 
   @override
-  State<EditProfilAdmin> createState() => _EditProfilAdminState();
+  State<Percobaan> createState() => _PercobaanState();
 }
 
-class _EditProfilAdminState extends State<EditProfilAdmin> {
+class _PercobaanState extends State<Percobaan> {
   TextEditingController nama = TextEditingController();
   TextEditingController deskripsi = TextEditingController();
   final MediaType _mediaType = MediaType.image;
   XFile? file;
+  XFile? file2;
   FirebaseStorage firebaseStorage = FirebaseStorage.instance;
 
   String? imagePath;
+  String? imagePath2;
 
   @override
   void initState() {
-    nama = TextEditingController(text: widget.docid.get('nama'));
-    deskripsi = TextEditingController(text: widget.docid.get('deskripsi'));
+    // nama = TextEditingController(text: widget.docid.get('nama'));
+    // deskripsi = TextEditingController(text: widget.docid.get('deskripsi'));
 
     super.initState();
   }
@@ -63,7 +65,7 @@ class _EditProfilAdminState extends State<EditProfilAdmin> {
                       child: (imagePath != null)
                           ? CircleAvatar(
                               backgroundImage: FileImage(File(imagePath!)))
-                          : widget.docid.get('fotoProfil') == ""
+                          : widget.docid.get('futsal')['logo1'] == ""
                               ? Container(
                                   decoration: BoxDecoration(
                                     shape: BoxShape.circle,
@@ -81,8 +83,8 @@ class _EditProfilAdminState extends State<EditProfilAdmin> {
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
                                         fit: BoxFit.cover,
-                                        image: NetworkImage(
-                                            widget.docid.get('fotoProfil'))),
+                                        image: NetworkImage(widget.docid
+                                            .get('futsal')['logo1'])),
                                     shape: BoxShape.circle,
                                     color: Colors.grey[300]!,
                                   ),
@@ -115,7 +117,7 @@ class _EditProfilAdminState extends State<EditProfilAdmin> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.center,
                                       children: [
                                         const Text(
                                           'Ambil foto dari :',
@@ -202,6 +204,145 @@ class _EditProfilAdminState extends State<EditProfilAdmin> {
                   ],
                 ),
                 const SizedBox(height: 15),
+                SizedBox(
+                  width: 110,
+                  height: 110,
+                  child: (imagePath2 != null)
+                      ? CircleAvatar(
+                          backgroundImage: FileImage(File(imagePath2!)))
+                      : widget.docid.get('futsal')['logo2'] == ""
+                          ? Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.grey[300]!,
+                              ),
+                              width: 300,
+                              height: 300,
+                              child: const Icon(
+                                Icons.person,
+                                color: Colors.white,
+                                size: 100,
+                              ),
+                            )
+                          : Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(
+                                        widget.docid.get('futsal')['logo2'])),
+                                shape: BoxShape.circle,
+                                color: Colors.grey[300]!,
+                              ),
+                              width: 300,
+                              height: 300,
+                            ),
+                ),
+                Positioned(
+                  top: 65,
+                  left: 40,
+                  child: RawMaterialButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (_) => AlertDialog(
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10.0))),
+                          content: Builder(
+                            builder: (context) {
+                              // Get available height and width of the build area of this widget. Make a choice depending on the size.
+                              var height = MediaQuery.of(context).size.height;
+                              var width = MediaQuery.of(context).size.width;
+
+                              return Container(
+                                height: 150,
+                                // width: 100,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    const Text(
+                                      'Ambil foto dari :',
+                                      style: const TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 15),
+                                    InkWell(
+                                      onTap: () {
+                                        pickMedia2(ImageSource.gallery);
+                                        Navigator.pop(context);
+                                      },
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: const [
+                                          Icon(
+                                            Icons.image,
+                                            size: 30,
+                                            color: Color(0xff142D4C),
+                                          ),
+                                          SizedBox(width: 5),
+                                          Text(
+                                            "Galeri",
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              color: Colors.black,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    InkWell(
+                                      onTap: () {
+                                        pickMedia2(ImageSource.camera);
+                                        Navigator.pop(context);
+                                      },
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: const [
+                                          Icon(
+                                            Icons.camera_alt,
+                                            size: 30,
+                                            color: Color(0xff142D4C),
+                                          ),
+                                          SizedBox(width: 5),
+                                          Text(
+                                            "Buka kamera",
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              color: Colors.black,
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(height: 10),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      // ignore: prefer_const_constructors
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: const Color(0xff142D4C),
+                      ),
+                      width: 35,
+                      height: 35,
+                      child: const Icon(
+                        Icons.add,
+                        size: 25,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
 
                 //nama dan deskripsi
                 Container(
@@ -209,52 +350,6 @@ class _EditProfilAdminState extends State<EditProfilAdmin> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: const [
-                          Text('Nama :'),
-                        ],
-                      ),
-                      TextFormField(
-                        cursorColor: const Color(0xff142D4C),
-                        controller: nama,
-                        maxLength: 25,
-                        decoration: const InputDecoration(
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xff142D4C)),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        // ignore: prefer_const_literals_to_create_immutables
-                        children: [
-                          const Text('Deskripsi :'),
-                        ],
-                      ),
-                      TextField(
-                        cursorColor: const Color(0xff142D4C),
-                        controller: deskripsi,
-                        maxLines: 1,
-                        decoration: const InputDecoration(
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey),
-                          ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xff142D4C)),
-                          ),
-                        ),
-                        maxLength: 30,
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size(350, 38),
@@ -264,27 +359,27 @@ class _EditProfilAdminState extends State<EditProfilAdmin> {
                           onPrimary: Colors.white,
                         ),
                         onPressed: () {
-                          if (nama.text.isNotEmpty &&
-                              deskripsi.text.isNotEmpty) {
-                            widget.docid.reference.update({
-                              'nama': nama.text,
-                              'deskripsi': deskripsi.text,
-                              // 'fotoProfil': uploadImage(),
-                            }).whenComplete(() {
-                              Navigator.pop(
-                                context,
-                              );
-                            });
+                          uploadImage();
+                          uploadImage2();
+                          // if (nama.text.isNotEmpty &&
+                          //     deskripsi.text.isNotEmpty) {
+                          //   widget.docid.reference.update({
+                          //     // 'fotoProfil': uploadImage(),
+                          //   }).whenComplete(() {
+                          Navigator.pop(
+                            context,
+                          );
+                          //   });
 
-                            uploadImage();
-                          } else {
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text(
-                                  'Inputan tidak boleh kosong, silahkan kembali'),
-                              backgroundColor: const Color(0xff142D4C),
-                            ));
-                          }
+                          //   uploadImage();
+                          // } else {
+                          //   ScaffoldMessenger.of(context)
+                          //       .showSnackBar(const SnackBar(
+                          //     content: Text(
+                          //         'Inputan tidak boleh kosong, silahkan kembali'),
+                          //     backgroundColor: const Color(0xff142D4C),
+                          //   ));
+                          // }
                         },
                         child: const Text(
                           'Simpan',
@@ -333,15 +428,60 @@ class _EditProfilAdminState extends State<EditProfilAdmin> {
     File imageFile = File(file!.path);
     try {
       final firebaseStorageRef = await firebaseStorage
-          .ref("admin/${DateTime.now().microsecondsSinceEpoch}")
+          .ref("futsal/${DateTime.now().microsecondsSinceEpoch}")
           .child(imageName)
           .putFile(imageFile);
       final fileUrl = await firebaseStorageRef.ref.getDownloadURL();
       print(fileUrl);
       await FirebaseFirestore.instance
-          .collection('profilAdmin')
-          .doc('90Sqc4KDXt5WQv3Iiqfk')
-          .update({'fotoProfil': fileUrl});
+          .collection('cabor')
+          .doc('ePCMGZtW6GMGF2kSiZmY')
+          .update({'logo1': fileUrl});
+    } on FirebaseException catch (e) {
+      print(e);
+    } catch (error) {
+      print(error);
+    }
+  }
+
+  //kedua
+  void pickMedia2(ImageSource source) async {
+    if (_mediaType == MediaType.image) {
+      file2 = await ImagePicker().pickImage(source: source);
+    } else {
+      file2 = await ImagePicker().pickVideo(source: source);
+    }
+    if (file2 != null) {
+      imagePath2 = file2!.path;
+      if (_mediaType == MediaType.video) {
+        imagePath2 = await VideoThumbnail.thumbnailFile(
+            video: file2!.path,
+            imageFormat: ImageFormat.PNG,
+            quality: 100,
+            maxWidth: 300,
+            maxHeight: 300);
+      }
+      setState(() {});
+    }
+  }
+
+  Future<void> uploadImage2() async {
+    if (file == null) {
+      return;
+    }
+    String imageName = file2!.name;
+    File imageFile = File(file2!.path);
+    try {
+      final firebaseStorageRef = await firebaseStorage
+          .ref("futsal/${DateTime.now().microsecondsSinceEpoch}")
+          .child(imageName)
+          .putFile(imageFile);
+      final fileUrl2 = await firebaseStorageRef.ref.getDownloadURL();
+      print(fileUrl2);
+      await FirebaseFirestore.instance
+          .collection('cabor')
+          .doc('ePCMGZtW6GMGF2kSiZmY')
+          .update({'logo2': fileUrl2});
     } on FirebaseException catch (e) {
       print(e);
     } catch (error) {

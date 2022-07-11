@@ -64,6 +64,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         TextFormField(
+                          enableSuggestions: false,
                           keyboardType: TextInputType.emailAddress,
                           controller: emailController,
                           decoration: InputDecoration(
@@ -146,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           .showSnackBar(
                                         const SnackBar(
                                           content: Text(
-                                              "Inputan tidak boleh kosong"),
+                                              "Inputan tidak boleh kosong!"),
                                           backgroundColor: Colors.red,
                                         ),
                                       );
@@ -156,8 +157,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                           passwordController.text,
                                           context);
                                       if (result != null) {
-                                        print(
-                                            "Telah berhasil login ke halaman admin");
+                                        // ScaffoldMessenger.of(context)
+                                        //     .showSnackBar(const SnackBar(
+                                        //   content: Text(
+                                        //     "Data telah diperbarui!",
+                                        //     style:
+                                        //         TextStyle(color: Colors.white),
+                                        //   ),
+                                        //   backgroundColor: Color(0xff142D4C),
+                                        // ));
+                                        // print(
+                                        //     "Telah berhasil login ke halaman admin");
                                         Navigator.pushAndRemoveUntil(
                                             context,
                                             MaterialPageRoute(

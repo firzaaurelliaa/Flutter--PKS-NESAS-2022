@@ -9,49 +9,27 @@ class AuthService {
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   // Register User
-  Future<User?> register(
-      String email, String password, BuildContext context) async {
-    try {
-      UserCredential userCredential = await firebaseAuth
-          .createUserWithEmailAndPassword(email: email, password: password);
-      return userCredential.user;
-    } on FirebaseAuthException catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(e.message.toString()),
-        backgroundColor: Colors.red,
-      ));
-    } catch (e) {
-      print(e);
-    }
-  }
+  // Future<User?> register(
+  //     String email, String password, BuildContext context) async {
+  //   try {
+  //     UserCredential userCredential = await firebaseAuth
+  //         .createUserWithEmailAndPassword(email: email, password: password);
+  //     return userCredential.user;
+  //   } on FirebaseAuthException catch (e) {
+  //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //       content: Text(e.message.toString()),
+  //       backgroundColor: Colors.red,
+  //     ));
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  // }
 
   // Login
 
-  Future<User?> login(
-      String email, String password, BuildContext context) async {
-    try {} on FirebaseAuthException catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(e.message.toString()),
-        backgroundColor: Colors.red,
-      ));
-    } catch (e) {
-      print(e);
-    }
-    UserCredential userCredential = await firebaseAuth
-        .signInWithEmailAndPassword(email: email, password: password);
-    return userCredential.user;
-  }
-
   // Future<User?> login(
   //     String email, String password, BuildContext context) async {
-  //   try {
-  //     UserCredential userCredential =
-  //         await firebaseAuth.signInWithEmailAndPassword(
-  //       email: email,
-  //       password: password,
-  //     );
-  //     return userCredential.user;
-  //   } on FirebaseAuthException catch (e) {
+  //   try {} on FirebaseAuthException catch (e) {
   //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
   //       content: Text(e.message.toString()),
   //       backgroundColor: Colors.red,
@@ -63,6 +41,29 @@ class AuthService {
   //       .signInWithEmailAndPassword(email: email, password: password);
   //   return userCredential.user;
   // }
+
+  Future<User?> login(
+      String email, String password, BuildContext context) async {
+    try {
+      UserCredential userCredential =
+          await firebaseAuth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return userCredential.user;
+    } on FirebaseAuthException catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('Pastikan inputan diisi dengan benar'),
+        backgroundColor: Colors.red,
+      ));
+      
+    } catch (e) {
+      print(e);
+    }
+    UserCredential userCredential = await firebaseAuth
+        .signInWithEmailAndPassword(email: email, password: password);
+    return userCredential.user;
+  }
 
   Future<void> signOut(BuildContext context) async {
     if (firebaseAuth.currentUser == null) {
