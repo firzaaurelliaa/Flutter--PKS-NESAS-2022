@@ -68,6 +68,8 @@ class _EditPertandinganTerakhirState extends State<EditPertandinganTerakhir> {
     super.initState();
   }
 
+  bool loading = false;
+
   @override
   Widget build(BuildContext context) {
     // print(widget.id);
@@ -231,51 +233,66 @@ class _EditPertandinganTerakhirState extends State<EditPertandinganTerakhir> {
                   //         constraints: BoxConstraints(maxWidth: 600),
                   //         child: DateTimeForm())),
                   // const SizedBox(height: 15),
+                  loading
+                      ? const CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Color(0xff142D4C)))
+                      : SizedBox(
+                          height: 38,
+                          width: MediaQuery.of(context).size.width,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                              primary: const Color(0xff142D4C),
+                              onPrimary: Colors.white,
+                            ),
+                            onPressed: () async {
+                              setState(() {
+                                loading = true;
+                                const Center(
+                                  child: const CircularProgressIndicator(
+                                      color: Color(0xff142D4C)),
+                                );
+                              });
+                              if (skor1.text.isNotEmpty &&
+                                  skor2.text.isNotEmpty &&
+                                  tim1.text.isNotEmpty &&
+                                  tim2.text.isNotEmpty) {
+                                widget.docid.reference.update({
+                                  widget.cabangolahraga: {
+                                    'skor1': skor1.text,
+                                    'skor2': skor2.text,
+                                    'tim1': tim1.text,
+                                    'tim2': tim2.text,
+                                    // 'logo1': widget.data['logo1'],
+                                    // 'logo2': widget.data['logo2'],
+                                  }
+                                }).whenComplete(() {
+                                  Navigator.pop(
+                                    context,
+                                  );
+                                });
+                              } else {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  content: Text('Inputan tidak boleh kosong!'),
+                                  backgroundColor: Colors.red,
+                                ));
+                              }
+                              setState(() {
+                                loading = false;
+                              });
+                            },
+                            child: const Text(
+                              "SIMPAN",
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
 
-                  RoundedLoadingButton(
-                    color: const Color(0xff142D4C),
-                    // successColor: const Color(0xff142D4C),
-                    controller: _btnController2,
-                    onPressed: () {
-                      if (skor1.text.isNotEmpty && skor2.text.isNotEmpty) {
-                        widget.docid.reference.update({
-                          widget.cabangolahraga: {
-                            'skor1': skor1.text,
-                            'skor2': skor2.text,
-                            'tim1': tim1.text,
-                            'tim2': tim2.text,
-                            'logo1': widget.data['logo1'],
-                            'logo2': widget.data['logo2'],
-
-                            // 'logo1': widget.data['logo1'],
-                            // 'logo2': widget.data['logo2'],
-                          }
-                        }).whenComplete(() {
-                          Navigator.pop(
-                            context,
-                          );
-                        });
-
-                        uploadImage();
-                        uploadImage2();
-                      } else {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
-                          content: Text(
-                              'Inputan tidak boleh kosong, silahkan kembali'),
-                          backgroundColor: Color(0xff142D4C),
-                        ));
-                      }
-                    },
-
-                    valueColor: Colors.white,
-                    borderRadius: 10,
-                    child: const Text('''Simpan''',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold)),
-                  ),
                   const SizedBox(height: 30),
                 ],
               ),

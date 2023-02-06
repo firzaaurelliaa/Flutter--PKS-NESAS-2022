@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_print, body_might_complete_normally_nullable
+// ignore_for_file: avoid_print, body_might_complete_normally_nullable, unnecessary_const
 
 import 'package:akhir/Admin/NavBar%20Admin/navbar_admin.dart';
 import 'package:akhir/User/Navbar%20User/navbar_user.dart';
@@ -52,11 +52,10 @@ class AuthService {
       );
       return userCredential.user;
     } on FirebaseAuthException catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Pastikan inputan diisi dengan benar'),
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: const Text('Pastikan inputan diisi dengan benar'),
         backgroundColor: Colors.red,
       ));
-      
     } catch (e) {
       print(e);
     }

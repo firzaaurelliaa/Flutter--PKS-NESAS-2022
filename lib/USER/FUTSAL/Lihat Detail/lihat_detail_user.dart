@@ -80,10 +80,51 @@ class _TabbarLihatDetailUserState extends State<TabbarLihatDetailUser> {
                         child: SizedBox(
                             width: 50,
                             height: 50,
-                            child: Image.network(
-                              widget.logo1,
-                              fit: BoxFit.cover,
-                            )),
+                            child: (widget.logo1.toString() != 'null')
+                                ? Image.network(
+                                    widget.logo1,
+                                    fit: BoxFit.cover,
+                                    loadingBuilder: (BuildContext context,
+                                        Widget child,
+                                        ImageChunkEvent? loadingProgress) {
+                                      if (loadingProgress == null) {
+                                        return child;
+                                      }
+                                      return Center(
+                                        child: CircularProgressIndicator(
+                                          color: const Color(0xff142D4C),
+                                          value: loadingProgress
+                                                      .expectedTotalBytes !=
+                                                  null
+                                              ? loadingProgress
+                                                      .cumulativeBytesLoaded /
+                                                  loadingProgress
+                                                      .expectedTotalBytes!
+                                              : null,
+                                        ),
+                                      );
+                                    },
+                                  )
+
+                                // CircleAvatar(
+                                //     backgroundImage: NetworkImage(
+                                //       futsalModel.logo2,
+
+                                //     ),
+                                //   )
+                                : Container(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.grey[300]!,
+                                    ),
+                                    width: 150,
+                                    height: 150,
+                                    child: const Icon(
+                                      Icons.person,
+                                      color: Colors.white,
+                                      size: 50,
+                                    ),
+                                  )),
                       ),
                       Expanded(
                         flex: 70,
@@ -174,14 +215,56 @@ class _TabbarLihatDetailUserState extends State<TabbarLihatDetailUser> {
                         ),
                       ),
                       Expanded(
-                          flex: 15,
-                          child: Container(
-                              width: 50,
-                              height: 50,
-                              child: Image.network(
-                                widget.logo2,
-                                fit: BoxFit.cover,
-                              ))),
+                        flex: 15,
+                        child: SizedBox(
+                            width: 50,
+                            height: 50,
+                            child: (widget.logo2.toString() != 'null')
+                                ? Image.network(
+                                    widget.logo2,
+                                    fit: BoxFit.cover,
+                                    loadingBuilder: (BuildContext context,
+                                        Widget child,
+                                        ImageChunkEvent? loadingProgress) {
+                                      if (loadingProgress == null) {
+                                        return child;
+                                      }
+                                      return Center(
+                                        child: CircularProgressIndicator(
+                                          color: const Color(0xff142D4C),
+                                          value: loadingProgress
+                                                      .expectedTotalBytes !=
+                                                  null
+                                              ? loadingProgress
+                                                      .cumulativeBytesLoaded /
+                                                  loadingProgress
+                                                      .expectedTotalBytes!
+                                              : null,
+                                        ),
+                                      );
+                                    },
+                                  )
+
+                                // CircleAvatar(
+                                //     backgroundImage: NetworkImage(
+                                //       futsalModel.logo2,
+
+                                //     ),
+                                //   )
+                                : Container(
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.grey[300]!,
+                                    ),
+                                    width: 150,
+                                    height: 150,
+                                    child: const Icon(
+                                      Icons.person,
+                                      color: Colors.white,
+                                      size: 50,
+                                    ),
+                                  )),
+                      ),
                     ],
                   ),
                 ),

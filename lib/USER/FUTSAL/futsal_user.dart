@@ -193,7 +193,7 @@ class _UserFutsalState extends State<UserFutsal> {
                                           child: const Icon(
                                             Icons.person,
                                             color: Colors.white,
-                                            size: 100,
+                                            size: 50,
                                           ),
                                         )),
                               const SizedBox(height: 10),
@@ -280,7 +280,7 @@ class _UserFutsalState extends State<UserFutsal> {
                                           child: const Icon(
                                             Icons.person,
                                             color: Colors.white,
-                                            size: 100,
+                                            size: 50,
                                           ),
                                         )),
                               const SizedBox(height: 10),

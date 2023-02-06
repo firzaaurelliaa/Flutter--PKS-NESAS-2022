@@ -1,12 +1,10 @@
 // ignore_for_file: avoid_unnecessary_containers, sized_box_for_whitespace, prefer_const_constructors
 
-import 'package:akhir/ADMIN/NavBar%20Admin/home_percobaan.dart';
 import 'package:akhir/Admin/FUTSAL/futsal.dart';
 import 'package:akhir/Admin/Profil%20Jurusan/tabbar_profil_jurusan.dart';
 import 'package:akhir/Admin/edit_pertandingan_terakhir.dart';
-import 'package:akhir/X_KEPAKE%20NANTI/voli.dart';
-import 'package:akhir/page_belum_diatur.dart';
-import 'package:akhir/percobaanhome.dart';
+import 'package:akhir/mainpage.dart';
+import 'package:akhir/percobaan.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:akhir/OOP_Custom_Widgets.dart/image_slider_home.dart';
@@ -97,50 +95,51 @@ class _HomeAdminState extends State<HomeAdmin> {
                           ),
                           const SizedBox(height: 2),
                           StreamBuilder<QuerySnapshot>(
-                              stream: FirebaseFirestore.instance
-                                  .collection('jurusanDatas')
-                                  .snapshots(),
-                              builder: (context, snapshot) {
-                                if (!snapshot.hasData) {
-                                  return const CircularProgressIndicator(
-                                    color: Color(0xff142D4C),
-                                  );
-                                }
-
-                                return FlutterCarousel.builder(
-                                  itemCount: snapshot.data!.docs.length,
-                                  itemBuilder: (_, index, __) {
-                                    return InkWell(
-                                      onTap: () => {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                TabbarProfilJurusan(
-                                                    docData: snapshot
-                                                        .data!.docs[index]),
-                                          ),
-                                        ),
-                                      },
-                                      child: ImageSlider(
-                                        image: snapshot.data!.docs[index]
-                                            .get('logoJurusan'),
-                                      ),
-                                    );
-                                  },
-                                  options: CarouselOptions(
-                                    viewportFraction: 0.3,
-                                    aspectRatio: 1.5 / 0.4,
-                                    autoPlay: false,
-                                    floatingIndicator: true,
-                                    enlargeCenterPage: true,
-                                    initialPage: 1,
-                                    // slideIndicator: CircularWaveSlideIndicator(),
-                                    showIndicator: false,
-                                  ),
-                                  carouselController: _controller,
+                            stream: FirebaseFirestore.instance
+                                .collection('jurusanDatas')
+                                .snapshots(),
+                            builder: (context, snapshot) {
+                              if (!snapshot.hasData) {
+                                return const CircularProgressIndicator(
+                                  color: Color(0xff142D4C),
                                 );
-                              }),
+                              }
+
+                              return FlutterCarousel.builder(
+                                itemCount: snapshot.data!.docs.length,
+                                itemBuilder: (_, index, __) {
+                                  return InkWell(
+                                    onTap: () => {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              TabbarProfilJurusan(
+                                                  docData: snapshot
+                                                      .data!.docs[index]),
+                                        ),
+                                      ),
+                                    },
+                                    child: ImageSlider(
+                                      image: snapshot.data!.docs[index]
+                                          .get('logoJurusan'),
+                                    ),
+                                  );
+                                },
+                                options: CarouselOptions(
+                                  viewportFraction: 0.3,
+                                  aspectRatio: 1.5 / 0.4,
+                                  autoPlay: false,
+                                  floatingIndicator: true,
+                                  enlargeCenterPage: true,
+                                  initialPage: 1,
+                                  // slideIndicator: CircularWaveSlideIndicator(),
+                                  showIndicator: false,
+                                ),
+                                carouselController: _controller,
+                              );
+                            },
+                          ),
                           Padding(
                             padding: const EdgeInsets.symmetric(
                               horizontal: 16.0,
@@ -214,9 +213,20 @@ class _HomeAdminState extends State<HomeAdmin> {
                   icon: "assets/images/futsal1.png",
                 ),
               ),
-              const ItemCabangOlahraga(
-                title: "Basket",
-                icon: "assets/images/basket.png",
+              InkWell(
+                onTap: () => {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MainPage(
+                              title: '',
+                            )),
+                  ),
+                },
+                child: const ItemCabangOlahraga(
+                  title: "Basket",
+                  icon: "assets/images/basket.png",
+                ),
               ),
               const ItemCabangOlahraga(
                 title: "Voli",
@@ -325,14 +335,31 @@ class _HomeAdminState extends State<HomeAdmin> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            Text(
-                                              snapshot.data!.docs[0]
-                                                  .get('futsal')['tim1'],
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 12,
-                                                color: Color(0xff142D4C),
-                                              ),
+                                            Stack(
+                                              children: [
+                                                Container(
+                                                  width: 50,
+                                                  height: 50,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: Color(0xffD7E9F7),
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                      snapshot.data!.docs[0]
+                                                          .get(
+                                                              'futsal')['tim1'],
+                                                      style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 12,
+                                                        color:
+                                                            Color(0xff142D4C),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                             const Center(
                                               child: Text(
@@ -343,30 +370,35 @@ class _HomeAdminState extends State<HomeAdmin> {
                                                 ),
                                               ),
                                             ),
-                                            Text(
-                                              snapshot.data!.docs[0]
-                                                  .get('futsal')['tim2'],
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 12,
-                                                color: Color(0xff142D4C),
-                                              ),
+                                            Stack(
+                                              children: [
+                                                Container(
+                                                  width: 50,
+                                                  height: 50,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: Color(0xffD7E9F7),
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                      snapshot.data!.docs[0]
+                                                          .get(
+                                                              'futsal')['tim2'],
+                                                      style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 12,
+                                                        color:
+                                                            Color(0xff142D4C),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            // Text(
-                                            //         snapshot.data!.docs[0]
-                                            //                 .get('futsal')[
-                                            //             'tim1'],
-                                            //         style: const TextStyle(
-                                            //           fontWeight:
-                                            //               FontWeight.bold,
-                                            //           fontSize: 12,
-                                            //           color:
-                                            //               Color(0xff142D4C),
-                                            //         ),
-                                            //       ),
                                           ],
                                         ),
-                                        const SizedBox(height: 25),
+                                        const SizedBox(height: 15),
                                         Stack(
                                           children: [
                                             Row(
@@ -505,14 +537,31 @@ class _HomeAdminState extends State<HomeAdmin> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            Text(
-                                              snapshot.data!.docs[0]
-                                                  .get('basket')['tim1'],
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 12,
-                                                color: Color(0xff142D4C),
-                                              ),
+                                            Stack(
+                                              children: [
+                                                Container(
+                                                  width: 50,
+                                                  height: 50,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: Color(0xffD7E9F7),
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                      snapshot.data!.docs[0]
+                                                          .get(
+                                                              'basket')['tim1'],
+                                                      style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 12,
+                                                        color:
+                                                            Color(0xff142D4C),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                             const Center(
                                               child: Text(
@@ -523,30 +572,35 @@ class _HomeAdminState extends State<HomeAdmin> {
                                                 ),
                                               ),
                                             ),
-                                            Text(
-                                              snapshot.data!.docs[0]
-                                                  .get('basket')['tim2'],
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 12,
-                                                color: Color(0xff142D4C),
-                                              ),
+                                            Stack(
+                                              children: [
+                                                Container(
+                                                  width: 50,
+                                                  height: 50,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: Color(0xffD7E9F7),
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                      snapshot.data!.docs[0]
+                                                          .get(
+                                                              'basket')['tim2'],
+                                                      style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 12,
+                                                        color:
+                                                            Color(0xff142D4C),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            // Text(
-                                            //         snapshot.data!.docs[0]
-                                            //                 .get('futsal')[
-                                            //             'tim1'],
-                                            //         style: const TextStyle(
-                                            //           fontWeight:
-                                            //               FontWeight.bold,
-                                            //           fontSize: 12,
-                                            //           color:
-                                            //               Color(0xff142D4C),
-                                            //         ),
-                                            //       ),
                                           ],
                                         ),
-                                        const SizedBox(height: 25),
+                                        const SizedBox(height: 15),
                                         Stack(
                                           children: [
                                             Row(
@@ -685,14 +739,30 @@ class _HomeAdminState extends State<HomeAdmin> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            Text(
-                                              snapshot.data!.docs[0]
-                                                  .get('voli')['tim1'],
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 12,
-                                                color: Color(0xff142D4C),
-                                              ),
+                                            Stack(
+                                              children: [
+                                                Container(
+                                                  width: 50,
+                                                  height: 50,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: Color(0xffD7E9F7),
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                      snapshot.data!.docs[0]
+                                                          .get('voli')['tim1'],
+                                                      style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 12,
+                                                        color:
+                                                            Color(0xff142D4C),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                             const Center(
                                               child: Text(
@@ -703,30 +773,34 @@ class _HomeAdminState extends State<HomeAdmin> {
                                                 ),
                                               ),
                                             ),
-                                            Text(
-                                              snapshot.data!.docs[0]
-                                                  .get('voli')['tim2'],
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 12,
-                                                color: Color(0xff142D4C),
-                                              ),
+                                            Stack(
+                                              children: [
+                                                Container(
+                                                  width: 50,
+                                                  height: 50,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: Color(0xffD7E9F7),
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                      snapshot.data!.docs[0]
+                                                          .get('voli')['tim2'],
+                                                      style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 12,
+                                                        color:
+                                                            Color(0xff142D4C),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            // Text(
-                                            //         snapshot.data!.docs[0]
-                                            //                 .get('futsal')[
-                                            //             'tim1'],
-                                            //         style: const TextStyle(
-                                            //           fontWeight:
-                                            //               FontWeight.bold,
-                                            //           fontSize: 12,
-                                            //           color:
-                                            //               Color(0xff142D4C),
-                                            //         ),
-                                            //       ),
                                           ],
                                         ),
-                                        const SizedBox(height: 25),
+                                        const SizedBox(height: 15),
                                         Stack(
                                           children: [
                                             Row(
@@ -865,14 +939,30 @@ class _HomeAdminState extends State<HomeAdmin> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            Text(
-                                              snapshot.data!.docs[0]
-                                                  .get('catur')['tim1'],
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 12,
-                                                color: Color(0xff142D4C),
-                                              ),
+                                            Stack(
+                                              children: [
+                                                Container(
+                                                  width: 50,
+                                                  height: 50,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: Color(0xffD7E9F7),
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                      snapshot.data!.docs[0]
+                                                          .get('catur')['tim1'],
+                                                      style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 12,
+                                                        color:
+                                                            Color(0xff142D4C),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                             const Center(
                                               child: Text(
@@ -883,30 +973,34 @@ class _HomeAdminState extends State<HomeAdmin> {
                                                 ),
                                               ),
                                             ),
-                                            Text(
-                                              snapshot.data!.docs[0]
-                                                  .get('catur')['tim2'],
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 12,
-                                                color: Color(0xff142D4C),
-                                              ),
+                                            Stack(
+                                              children: [
+                                                Container(
+                                                  width: 50,
+                                                  height: 50,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: Color(0xffD7E9F7),
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                      snapshot.data!.docs[0]
+                                                          .get('catur')['tim2'],
+                                                      style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 12,
+                                                        color:
+                                                            Color(0xff142D4C),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            // Text(
-                                            //         snapshot.data!.docs[0]
-                                            //                 .get('futsal')[
-                                            //             'tim1'],
-                                            //         style: const TextStyle(
-                                            //           fontWeight:
-                                            //               FontWeight.bold,
-                                            //           fontSize: 12,
-                                            //           color:
-                                            //               Color(0xff142D4C),
-                                            //         ),
-                                            //       ),
                                           ],
                                         ),
-                                        const SizedBox(height: 25),
+                                        const SizedBox(height: 15),
                                         Stack(
                                           children: [
                                             Row(
@@ -1045,14 +1139,31 @@ class _HomeAdminState extends State<HomeAdmin> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            Text(
-                                              snapshot.data!.docs[0]
-                                                  .get('bulutangkis')['tim1'],
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 12,
-                                                color: Color(0xff142D4C),
-                                              ),
+                                            Stack(
+                                              children: [
+                                                Container(
+                                                  width: 50,
+                                                  height: 50,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: Color(0xffD7E9F7),
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                      snapshot.data!.docs[0].get(
+                                                              'bulutangkis')[
+                                                          'tim1'],
+                                                      style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 12,
+                                                        color:
+                                                            Color(0xff142D4C),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                             const Center(
                                               child: Text(
@@ -1063,30 +1174,35 @@ class _HomeAdminState extends State<HomeAdmin> {
                                                 ),
                                               ),
                                             ),
-                                            Text(
-                                              snapshot.data!.docs[0]
-                                                  .get('bulutangkis')['tim2'],
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 12,
-                                                color: Color(0xff142D4C),
-                                              ),
+                                            Stack(
+                                              children: [
+                                                Container(
+                                                  width: 50,
+                                                  height: 50,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: Color(0xffD7E9F7),
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                      snapshot.data!.docs[0].get(
+                                                              'bulutangkis')[
+                                                          'tim2'],
+                                                      style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 12,
+                                                        color:
+                                                            Color(0xff142D4C),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            // Text(
-                                            //         snapshot.data!.docs[0]
-                                            //                 .get('futsal')[
-                                            //             'tim1'],
-                                            //         style: const TextStyle(
-                                            //           fontWeight:
-                                            //               FontWeight.bold,
-                                            //           fontSize: 12,
-                                            //           color:
-                                            //               Color(0xff142D4C),
-                                            //         ),
-                                            //       ),
                                           ],
                                         ),
-                                        const SizedBox(height: 25),
+                                        const SizedBox(height: 15),
                                         Stack(
                                           children: [
                                             Row(
@@ -1225,14 +1341,31 @@ class _HomeAdminState extends State<HomeAdmin> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceEvenly,
                                           children: [
-                                            Text(
-                                              snapshot.data!.docs[0]
-                                                  .get('tenisMeja')['tim1'],
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 12,
-                                                color: Color(0xff142D4C),
-                                              ),
+                                            Stack(
+                                              children: [
+                                                Container(
+                                                  width: 50,
+                                                  height: 50,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: Color(0xffD7E9F7),
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                      snapshot.data!.docs[0]
+                                                              .get('tenisMeja')[
+                                                          'tim1'],
+                                                      style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 12,
+                                                        color:
+                                                            Color(0xff142D4C),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
                                             const Center(
                                               child: Text(
@@ -1243,30 +1376,35 @@ class _HomeAdminState extends State<HomeAdmin> {
                                                 ),
                                               ),
                                             ),
-                                            Text(
-                                              snapshot.data!.docs[0]
-                                                  .get('tenisMeja')['tim2'],
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 12,
-                                                color: Color(0xff142D4C),
-                                              ),
+                                            Stack(
+                                              children: [
+                                                Container(
+                                                  width: 50,
+                                                  height: 50,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: Color(0xffD7E9F7),
+                                                  ),
+                                                  child: Center(
+                                                    child: Text(
+                                                      snapshot.data!.docs[0]
+                                                              .get('tenisMeja')[
+                                                          'tim2'],
+                                                      style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 12,
+                                                        color:
+                                                            Color(0xff142D4C),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            // Text(
-                                            //         snapshot.data!.docs[0]
-                                            //                 .get('futsal')[
-                                            //             'tim1'],
-                                            //         style: const TextStyle(
-                                            //           fontWeight:
-                                            //               FontWeight.bold,
-                                            //           fontSize: 12,
-                                            //           color:
-                                            //               Color(0xff142D4C),
-                                            //         ),
-                                            //       ),
                                           ],
                                         ),
-                                        const SizedBox(height: 25),
+                                        const SizedBox(height: 15),
                                         Stack(
                                           children: [
                                             Row(

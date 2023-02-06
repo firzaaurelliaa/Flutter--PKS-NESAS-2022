@@ -26,7 +26,7 @@ class _NavBarBottomAdminState extends State<NavBarBottomAdmin> {
   int _pilihanBottom = 0;
 
   final List<Widget> _children = [
-    const HomeAdmin(),
+     HomeAdmin(),
     const KlasemenNavbar(),
     const ProfilAdmin(),
   ];

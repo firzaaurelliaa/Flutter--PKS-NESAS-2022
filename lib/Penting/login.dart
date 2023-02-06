@@ -76,7 +76,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             labelStyle:
                                 const TextStyle(color: Color(0xff142D4C)),
                             border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10)),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                             focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide:
@@ -86,6 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(
                           height: 30,
                         ),
+                        
                         TextFormField(
                           obscureText: _isHidePassword,
                           autofocus: false,
@@ -152,9 +154,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                       );
                                     } else {
-                                      User? result = await AuthService()
-                                          .register(emailController.text,
-                                              passwordController.text, context);
+                                      User? result = await AuthService().login(
+                                          emailController.text,
+                                          passwordController.text,
+                                          context);
                                       if (result != null) {
                                         // ScaffoldMessenger.of(context)
                                         //     .showSnackBar(const SnackBar(

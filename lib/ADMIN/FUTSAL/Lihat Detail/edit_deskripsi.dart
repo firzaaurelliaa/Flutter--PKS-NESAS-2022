@@ -23,56 +23,38 @@ class _EditDeskripsiState extends State<EditDeskripsi> {
     super.initState();
   }
 
+  bool loading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xff142D4C),
         elevation: 0,
-        actions: [
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 15),
-            child: TextButton(
-                onPressed: () {
-                  widget.docid.reference.update({
-                    'deskripsi': deskripsi.text,
-                  }).whenComplete(() {
-                    Navigator.pop(
-                      context,
-                    );
-                  });
-                },
-                child: const Text(
-                  'Simpan',
-                  style: TextStyle(color: Colors.white),
-                )),
-          )
-        ],
       ),
       body: ListView(
         children: [
           const SizedBox(height: 10),
-          Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.all(10),
-                    padding: const EdgeInsets.symmetric(horizontal: 25),
-                    child: const Text(
-                      'Deskripsi pertandingan',
-                      style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
+          Container(
+            margin: const EdgeInsets.only(left: 30, right: 30),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.only(top: 15, bottom: 15),
+                      child: const Text(
+                        'Deskripsi pertandingan',
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              Container(
-                margin: const EdgeInsets.only(left: 30, right: 30),
-                child: TextFormField(
+                  ],
+                ),
+                TextFormField(
                   maxLength: null,
                   maxLines: null,
                   controller: deskripsi,
@@ -93,8 +75,58 @@ class _EditDeskripsiState extends State<EditDeskripsi> {
                         borderSide: const BorderSide(color: Color(0xff142D4C))),
                   ),
                 ),
-              ),
-            ],
+                SizedBox(height: 30),
+                loading
+                    ? const CircularProgressIndicator(
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(Color(0xff142D4C)))
+                    : SizedBox(
+                        height: 38,
+                        width: MediaQuery.of(context).size.width,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            primary: const Color(0xff142D4C),
+                            onPrimary: Colors.white,
+                          ),
+                          onPressed: () async {
+                            setState(() {
+                              loading = true;
+                              const Center(
+                                child: const CircularProgressIndicator(
+                                    color: Color(0xff142D4C)),
+                              );
+                            });
+                            if (deskripsi.text.isNotEmpty) {
+                              widget.docid.reference
+                                  .update({"deskripsi": deskripsi.text});
+
+                              Navigator.pop(
+                                context,
+                              );
+                            } else {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                content: Text('Inputan tidak boleh kosong!'),
+                                backgroundColor: Colors.red,
+                              ));
+                            }
+                            setState(() {
+                              loading = false;
+                            });
+                          },
+                          child: const Text(
+                            "SIMPAN",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                const SizedBox(height: 30),
+              ],
+            ),
           ),
         ],
       ),

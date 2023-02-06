@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable, non_constant_identifier_names, nullable_type_in_catch_clause, unused_element, prefer_typing_uninitialized_variables, unused_local_variable, avoid_print
+// ignore_for_file: must_be_immutable, non_constant_identifier_names, nullable_type_in_catch_clause, unused_element, prefer_typing_uninitialized_variables, unused_local_variable, avoid_print, unnecessary_const
 
 import 'dart:async';
 import 'dart:io';
@@ -6,6 +6,7 @@ import 'package:akhir/Admin/FUTSAL/Lihat%20Detail/edit_klasemen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 // import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
@@ -46,10 +47,10 @@ class _AddFutsalState extends State<AddFutsal> {
 
   final MediaType _mediaType = MediaType.image;
 
-  XFile? file;
-  XFile? file2;
-  String? imagePath;
-  String? imagePathh;
+  // XFile? file;
+  // XFile? file2;
+  // String? imagePath;
+  // String? imagePathh;
 
   FirebaseStorage firebaseStorage = FirebaseStorage.instance;
   // String? image, image2;
@@ -78,6 +79,161 @@ class _AddFutsalState extends State<AddFutsal> {
             ),
             body: ListView(
               children: [
+                SizedBox(height: 25),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Row(
+                      children: [
+                        Column(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(15),
+                              child: const Text(
+                                'Logo 1 :',
+                                style: const TextStyle(
+                                    color: Color(0xff142D4C),
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            image != null
+                                ? InkWell(
+                                    onTap: () async {
+                                      File? _images = await getImageGallery();
+                                      if (_images != null) {
+                                        setState(() {
+                                          image = _images;
+                                        });
+                                      }
+                                    },
+                                    child: SizedBox(
+                                      width: 100,
+                                      height: 100,
+                                      child: Image.file(
+                                        image!,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  )
+                                : Container(
+                                    width: 100,
+                                    height: 100,
+                                    child: IconButton(
+                                        onPressed: () async {
+                                          File? _images =
+                                              await getImageGallery();
+                                          if (_images != null) {
+                                            setState(() {
+                                              image = _images;
+                                            });
+                                          }
+                                        },
+                                        icon: const Icon(Icons.add, size: 40)),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          color: const Color(0xff142D4C)),
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                          ],
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        // image == null
+                        //     ? IconButton(
+                        //         onPressed: () async {
+                        //           File? _images =
+                        //               await getImageGallery();
+                        //           if (_images != null) {
+                        //             setState(() {
+                        //               image = _images;
+                        //             });
+                        //           }
+                        //         },
+                        //         icon: const Icon(Icons.add, size: 40))
+                        //     : IconButton(
+                        //         onPressed: () {},
+                        //         icon: const Icon(null)),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Column(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(15),
+                              child: const Text(
+                                'Logo 2 :',
+                                style: const TextStyle(
+                                    color: Color(0xff142D4C),
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () async {
+                                File? _images = await getImageGallery2();
+                                if (_images != null) {
+                                  setState(() {
+                                    image2 = _images;
+                                  });
+                                }
+                              },
+                              child: image2 != null
+                                  ? SizedBox(
+                                      width: 100,
+                                      height: 100,
+                                      child: Image.file(
+                                        image2!,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    )
+                                  : Container(
+                                      width: 100,
+                                      height: 100,
+                                      child: IconButton(
+                                          onPressed: () async {
+                                            File? _images =
+                                                await getImageGallery2();
+                                            if (_images != null) {
+                                              setState(() {
+                                                image2 = _images;
+                                              });
+                                            }
+                                          },
+                                          icon:
+                                              const Icon(Icons.add, size: 40)),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                            color: const Color(0xff142D4C)),
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        // image2 == null
+                        //     ? IconButton(
+                        //         onPressed: () async {
+                        //           File? _images =
+                        //               await getImageGallery2();
+                        //           if (_images != null) {
+                        //             setState(() {
+                        //               image2 = _images;
+                        //             });
+                        //           }
+                        //         },
+                        //         icon: const Icon(Icons.add, size: 40))
+                        //     : IconButton(
+                        //         onPressed: () {},
+                        //         icon: const Icon(null)),
+                      ],
+                    ),
+                  ],
+                ),
                 Form(
                   key: _formKey,
                   child: Container(
@@ -85,15 +241,15 @@ class _AddFutsalState extends State<AddFutsal> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'Tambah list futsal',
-                          style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xff142D4C)),
-                        ),
                         const SizedBox(height: 30),
                         TextFormField(
+                          inputFormatters: [UpperCaseTextFormatter()],
+                          toolbarOptions: const ToolbarOptions(
+                            copy: true,
+                            cut: false,
+                            paste: false,
+                            selectAll: true,
+                          ),
                           controller: tim1,
                           maxLength: 4,
                           decoration: InputDecoration(
@@ -117,7 +273,13 @@ class _AddFutsalState extends State<AddFutsal> {
                         ),
                         const SizedBox(height: 15),
                         TextFormField(
-                          //memberikan identitas untuk setiap form
+                          inputFormatters: [UpperCaseTextFormatter()],
+                          toolbarOptions: const ToolbarOptions(
+                            copy: true,
+                            cut: false,
+                            paste: false,
+                            selectAll: true,
+                          ),
                           controller: tim2,
                           maxLength: 4,
                           decoration: InputDecoration(
@@ -141,7 +303,12 @@ class _AddFutsalState extends State<AddFutsal> {
                         ),
                         const SizedBox(height: 15),
                         TextFormField(
-                          //memberikan identitas untuk setiap form
+                          toolbarOptions: const ToolbarOptions(
+                            copy: true,
+                            cut: false,
+                            paste: false,
+                            selectAll: true,
+                          ),
                           controller: skor1,
                           keyboardType: const TextInputType.numberWithOptions(),
                           maxLength: 2,
@@ -165,6 +332,12 @@ class _AddFutsalState extends State<AddFutsal> {
                         ),
                         const SizedBox(height: 15),
                         TextFormField(
+                          toolbarOptions: const ToolbarOptions(
+                            copy: true,
+                            cut: false,
+                            paste: false,
+                            selectAll: true,
+                          ),
                           //memberikan identitas untuk setiap form
                           controller: skor2,
                           keyboardType: const TextInputType.numberWithOptions(),
@@ -186,210 +359,127 @@ class _AddFutsalState extends State<AddFutsal> {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 45),
-                        Row(
-                          children: [
-                            image != null
-                                ? SizedBox(
-                                    width: 100,
-                                    height: 100,
-                                    child: Image.file(
-                                      image!,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  )
-                                : Container(
-                                    width: 100,
-                                    height: 100,
-                                    child: const Center(
-                                        child: Padding(
-                                            padding: EdgeInsets.all(10),
-                                            child: Text(
-                                              'Logo 1',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontSize: 15,
-                                                  color: Color(0xff142D4C)),
-                                            ))),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: const Color(0xff142D4C)),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                  ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            image == null
-                                ? IconButton(
-                                    onPressed: () async {
-                                      File? _images = await getImageGallery();
-                                      if (_images != null) {
-                                        setState(() {
-                                          image = _images;
-                                        });
-                                      }
-                                    },
-                                    icon: const Icon(Icons.add, size: 40))
-                                : IconButton(
-                                    onPressed: () {}, icon: const Icon(null)),
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        Row(
-                          children: [
-                            image2 != null
-                                ? SizedBox(
-                                    width: 100,
-                                    height: 100,
-                                    child: Image.file(
-                                      image2!,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  )
-                                : Container(
-                                    width: 100,
-                                    height: 100,
-                                    child: const Center(
-                                      child: Padding(
-                                        padding: EdgeInsets.all(10),
-                                        child: Text(
-                                          'Logo 2',
-                                          style: TextStyle(
-                                              color: Color(0xff142D4C)),
-                                        ),
-                                      ),
-                                    ),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          color: const Color(0xff142D4C)),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                  ),
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            image2 == null
-                                ? IconButton(
-                                    onPressed: () async {
-                                      File? _images = await getImageGallery2();
-                                      if (_images != null) {
-                                        setState(() {
-                                          image2 = _images;
-                                        });
-                                      }
-                                    },
-                                    icon: const Icon(Icons.add, size: 40))
-                                : IconButton(
-                                    onPressed: () {}, icon: const Icon(null)),
-                          ],
-                        ),
-                        const SizedBox(height: 15),
-                        const SizedBox(height: 30),
+                        const SizedBox(height: 35),
                         RoundedLoadingButton(
                           color: const Color(0xff142D4C),
                           // successColor: const Color(0xff142D4C),
                           controller: _btnController2,
                           onPressed: () async {
-                            String? url, url1;
-                            // Gambar ke 1
-                            if (image != null) {
-                              await FirebaseStorage.instance
-                                  .ref('logo/${image!.path}')
-                                  .putFile(image!)
-                                  .then((result) async {
-                                url = await result.ref.getDownloadURL();
-                                print(url);
-                              });
-                            }
-                            //Gambar ke 2
-                            if (image2 != null) {
-                              await FirebaseStorage.instance
-                                  .ref('logo/${image2!.path}')
-                                  .putFile(image2!)
-                                  .then((result) async {
-                                url1 = await result.ref.getDownloadURL();
-                                print(url1);
-                              });
-                            }
-                            //Insert to cabor
-                            DocumentReference<Map<String, dynamic>> caborId =
-                                await FirebaseFirestore.instance
-                                    .collection('cabor')
-                                    .add({
-                              'futsal': {
-                                'logo1': url.toString(),
-                                'logo2': url1.toString(),
-                                'skor1': skor1.text,
-                                'skor2': skor2.text,
-                                'tim1': tim1.text,
-                                'tim2': tim2.text,
-
-                                // 'tanggalPertandingan' : ,
-                              },
-                            });
-                            //Insert to statistik
-                            FirebaseFirestore.instance
-                                .collection('statistikPertandingan')
-                                .add({
-                              'caborId': caborId.id,
-                              'tim1': {
-                                'kartuKuning': '-',
-                                'kartuMerah': '-',
-                                'pelanggaran': '-',
-                                'penguasaanBola': '-',
-                                'tendangan': '-',
-                                'tendanganKeGawang': '-',
-                              },
-                              'tim2': {
-                                'kartuKuning': '-',
-                                'kartuMerah': '-',
-                                'pelanggaran': '-',
-                                'penguasaanBola': '-',
-                                'tendangan': '-',
-                                'tendanganKeGawang': '-',
+                            if (tim1.text.isNotEmpty &&
+                                tim2.text.isNotEmpty &&
+                                skor1.text.isNotEmpty &&
+                                skor2.text.isNotEmpty) {
+                              String? url, url1;
+                              // Gambar ke 1
+                              if (image != null) {
+                                await FirebaseStorage.instance
+                                    .ref('logo/${image!.path}')
+                                    .putFile(image!)
+                                    .then((result) async {
+                                  url = await result.ref.getDownloadURL();
+                                  print(url);
+                                });
                               }
-                            });
-                            FirebaseFirestore.instance
-                                .collection('deskripsiFutsal')
-                                .add({
-                              'caborId': caborId.id,
-                              'deskripsi': 'Isi deskripsi pertandingan',
-                            });
-                            FirebaseFirestore.instance
-                                .collection('timFutsal')
-                                .add({
-                              'caborId': caborId.id,
-                              'tim1': {
-                                'namaPemain': '',
-                                'noPemain': '',
-                                'posisiPemain': '',
-                                'fotoPemain': '',
-                              },
-                              'tim2': {
-                                'namaPemain': '',
-                                'noPemain': '',
-                                'posisiPemain': '',
-                                'fotoPemain': '',
+                              //Gambar ke 2
+                              if (image2 != null) {
+                                await FirebaseStorage.instance
+                                    .ref('logo/${image2!.path}')
+                                    .putFile(image2!)
+                                    .then((result) async {
+                                  url1 = await result.ref.getDownloadURL();
+                                  print(url1);
+                                });
                               }
-                            });
+                              //Insert to cabor
+                              DocumentReference<Map<String, dynamic>> caborId =
+                                  await FirebaseFirestore.instance
+                                      .collection('cabor')
+                                      .add({
+                                'futsal': {
+                                  'logo1': url.toString(),
+                                  'logo2': url1.toString(),
+                                  'skor1': skor1.text,
+                                  'skor2': skor2.text,
+                                  'tim1': tim1.text,
+                                  'tim2': tim2.text,
 
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text(
-                                "Data telah ditambahkan!",
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              backgroundColor: Color(0xff142D4C),
-                            ));
+                                  // 'tanggalPertandingan' : ,
+                                },
+                              });
+                              //Insert to statistik
+                              FirebaseFirestore.instance
+                                  .collection('statistikPertandingan')
+                                  .add({
+                                'caborId': caborId.id,
+                                'tim1': {
+                                  'kartuKuning': '-',
+                                  'kartuMerah': '-',
+                                  'pelanggaran': '-',
+                                  'penguasaanBola': '-',
+                                  'tendangan': '-',
+                                  'tendanganKeGawang': '-',
+                                },
+                                'tim2': {
+                                  'kartuKuning': '-',
+                                  'kartuMerah': '-',
+                                  'pelanggaran': '-',
+                                  'penguasaanBola': '-',
+                                  'tendangan': '-',
+                                  'tendanganKeGawang': '-',
+                                }
+                              });
+                              FirebaseFirestore.instance
+                                  .collection('deskripsiFutsal')
+                                  .add({
+                                'caborId': caborId.id,
+                                'deskripsi': 'Isi deskripsi pertandingan',
+                              });
+                              FirebaseFirestore.instance
+                                  .collection('timFutsal')
+                                  .add({
+                                'caborId': caborId.id,
+                                'tim1': {
+                                  'namaPemain': '',
+                                  'noPemain': '',
+                                  'posisiPemain': '',
+                                  'fotoPemain': '',
+                                },
+                                'tim2': {
+                                  'namaPemain': '',
+                                  'noPemain': '',
+                                  'posisiPemain': '',
+                                  'fotoPemain': '',
+                                }
+                              });
+
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                content: Text(
+                                  "Data berhasil ditambahkan!",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                backgroundColor: Color(0xff142D4C),
+                              ));
+                              setState(() {});
+                              // .whenComplete(() {
+
+                              Navigator.pop(
+                                context,
+                              );
+                            } else {
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(const SnackBar(
+                                content: Text(
+                                  "Inputan tidak boleh kosong! harap kembali",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                backgroundColor: Colors.red,
+                              ));
+                            }
+
                             // uploadImage();
-                            setState(() {});
-                            // .whenComplete(() {
-
-                            Navigator.pop(
-                              context,
-                            );
                           },
+
                           valueColor: Colors.white,
                           borderRadius: 10,
                           child: const Text('''Simpan''',
@@ -502,5 +592,16 @@ class _AddFutsalState extends State<AddFutsal> {
     } else {
       return null;
     }
+  }
+}
+
+class UpperCaseTextFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    return TextEditingValue(
+      text: newValue.text.toUpperCase(),
+      selection: newValue.selection,
+    );
   }
 }

@@ -317,14 +317,29 @@ class _HomeUserState extends State<HomeUser> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          Text(
-                                            snapshot.data!.docs[0]
-                                                .get('futsal')['tim1'],
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12,
-                                              color: Color(0xff142D4C),
-                                            ),
+                                          Stack(
+                                            children: [
+                                              Container(
+                                                width: 50,
+                                                height: 50,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Color(0xffD7E9F7),
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    snapshot.data!.docs[0]
+                                                        .get('futsal')['tim1'],
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 12,
+                                                      color: Color(0xff142D4C),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                           const Center(
                                             child: Text(
@@ -335,14 +350,29 @@ class _HomeUserState extends State<HomeUser> {
                                               ),
                                             ),
                                           ),
-                                          Text(
-                                            snapshot.data!.docs[0]
-                                                .get('futsal')['tim2'],
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12,
-                                              color: Color(0xff142D4C),
-                                            ),
+                                          Stack(
+                                            children: [
+                                              Container(
+                                                width: 50,
+                                                height: 50,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Color(0xffD7E9F7),
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    snapshot.data!.docs[0]
+                                                        .get('futsal')['tim2'],
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 12,
+                                                      color: Color(0xff142D4C),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                           // Text(
                                           //         snapshot.data!.docs[0]
@@ -358,7 +388,7 @@ class _HomeUserState extends State<HomeUser> {
                                           //       ),
                                         ],
                                       ),
-                                      const SizedBox(height: 25),
+                                      const SizedBox(height: 15),
                                       Stack(
                                         children: [
                                           Row(
@@ -469,21 +499,35 @@ class _HomeUserState extends State<HomeUser> {
                                     color: Colors.white,
                                   ),
                                   child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          Text(
-                                            snapshot.data!.docs[0]
-                                                .get('basket')['tim1'],
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12,
-                                              color: Color(0xff142D4C),
-                                            ),
+                                          Stack(
+                                            children: [
+                                              Container(
+                                                width: 50,
+                                                height: 50,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Color(0xffD7E9F7),
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    snapshot.data!.docs[0]
+                                                        .get('basket')['tim1'],
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 12,
+                                                      color: Color(0xff142D4C),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                           const Center(
                                             child: Text(
@@ -494,14 +538,29 @@ class _HomeUserState extends State<HomeUser> {
                                               ),
                                             ),
                                           ),
-                                          Text(
-                                            snapshot.data!.docs[0]
-                                                .get('basket')['tim2'],
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12,
-                                              color: Color(0xff142D4C),
-                                            ),
+                                          Stack(
+                                            children: [
+                                              Container(
+                                                width: 50,
+                                                height: 50,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Color(0xffD7E9F7),
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    snapshot.data!.docs[0]
+                                                        .get('basket')['tim2'],
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 12,
+                                                      color: Color(0xff142D4C),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                           // Text(
                                           //         snapshot.data!.docs[0]
@@ -517,7 +576,7 @@ class _HomeUserState extends State<HomeUser> {
                                           //       ),
                                         ],
                                       ),
-                                      const SizedBox(height: 25),
+                                      const SizedBox(height: 15),
                                       Stack(
                                         children: [
                                           Row(
@@ -529,8 +588,7 @@ class _HomeUserState extends State<HomeUser> {
                                                 height: 19,
                                                 decoration: BoxDecoration(
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          5),
+                                                      BorderRadius.circular(5),
                                                   color:
                                                       const Color(0xff142D4C),
                                                 ),
@@ -541,8 +599,8 @@ class _HomeUserState extends State<HomeUser> {
                                                         fontWeight:
                                                             FontWeight.bold,
                                                         fontSize: 12,
-                                                        color: Color(
-                                                            0xffD7E9F7)),
+                                                        color:
+                                                            Color(0xffD7E9F7)),
                                                   ),
                                                 ),
                                               ),
@@ -551,15 +609,13 @@ class _HomeUserState extends State<HomeUser> {
                                                 height: 19,
                                                 decoration: BoxDecoration(
                                                   borderRadius:
-                                                      BorderRadius.circular(
-                                                          5),
+                                                      BorderRadius.circular(5),
                                                   color:
                                                       const Color(0xffD7E9F7),
                                                 ),
                                                 child: Row(
                                                   mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .center,
+                                                      MainAxisAlignment.center,
                                                   // ignore: prefer_const_literals_to_create_immutables
                                                   children: [
                                                     Text(
@@ -637,14 +693,29 @@ class _HomeUserState extends State<HomeUser> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          Text(
-                                            snapshot.data!.docs[0]
-                                                .get('voli')['tim1'],
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12,
-                                              color: Color(0xff142D4C),
-                                            ),
+                                          Stack(
+                                            children: [
+                                              Container(
+                                                width: 50,
+                                                height: 50,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Color(0xffD7E9F7),
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    snapshot.data!.docs[0]
+                                                        .get('voli')['tim1'],
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 12,
+                                                      color: Color(0xff142D4C),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                           const Center(
                                             child: Text(
@@ -655,14 +726,29 @@ class _HomeUserState extends State<HomeUser> {
                                               ),
                                             ),
                                           ),
-                                          Text(
-                                            snapshot.data!.docs[0]
-                                                .get('voli')['tim2'],
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12,
-                                              color: Color(0xff142D4C),
-                                            ),
+                                          Stack(
+                                            children: [
+                                              Container(
+                                                width: 50,
+                                                height: 50,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Color(0xffD7E9F7),
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    snapshot.data!.docs[0]
+                                                        .get('voli')['tim2'],
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 12,
+                                                      color: Color(0xff142D4C),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                           // Text(
                                           //         snapshot.data!.docs[0]
@@ -678,7 +764,7 @@ class _HomeUserState extends State<HomeUser> {
                                           //       ),
                                         ],
                                       ),
-                                      const SizedBox(height: 25),
+                                      const SizedBox(height: 15),
                                       Stack(
                                         children: [
                                           Row(
@@ -793,14 +879,29 @@ class _HomeUserState extends State<HomeUser> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          Text(
-                                            snapshot.data!.docs[0]
-                                                .get('catur')['tim1'],
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12,
-                                              color: Color(0xff142D4C),
-                                            ),
+                                          Stack(
+                                            children: [
+                                              Container(
+                                                width: 50,
+                                                height: 50,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Color(0xffD7E9F7),
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    snapshot.data!.docs[0]
+                                                        .get('catur')['tim1'],
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 12,
+                                                      color: Color(0xff142D4C),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                           const Center(
                                             child: Text(
@@ -811,14 +912,29 @@ class _HomeUserState extends State<HomeUser> {
                                               ),
                                             ),
                                           ),
-                                          Text(
-                                            snapshot.data!.docs[0]
-                                                .get('catur')['tim2'],
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12,
-                                              color: Color(0xff142D4C),
-                                            ),
+                                          Stack(
+                                            children: [
+                                              Container(
+                                                width: 50,
+                                                height: 50,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Color(0xffD7E9F7),
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    snapshot.data!.docs[0]
+                                                        .get('catur')['tim2'],
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 12,
+                                                      color: Color(0xff142D4C),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                           // Text(
                                           //         snapshot.data!.docs[0]
@@ -834,7 +950,7 @@ class _HomeUserState extends State<HomeUser> {
                                           //       ),
                                         ],
                                       ),
-                                      const SizedBox(height: 25),
+                                      const SizedBox(height: 15),
                                       Stack(
                                         children: [
                                           Row(
@@ -951,14 +1067,29 @@ class _HomeUserState extends State<HomeUser> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          Text(
-                                            snapshot.data!.docs[0]
-                                                .get('bulutangkis')['tim1'],
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12,
-                                              color: Color(0xff142D4C),
-                                            ),
+                                          Stack(
+                                            children: [
+                                              Container(
+                                                width: 50,
+                                                height: 50,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color:Color(0xffD7E9F7),
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    snapshot.data!.docs[0]
+                                                        .get('bulutangkis')['tim1'],
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 12,
+                                                      color: Color(0xff142D4C),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                           const Center(
                                             child: Text(
@@ -969,14 +1100,29 @@ class _HomeUserState extends State<HomeUser> {
                                               ),
                                             ),
                                           ),
-                                          Text(
-                                            snapshot.data!.docs[0]
-                                                .get('bulutangkis')['tim2'],
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12,
-                                              color: Color(0xff142D4C),
-                                            ),
+                                          Stack(
+                                            children: [
+                                              Container(
+                                                width: 50,
+                                                height: 50,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color:Color(0xffD7E9F7),
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    snapshot.data!.docs[0]
+                                                        .get('bulutangkis')['tim2'],
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 12,
+                                                      color: Color(0xff142D4C),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                           // Text(
                                           //         snapshot.data!.docs[0]
@@ -992,7 +1138,7 @@ class _HomeUserState extends State<HomeUser> {
                                           //       ),
                                         ],
                                       ),
-                                      const SizedBox(height: 25),
+                                      const SizedBox(height: 15),
                                       Stack(
                                         children: [
                                           Row(
@@ -1109,14 +1255,29 @@ class _HomeUserState extends State<HomeUser> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceEvenly,
                                         children: [
-                                          Text(
-                                            snapshot.data!.docs[0]
-                                                .get('tenisMeja')['tim1'],
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12,
-                                              color: Color(0xff142D4C),
-                                            ),
+                                          Stack(
+                                            children: [
+                                              Container(
+                                                width: 50,
+                                                height: 50,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color:Color(0xffD7E9F7),
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    snapshot.data!.docs[0]
+                                                        .get('tenisMeja')['tim1'],
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 12,
+                                                      color: Color(0xff142D4C),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                           const Center(
                                             child: Text(
@@ -1127,30 +1288,34 @@ class _HomeUserState extends State<HomeUser> {
                                               ),
                                             ),
                                           ),
-                                          Text(
-                                            snapshot.data!.docs[0]
-                                                .get('tenisMeja')['tim2'],
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12,
-                                              color: Color(0xff142D4C),
-                                            ),
+                                          Stack(
+                                            children: [
+                                              Container(
+                                                width: 50,
+                                                height: 50,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color:Color(0xffD7E9F7),
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    snapshot.data!.docs[0]
+                                                        .get('tenisMeja')['tim2'],
+                                                    style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 12,
+                                                      color: Color(0xff142D4C),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          // Text(
-                                          //         snapshot.data!.docs[0]
-                                          //                 .get('futsal')[
-                                          //             'tim1'],
-                                          //         style: const TextStyle(
-                                          //           fontWeight:
-                                          //               FontWeight.bold,
-                                          //           fontSize: 12,
-                                          //           color:
-                                          //               Color(0xff142D4C),
-                                          //         ),
-                                          //       ),
+                                         
                                         ],
                                       ),
-                                      const SizedBox(height: 25),
+                                      const SizedBox(height: 15),
                                       Stack(
                                         children: [
                                           Row(

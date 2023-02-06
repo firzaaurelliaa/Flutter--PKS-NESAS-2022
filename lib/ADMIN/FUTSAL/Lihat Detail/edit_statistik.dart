@@ -1,5 +1,6 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, unused_local_variable, unnecessary_const
 
+import 'package:akhir/page_belum_diatur.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -61,6 +62,8 @@ class _EditStatistikState extends State<EditStatistik> {
         TextEditingController(text: widget.docid.get('tim2')['tendangan']);
     super.initState();
   }
+
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -512,64 +515,89 @@ class _EditStatistikState extends State<EditStatistik> {
                         ),
                       ),
                       const SizedBox(height: 15),
-                      RoundedLoadingButton(
-                        color: const Color(0xff142D4C),
-                        controller: _btnController2,
-                        onPressed: () {
-                          if (tim1tendangankegawang.text.isNotEmpty &&
-                              tim1tendangan.text.isNotEmpty &&
-                              tim1pelanggaran.text.isNotEmpty &&
-                              tim1penguasaanbola.text.isNotEmpty &&
-                              tim1kartumerah.text.isNotEmpty &&
-                              tim1kartukuning.text.isNotEmpty &&
-                              tim2tendangankegawang.text.isNotEmpty &&
-                              tim2tendangan.text.isNotEmpty &&
-                              tim2pelanggaran.text.isNotEmpty &&
-                              tim2penguasaanbola.text.isNotEmpty &&
-                              tim2kartumerah.text.isNotEmpty &&
-                              tim2kartukuning.text.isNotEmpty) {
-                            FirebaseFirestore.instance
-                                .collection('statistikPertandingan')
-                                .doc(widget.id)
-                                .update({
-                              'tim1': {
-                                'tendanganKeGawang': tim1tendangankegawang.text,
-                                'tendangan': tim1tendangan.text,
-                                'penguasaanBola': tim1penguasaanbola.text,
-                                'pelanggaran': tim1pelanggaran.text,
-                                'kartuKuning': tim1kartukuning.text,
-                                'kartuMerah': tim1kartumerah.text,
-                              },
-                              'tim2': {
-                                'tendanganKeGawang': tim2tendangankegawang.text,
-                                'tendangan': tim2tendangan.text,
-                                'penguasaanBola': tim2penguasaanbola.text,
-                                'pelanggaran': tim2pelanggaran.text,
-                                'kartuKuning': tim2kartukuning.text,
-                                'kartuMerah': tim2kartumerah.text,
-                              }
-                            }).whenComplete(() {
-                              Navigator.pop(
-                                context,
-                              );
-                            });
-                          } else {
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text(
-                                  'Inputan tidak boleh kosong! Harap kembali'),
-                              backgroundColor: Color(0xff142D4C),
-                            ));
-                          }
-                        },
-                        valueColor: Colors.white,
-                        borderRadius: 10,
-                        child: const Text('''Simpan''',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold)),
-                      ),
+                      loading
+                          ? const CircularProgressIndicator(
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                  Color(0xff142D4C)))
+                          : SizedBox(
+                              height: 38,
+                              width: MediaQuery.of(context).size.width,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  elevation: 0,
+                                  primary: const Color(0xff142D4C),
+                                  onPrimary: Colors.white,
+                                ),
+                                onPressed: () async {
+                                  setState(() {
+                                    loading = true;
+                                    const Center(
+                                      child: const CircularProgressIndicator(
+                                          color: Colors.red),
+                                    );
+                                  });
+                                  if (tim1tendangankegawang.text.isNotEmpty &&
+                                      tim1tendangan.text.isNotEmpty &&
+                                      tim1pelanggaran.text.isNotEmpty &&
+                                      tim1penguasaanbola.text.isNotEmpty &&
+                                      tim1kartumerah.text.isNotEmpty &&
+                                      tim1kartukuning.text.isNotEmpty &&
+                                      tim2tendangankegawang.text.isNotEmpty &&
+                                      tim2tendangan.text.isNotEmpty &&
+                                      tim2pelanggaran.text.isNotEmpty &&
+                                      tim2penguasaanbola.text.isNotEmpty &&
+                                      tim2kartumerah.text.isNotEmpty &&
+                                      tim2kartukuning.text.isNotEmpty) {
+                                    FirebaseFirestore.instance
+                                        .collection('statistikPertandingan')
+                                        .doc(widget.id)
+                                        .update({
+                                      'tim1': {
+                                        'tendanganKeGawang':
+                                            tim1tendangankegawang.text,
+                                        'tendangan': tim1tendangan.text,
+                                        'penguasaanBola':
+                                            tim1penguasaanbola.text,
+                                        'pelanggaran': tim1pelanggaran.text,
+                                        'kartuKuning': tim1kartukuning.text,
+                                        'kartuMerah': tim1kartumerah.text,
+                                      },
+                                      'tim2': {
+                                        'tendanganKeGawang':
+                                            tim2tendangankegawang.text,
+                                        'tendangan': tim2tendangan.text,
+                                        'penguasaanBola':
+                                            tim2penguasaanbola.text,
+                                        'pelanggaran': tim2pelanggaran.text,
+                                        'kartuKuning': tim2kartukuning.text,
+                                        'kartuMerah': tim2kartumerah.text,
+                                      }
+                                    }).whenComplete(() {
+                                      Navigator.pop(
+                                        context,
+                                      );
+                                    });
+                                  } else {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(const SnackBar(
+                                      content:
+                                          Text('Inputan tidak boleh kosong!'),
+                                      backgroundColor: Colors.red,
+                                    ));
+                                  }
+                                  setState(() {
+                                    loading = false;
+                                  });
+                                },
+                                child: const Text(
+                                  "SIMPAN",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
                     ],
                   ),
                 ],

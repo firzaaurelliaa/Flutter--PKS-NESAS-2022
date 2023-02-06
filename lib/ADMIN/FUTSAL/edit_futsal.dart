@@ -43,18 +43,21 @@ class _EditFutsalState extends State<EditFutsal> {
   XFile? file;
   XFile? file2;
   XFile? imageFile;
-   XFile? imageFile2;
+  XFile? imageFile2;
   String? imagePath;
   String? imagePath2;
 
-  String? image;
+  // String? image;
+  File? image;
+  File? image2;
+  var doc;
 
   // File? image;
 
   FirebaseStorage firebaseStorage = FirebaseStorage.instance;
   // String? imagePath = '';
   String? imagePathh = '';
-  String? image1 = '', image2 = '';
+  // String? image1 = '', image2 = '';
 
   @override
   void initState() {
@@ -190,9 +193,114 @@ class _EditFutsalState extends State<EditFutsal> {
                   //     ),
                   //   ],
                   // ),
-                  const SizedBox(height: 40),
-                  const SizedBox(height: 15),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        onTap: () async {
+                          File? _images = await getImageGallery();
+                          if (_images != null) {
+                            setState(() {
+                              image = _images;
+                            });
+                          }
+                        },
+                        child: SizedBox(
+                          width: 110,
+                          height: 110,
+                          child: (image != null)
+                              ? Image.file(
+                                  image!,
+                                  fit: BoxFit.cover,
+                                )
+                              : widget.docid.get('futsal')['logo1'] == ""
+                                  ? Container(
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.grey[300]!,
+                                      ),
+                                      width: 300,
+                                      height: 300,
+                                      child: const Icon(
+                                        Icons.person,
+                                        color: Colors.white,
+                                        size: 100,
+                                      ),
+                                    )
+                                  : Container(
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: NetworkImage(widget.docid
+                                                .get('futsal')['logo1'])),
+                                        shape: BoxShape.circle,
+                                        color: Colors.grey[300]!,
+                                      ),
+                                      width: 300,
+                                      height: 300,
+                                    ),
+                        ),
+                      ),
+                      SizedBox(width: 15),
+                      Text(
+                        'VS',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(width: 15),
+                      InkWell(
+                        onTap: () async {
+                          File? _images = await getImageGallery2();
+                          if (_images != null) {
+                            setState(() {
+                              image2 = _images;
+                            });
+                          }
+                        },
+                        child: SizedBox(
+                          width: 110,
+                          height: 110,
+                          child: (image2 != null)
+                              ? Image.file(
+                                  image2!,
+                                  fit: BoxFit.cover,
+                                )
+                              : widget.docid.get('futsal')['logo2'] == ""
+                                  ? Container(
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.grey[300]!,
+                                      ),
+                                      width: 300,
+                                      height: 300,
+                                      child: const Icon(
+                                        Icons.person,
+                                        color: Colors.white,
+                                        size: 100,
+                                      ),
+                                    )
+                                  : Container(
+                                      decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: NetworkImage(widget.docid
+                                                .get('futsal')['logo2'])),
+                                        shape: BoxShape.circle,
+                                        color: Colors.grey[300]!,
+                                      ),
+                                      width: 300,
+                                      height: 300,
+                                    ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 50),
+
                   TextFormField(
+                    inputFormatters: [UpperCaseTextFormatter()],
                     toolbarOptions: const ToolbarOptions(
                       copy: true,
                       cut: false,
@@ -208,7 +316,7 @@ class _EditFutsalState extends State<EditFutsal> {
                         Icons.people,
                         color: Color(0xff142D4C),
                       ),
-                      hintText: 'Cth. RPL VS OTKP',
+                      hintText: 'Cth. OTKP',
                       labelText: 'Tim 1 :',
                       labelStyle: const TextStyle(color: Color(0xff142D4C)),
                       suffixIcon: IconButton(
@@ -227,6 +335,7 @@ class _EditFutsalState extends State<EditFutsal> {
                   ),
                   const SizedBox(height: 15),
                   TextFormField(
+                    inputFormatters: [UpperCaseTextFormatter()],
                     //memberikan identitas untuk setiap form
                     maxLength: 4,
                     maxLengthEnforcement: MaxLengthEnforcement.enforced,
@@ -326,294 +435,8 @@ class _EditFutsalState extends State<EditFutsal> {
                     ),
                     //memberikan validasi jika form kosong
                   ),
-                  Stack(
-                    children: [
-                      SizedBox(
-                        width: 110,
-                        height: 110,
-                        child: (imagePath != null)
-                            ? CircleAvatar(
-                                backgroundImage: FileImage(File(imagePath!)))
-                            : widget.docid.get('futsal')['logo1'] == ""
-                                ? Container(
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.grey[300]!,
-                                    ),
-                                    width: 300,
-                                    height: 300,
-                                    child: const Icon(
-                                      Icons.person,
-                                      color: Colors.white,
-                                      size: 100,
-                                    ),
-                                  )
-                                : Container(
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                          fit: BoxFit.cover,
-                                          image: NetworkImage(widget.docid
-                                              .get('futsal')['logo1'])),
-                                      shape: BoxShape.circle,
-                                      color: Colors.grey[300]!,
-                                    ),
-                                    width: 300,
-                                    height: 300,
-                                  ),
-                      ),
-                      Positioned(
-                        top: 65,
-                        left: 40,
-                        child: RawMaterialButton(
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (_) => AlertDialog(
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.all(
-                                        Radius.circular(10.0))),
-                                content: Builder(
-                                  builder: (context) {
-                                    // Get available height and width of the build area of this widget. Make a choice depending on the size.
-                                    var height =
-                                        MediaQuery.of(context).size.height;
-                                    var width =
-                                        MediaQuery.of(context).size.width;
 
-                                    return Container(
-                                      height: 150,
-                                      // width: 100,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          const Text(
-                                            'Ambil foto dari :',
-                                            style: const TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 15),
-                                          InkWell(
-                                            onTap: () {
-                                              pickMedia(ImageSource.gallery);
-                                              Navigator.pop(context);
-                                            },
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: const [
-                                                Icon(
-                                                  Icons.image,
-                                                  size: 30,
-                                                  color: Color(0xff142D4C),
-                                                ),
-                                                SizedBox(width: 5),
-                                                Text(
-                                                  "Galeri",
-                                                  style: TextStyle(
-                                                    fontSize: 15,
-                                                    color: Colors.black,
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                          const SizedBox(height: 20),
-                                          InkWell(
-                                            onTap: () {
-                                              pickMedia(ImageSource.camera);
-                                              Navigator.pop(context);
-                                            },
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: const [
-                                                Icon(
-                                                  Icons.camera_alt,
-                                                  size: 30,
-                                                  color: Color(0xff142D4C),
-                                                ),
-                                                SizedBox(width: 5),
-                                                Text(
-                                                  "Buka kamera",
-                                                  style: TextStyle(
-                                                    fontSize: 15,
-                                                    color: Colors.black,
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                          const SizedBox(height: 10),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            );
-                          },
-                          child: Container(
-                            // ignore: prefer_const_constructors
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: const Color(0xff142D4C),
-                            ),
-                            width: 35,
-                            height: 35,
-                            child: const Icon(
-                              Icons.add,
-                              size: 25,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                   const SizedBox(height: 15),
-                  SizedBox(
-                    width: 110,
-                    height: 110,
-                    child: (imagePath2 != null)
-                        ? CircleAvatar(
-                            backgroundImage: FileImage(File(imagePath2!)))
-                        : widget.docid.get('futsal')['logo2'] == ""
-                            ? Container(
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Colors.grey[300]!,
-                                ),
-                                width: 300,
-                                height: 300,
-                                child: const Icon(
-                                  Icons.person,
-                                  color: Colors.white,
-                                  size: 100,
-                                ),
-                              )
-                            : Container(
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: NetworkImage(
-                                          widget.docid.get('futsal')['logo2'])),
-                                  shape: BoxShape.circle,
-                                  color: Colors.grey[300]!,
-                                ),
-                                width: 300,
-                                height: 300,
-                              ),
-                  ),
-                  Positioned(
-                    top: 65,
-                    left: 40,
-                    child: RawMaterialButton(
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (_) => AlertDialog(
-                            shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10.0))),
-                            content: Builder(
-                              builder: (context) {
-                                // Get available height and width of the build area of this widget. Make a choice depending on the size.
-                                var height = MediaQuery.of(context).size.height;
-                                var width = MediaQuery.of(context).size.width;
-
-                                return Container(
-                                  height: 150,
-                                  // width: 100,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      const Text(
-                                        'Ambil foto dari :',
-                                        style: const TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 15),
-                                      InkWell(
-                                        onTap: () {
-                                          pickMedia2(ImageSource.gallery);
-                                          Navigator.pop(context);
-                                        },
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: const [
-                                            Icon(
-                                              Icons.image,
-                                              size: 30,
-                                              color: Color(0xff142D4C),
-                                            ),
-                                            SizedBox(width: 5),
-                                            Text(
-                                              "Galeri",
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                color: Colors.black,
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      const SizedBox(height: 20),
-                                      InkWell(
-                                        onTap: () {
-                                          pickMedia2(ImageSource.camera);
-                                          Navigator.pop(context);
-                                        },
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: const [
-                                            Icon(
-                                              Icons.camera_alt,
-                                              size: 30,
-                                              color: Color(0xff142D4C),
-                                            ),
-                                            SizedBox(width: 5),
-                                            Text(
-                                              "Buka kamera",
-                                              style: TextStyle(
-                                                fontSize: 15,
-                                                color: Colors.black,
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      const SizedBox(height: 10),
-                                    ],
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        // ignore: prefer_const_constructors
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: const Color(0xff142D4C),
-                        ),
-                        width: 35,
-                        height: 35,
-                        child: const Icon(
-                          Icons.add,
-                          size: 25,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
 
                   const SizedBox(height: 30),
                   // Center(
@@ -627,6 +450,27 @@ class _EditFutsalState extends State<EditFutsal> {
                     // successColor: const Color(0xff142D4C),
                     controller: _btnController2,
                     onPressed: () async {
+                      String? url, url1;
+                      // Gambar ke 1
+                      if (image != null) {
+                        await FirebaseStorage.instance
+                            .ref('logo/${image!.path}')
+                            .putFile(image!)
+                            .then((result) async {
+                          url = await result.ref.getDownloadURL();
+                          print(url);
+                        });
+                      }
+                      //Gambar ke 2
+                      if (image2 != null) {
+                        await FirebaseStorage.instance
+                            .ref('logo/${image2!.path}')
+                            .putFile(image2!)
+                            .then((result) async {
+                          url1 = await result.ref.getDownloadURL();
+                          print(url1);
+                        });
+                      }
                       FirebaseFirestore.instance
                           .collection('cabor')
                           .doc(widget.id)
@@ -637,6 +481,8 @@ class _EditFutsalState extends State<EditFutsal> {
                           // 'tanggal': tanggal.text,
                           'tim1': tim1.text,
                           'tim2': tim2.text,
+                          'logo1': url.toString(),
+                          'logo2': url1.toString(),
 
                           // 'tanggalPertandingan' : ,
                         },
@@ -654,8 +500,8 @@ class _EditFutsalState extends State<EditFutsal> {
                       //   },
                       // });
 
-                      uploadImage();
-                      uploadImage2();
+                      // uploadImage();
+                      // uploadImage2();
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text(
                           "Data telah diperbarui!",
@@ -670,6 +516,8 @@ class _EditFutsalState extends State<EditFutsal> {
                       Navigator.pop(
                         context,
                       );
+                      uploadImage();
+                      uploadImage2();
                       // });
                     },
                     valueColor: Colors.white,
@@ -777,23 +625,24 @@ class _EditFutsalState extends State<EditFutsal> {
   //   }
   // }
 
-  void pickMedia(ImageSource source) async {
-    if (_mediaType == MediaType.image) {
-      file = await ImagePicker().pickImage(source: source);
+  //ini yang terbaru
+  Future<File?> getImageGallery() async {
+    ImagePicker _picker = ImagePicker();
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      return File(image.path);
     } else {
-      file = await ImagePicker().pickVideo(source: source);
+      return null;
     }
-    if (file != null) {
-      imagePath = file!.path;
-      if (_mediaType == MediaType.video) {
-        imagePath = await VideoThumbnail.thumbnailFile(
-            video: file!.path,
-            imageFormat: ImageFormat.PNG,
-            quality: 100,
-            maxWidth: 300,
-            maxHeight: 300);
-      }
-      setState(() {});
+  }
+
+  Future<File?> getImageGallery2() async {
+    ImagePicker _picker = ImagePicker();
+    final XFile? image2 = await _picker.pickImage(source: ImageSource.gallery);
+    if (image2 != null) {
+      return File(image2.path);
+    } else {
+      return null;
     }
   }
 
@@ -803,42 +652,27 @@ class _EditFutsalState extends State<EditFutsal> {
     }
     String imageName = file!.name;
     File imageFile = File(file!.path);
+    // print(imageFile.path);
     try {
       final firebaseStorageRef = await firebaseStorage
-          .ref("futsal/${DateTime.now().microsecondsSinceEpoch}")
+          .ref("logo/${DateTime.now().microsecondsSinceEpoch}")
           .child(imageName)
           .putFile(imageFile);
       final fileUrl = await firebaseStorageRef.ref.getDownloadURL();
-      print(fileUrl);
       await FirebaseFirestore.instance
           .collection('cabor')
-          .doc(widget.id)
-          .update({'logo1': fileUrl});
+          .doc(
+            '$doc',
+          )
+          .update({
+        'futsal': {
+          'logo1': fileUrl,
+        }
+      });
     } on FirebaseException catch (e) {
       print(e);
     } catch (error) {
       print(error);
-    }
-  }
-
-  //kedua
-  void pickMedia2(ImageSource source) async {
-    if (_mediaType == MediaType.image) {
-      file2 = await ImagePicker().pickImage(source: source);
-    } else {
-      file2 = await ImagePicker().pickVideo(source: source);
-    }
-    if (file2 != null) {
-      imagePath2 = file2!.path;
-      if (_mediaType == MediaType.video) {
-        imagePath2 = await VideoThumbnail.thumbnailFile(
-            video: file2!.path,
-            imageFormat: ImageFormat.PNG,
-            quality: 100,
-            maxWidth: 300,
-            maxHeight: 300);
-      }
-      setState(() {});
     }
   }
 
@@ -846,25 +680,115 @@ class _EditFutsalState extends State<EditFutsal> {
     if (file == null) {
       return;
     }
-    String  imageName = file2!.name;
-    File imageFile2 = File(file2!.path);
+    String imageName = file!.name;
+    File imageFile = File(file!.path);
+    // print(imageFile.path);
     try {
       final firebaseStorageRef = await firebaseStorage
-          .ref("futsal2/${DateTime.now().microsecondsSinceEpoch}")
+          .ref("logo/${DateTime.now().microsecondsSinceEpoch}")
           .child(imageName)
-          .putFile(imageFile2);
-      final fileUrl2 = await firebaseStorageRef.ref.getDownloadURL();
-      print(fileUrl2);
-      await FirebaseFirestore.instance
-          .collection('cabor')
-          .doc(widget.id)
-          .update({'logo2': fileUrl2});
+          .putFile(imageFile);
+      final fileUrl1 = await firebaseStorageRef.ref.getDownloadURL();
+      await FirebaseFirestore.instance.collection('cabor').doc('$doc').update({
+        'futsal': {
+          'logo2': fileUrl1,
+        }
+      });
     } on FirebaseException catch (e) {
       print(e);
     } catch (error) {
       print(error);
     }
   }
+
+  // void pickMedia(ImageSource source) async {
+  //   if (_mediaType == MediaType.image) {
+  //     file = await ImagePicker().pickImage(source: source);
+  //   } else {
+  //     file = await ImagePicker().pickVideo(source: source);
+  //   }
+  //   if (file != null) {
+  //     imagePath = file!.path;
+  //     if (_mediaType == MediaType.video) {
+  //       imagePath = await VideoThumbnail.thumbnailFile(
+  //           video: file!.path,
+  //           imageFormat: ImageFormat.PNG,
+  //           quality: 100,
+  //           maxWidth: 300,
+  //           maxHeight: 300);
+  //     }
+  //     setState(() {});
+  //   }
+  // }
+
+  // Future<void> uploadImage() async {
+  //   if (file == null) {
+  //     return;
+  //   }
+  //   String imageName = file!.name;
+  //   File imageFile = File(file!.path);
+  //   try {
+  //     final firebaseStorageRef = await firebaseStorage
+  //         .ref("futsal/${DateTime.now().microsecondsSinceEpoch}")
+  //         .child(imageName)
+  //         .putFile(imageFile);
+  //     final fileUrl = await firebaseStorageRef.ref.getDownloadURL();
+  //     print(fileUrl);
+  //     await FirebaseFirestore.instance
+  //         .collection('cabor')
+  //         .doc(widget.id)
+  //         .update({'logo1': fileUrl});
+  //   } on FirebaseException catch (e) {
+  //     print(e);
+  //   } catch (error) {
+  //     print(error);
+  //   }
+  // }
+
+  // //kedua
+  // void pickMedia2(ImageSource source) async {
+  //   if (_mediaType == MediaType.image) {
+  //     file2 = await ImagePicker().pickImage(source: source);
+  //   } else {
+  //     file2 = await ImagePicker().pickVideo(source: source);
+  //   }
+  //   if (file2 != null) {
+  //     imagePath2 = file2!.path;
+  //     if (_mediaType == MediaType.video) {
+  //       imagePath2 = await VideoThumbnail.thumbnailFile(
+  //           video: file2!.path,
+  //           imageFormat: ImageFormat.PNG,
+  //           quality: 100,
+  //           maxWidth: 300,
+  //           maxHeight: 300);
+  //     }
+  //     setState(() {});
+  //   }
+  // }
+
+  // Future<void> uploadImage2() async {
+  //   if (file == null) {
+  //     return;
+  //   }
+  //   String imageName = file2!.name;
+  //   File imageFile2 = File(file2!.path);
+  //   try {
+  //     final firebaseStorageRef = await firebaseStorage
+  //         .ref("futsal2/${DateTime.now().microsecondsSinceEpoch}")
+  //         .child(imageName)
+  //         .putFile(imageFile2);
+  //     final fileUrl2 = await firebaseStorageRef.ref.getDownloadURL();
+  //     print(fileUrl2);
+  //     await FirebaseFirestore.instance
+  //         .collection('cabor')
+  //         .doc(widget.id)
+  //         .update({'logo2': fileUrl2});
+  //   } on FirebaseException catch (e) {
+  //     print(e);
+  //   } catch (error) {
+  //     print(error);
+  //   }
+  // }
 }
 
 //supaya kapital semua

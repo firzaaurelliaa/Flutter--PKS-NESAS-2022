@@ -35,13 +35,6 @@ class _ProfilAdminState extends State<ProfilAdmin> {
     }
   }
 
-  // Future<void> delete(String docid) async {
-  //   await _usersStream.delete();
-
-  //   ScaffoldMessenger.of(context)
-  //       .showSnackBar(SnackBar(content: Text('sudah dihapus')));
-  // }
-  // final CollectionReference _profilAdmin =
   final Stream<QuerySnapshot> _usersStream =
       FirebaseFirestore.instance.collection('profilAdmin').snapshots();
 

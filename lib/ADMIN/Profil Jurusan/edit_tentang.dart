@@ -97,11 +97,15 @@ class _EditTentangState extends State<EditTentang> {
                     Navigator.pop(
                       context,
                     );
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('Data berhasil diperbarui!'),
+                      backgroundColor: Color(0xff142D4C),
+                    ));
                   });
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text('Inputan tidak boleh kosong!'),
-                    backgroundColor: Color(0xff142D4C),
+                    backgroundColor: Colors.red,
                   ));
                 }
               },

@@ -55,14 +55,20 @@ class _EditKlasemenState extends State<EditKlasemen> {
     seri = TextEditingController(text: widget.docid.get('seri'));
     kalah = TextEditingController(text: widget.docid.get('kalah'));
     poin = TextEditingController(text: widget.docid.get('poin'));
+
     super.initState();
   }
+
+  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Klasemen', style: TextStyle(fontWeight: FontWeight.bold),),
+        title: Text(
+          'Edit Klasemen',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         backgroundColor: const Color(0xff142D4C),
         elevation: 0,
       ),
@@ -244,48 +250,67 @@ class _EditKlasemenState extends State<EditKlasemen> {
                     ),
                   ),
                   SizedBox(height: 30),
-                  RoundedLoadingButton(
-                    color: const Color(0xff142D4C),
-                    // successColor: const Color(0xff142D4C),
-                    controller: _btnController2,
-                    onPressed: () {
-                      if (jurusan.text.isNotEmpty &&
-                          // no.text.isNotEmpty &&
-                          main.text.isNotEmpty &&
-                          menang.text.isNotEmpty &&
-                          seri.text.isNotEmpty &&
-                          kalah.text.isNotEmpty &&
-                          poin.text.isNotEmpty) {
-                        widget.docid.reference.update({
-                          "no": no.text,
-                          "jurusan": jurusan.text,
-                          "main": main.text,
-                          "menang": menang.text,
-                          "seri": seri.text,
-                          "kalah": kalah.text,
-                          "poin": poin.text,
-                        });
+                  loading
+                      ? const CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Color(0xff142D4C)))
+                      : SizedBox(
+                          height: 38,
+                          width: MediaQuery.of(context).size.width,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                              primary: const Color(0xff142D4C),
+                              onPrimary: Colors.white,
+                            ),
+                            onPressed: () async {
+                              setState(() {
+                                loading = true;
+                                const Center(
+                                  child: const CircularProgressIndicator(
+                                      color: Color(0xff142D4C)),
+                                );
+                              });
+                              if (jurusan.text.isNotEmpty &&
+                                  // no.text.isNotEmpty &&
+                                  main.text.isNotEmpty &&
+                                  menang.text.isNotEmpty &&
+                                  seri.text.isNotEmpty &&
+                                  kalah.text.isNotEmpty &&
+                                  poin.text.isNotEmpty) {
+                                widget.docid.reference.update({
+                                  "no": no.text,
+                                  "jurusan": jurusan.text,
+                                  "main": main.text,
+                                  "menang": menang.text,
+                                  "seri": seri.text,
+                                  "kalah": kalah.text,
+                                  "poin": poin.text,
+                                });
 
-                        Navigator.pop(
-                          context,
-                        );
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content:
-                              Text('Inputan tidak boleh kosong, harap kembali'),
-                          backgroundColor: Color(0xff142D4C),
-                        ));
-                      }
-                    },
-
-                    valueColor: Colors.white,
-                    borderRadius: 10,
-                    child: const Text('''Simpan''',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold)),
-                  ),
+                                Navigator.pop(
+                                  context,
+                                );
+                              } else {
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  content: Text('Inputan tidak boleh kosong!'),
+                                  backgroundColor: Colors.red,
+                                ));
+                              }
+                              setState(() {
+                                loading = false;
+                              });
+                            },
+                            child: const Text(
+                              "SIMPAN",
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ),
                   const SizedBox(height: 30),
                 ],
               ),

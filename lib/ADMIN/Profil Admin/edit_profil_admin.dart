@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable, sized_box_for_whitespace
+
 import 'package:flutter/material.dart';
 // ignore_for_file: must_be_immutable, avoid_print, unnecessary_const
 import 'dart:io';
@@ -227,12 +229,18 @@ class _EditProfilAdminState extends State<EditProfilAdmin> {
                         cursorColor: const Color(0xff142D4C),
                         controller: nama,
                         maxLength: 25,
-                        decoration: const InputDecoration(
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey),
+                        decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                            onPressed: nama.clear,
+                            icon: const Icon(Icons.clear),
+                            color: const Color(0xff142D4C),
                           ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xff142D4C)),
+                          enabledBorder: const UnderlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.grey),
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide:
+                                BorderSide(color: const Color(0xff142D4C)),
                           ),
                         ),
                       ),
@@ -250,12 +258,18 @@ class _EditProfilAdminState extends State<EditProfilAdmin> {
                         cursorColor: const Color(0xff142D4C),
                         controller: deskripsi,
                         maxLines: 1,
-                        decoration: const InputDecoration(
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.grey),
+                        decoration: InputDecoration(
+                          suffixIcon: IconButton(
+                            onPressed: deskripsi.clear,
+                            icon: const Icon(Icons.clear),
+                            color: const Color(0xff142D4C),
                           ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(color: Color(0xff142D4C)),
+                          enabledBorder: const UnderlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.grey),
+                          ),
+                          focusedBorder: const UnderlineInputBorder(
+                            borderSide: const BorderSide(
+                                color: const Color(0xff142D4C)),
                           ),
                         ),
                         maxLength: 30,
@@ -288,14 +302,13 @@ class _EditProfilAdminState extends State<EditProfilAdmin> {
                           } else {
                             ScaffoldMessenger.of(context)
                                 .showSnackBar(const SnackBar(
-                              content: Text(
-                                  'Inputan tidak boleh kosong, silahkan kembali'),
-                              backgroundColor: const Color(0xff142D4C),
+                              content: Text('Inputan tidak boleh kosong!'),
+                              backgroundColor: Colors.red,
                             ));
                           }
                         },
                         child: const Text(
-                          'Simpan',
+                          'SIMPAN',
                           style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.bold,

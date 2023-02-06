@@ -76,6 +76,7 @@ class _FutsalState extends State<Futsal> {
                     const SizedBox(
                       height: 20,
                     ),
+                    
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -220,7 +221,7 @@ class _FutsalState extends State<Futsal> {
                                             child: const Icon(
                                               Icons.person,
                                               color: Colors.white,
-                                              size: 100,
+                                              size: 50,
                                             ),
                                           )),
                                 const SizedBox(height: 10),
@@ -312,7 +313,7 @@ class _FutsalState extends State<Futsal> {
                                             child: const Icon(
                                               Icons.person,
                                               color: Colors.white,
-                                              size: 100,
+                                              size: 50,
                                             ),
                                           )),
                                 const SizedBox(height: 10),
@@ -340,3 +341,4 @@ class _FutsalState extends State<Futsal> {
     );
   }
 }
+
