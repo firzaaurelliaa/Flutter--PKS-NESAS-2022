@@ -93,7 +93,8 @@ class _ProfilAdminState extends State<ProfilAdmin> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => EditProfilAdmin(
-                                      docid: snapshot.data!.docs[index]),
+                                    docid: snapshot.data!.docs[index],
+                                  ),
                                 ),
                               ),
                             },

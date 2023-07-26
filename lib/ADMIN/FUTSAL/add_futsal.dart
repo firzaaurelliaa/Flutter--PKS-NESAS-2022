@@ -406,6 +406,7 @@ class _AddFutsalState extends State<AddFutsal> {
                                   // 'tanggalPertandingan' : ,
                                 },
                               });
+                              
                               //Insert to statistik
                               FirebaseFirestore.instance
                                   .collection('statistikPertandingan')

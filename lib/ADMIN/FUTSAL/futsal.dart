@@ -76,7 +76,6 @@ class _FutsalState extends State<Futsal> {
                     const SizedBox(
                       height: 20,
                     ),
-                    
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -341,4 +340,3 @@ class _FutsalState extends State<Futsal> {
     );
   }
 }
-
