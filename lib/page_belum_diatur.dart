@@ -44,7 +44,7 @@ class _PageBelumDiaturState extends State<PageBelumDiatur> {
 
                           return Container(
                             height: 120,
-                            // width: 100,
+                          
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
